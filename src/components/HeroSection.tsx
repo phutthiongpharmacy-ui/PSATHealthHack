@@ -52,29 +52,29 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
         <div className="space-y-8 flex flex-col items-center w-full max-w-4xl">
           
           {/* Top Organization Logos Container */}
-          <div className="flex items-center justify-center gap-6 sm:gap-8 pt-2 pb-1">
+          <div className="flex items-center justify-center gap-5 sm:gap-6 pt-2 pb-1">
             {/* PSAT Logo */}
-            <div className="relative w-18 h-18 sm:w-22 sm:h-22 md:w-24 md:h-24 bg-white rounded-2xl p-2 border border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.3)] flex items-center justify-center transition-all hover:scale-105">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-md rounded-2xl p-1 border border-hh-cyan/30 shadow-[0_0_15px_rgba(99,210,229,0.2)] flex items-center justify-center transition-all hover:scale-105 hover:bg-white/30">
               <Image
                 src="/images/psat-logo.png"
                 alt="PSAT Logo"
                 width={100}
                 height={100}
-                className="object-contain w-full h-full"
+                className="object-contain w-full h-full drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
                 priority
               />
             </div>
 
-            <div className="w-px h-10 bg-hh-cyan/30" />
+            <div className="w-px h-8 bg-hh-cyan/30" />
 
             {/* Pharmacy Council Logo */}
-            <div className="relative w-18 h-18 sm:w-22 sm:h-22 md:w-24 md:h-24 bg-white rounded-2xl p-2 border border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.3)] flex items-center justify-center transition-all hover:scale-105">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-md rounded-2xl p-1 border border-hh-cyan/30 shadow-[0_0_15px_rgba(99,210,229,0.2)] flex items-center justify-center transition-all hover:scale-105 hover:bg-white/30">
               <Image
                 src="/images/pharmacy-council-logo.png"
                 alt="The Pharmacy Council Logo"
                 width={100}
                 height={100}
-                className="object-contain w-full h-full"
+                className="object-contain w-full h-full drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
                 priority
               />
             </div>
