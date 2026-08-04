@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import SponsorsSection from "./SponsorsSection";
 import HeroVideoBackground from "./HeroVideoBackground";
 
 interface HeroSectionProps {
@@ -128,11 +127,6 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             </Link>
           </div>
         </div>
-      </div>
-
-      {/* Credibility Sponsor Wall directly under Hero */}
-      <div className="relative z-10 w-full pt-12">
-        <SponsorsSection />
       </div>
     </section>
   );
