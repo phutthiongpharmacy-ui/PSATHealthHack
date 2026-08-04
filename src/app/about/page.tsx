@@ -141,17 +141,6 @@ export default function AboutPage() {
               </div>
             </li>
           </ol>
-
-          {/* Clean CTA Button */}
-          <div className="pt-10 text-center">
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-3 bg-hh-action text-black font-sora text-base px-8 py-4 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-95"
-            >
-              สมัครแข่งขันตอนนี้
-              <span className="material-symbols-outlined text-xl">arrow_forward</span>
-            </Link>
-          </div>
         </section>
 
       </div>
