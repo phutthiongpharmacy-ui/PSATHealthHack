@@ -1,9 +1,6 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 
 export default function ChallengeRevealSection() {
-  const [isReminderSet, setIsReminderSet] = useState(false);
 
   return (
     <section className="px-margin-mobile md:px-margin-desktop py-20 relative overflow-hidden">
@@ -34,21 +31,8 @@ export default function ChallengeRevealSection() {
                 ทุกทีมจะมีเวลา 72 ชั่วโมงในการจัดทำและยื่นเสนอเค้าโครงนวัตกรรม
               </p>
 
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                <button
-                  onClick={() => setIsReminderSet(!isReminderSet)}
-                  className={`px-6 py-3.5 rounded-full font-sora text-sm font-bold transition-all flex items-center gap-2.5 shadow-lg ${isReminderSet
-                    ? "bg-hh-emerald text-hh-bg shadow-[0_0_15px_rgba(42,194,152,0.4)]"
-                    : "bg-hh-surface-raised border border-hh-cyan/40 text-hh-cyan hover:bg-hh-cyan/15"
-                    }`}
-                >
-                  <span className="material-symbols-outlined text-lg">
-                    {isReminderSet ? "check_circle" : "notification_add"}
-                  </span>
-                  {isReminderSet ? "ตั้งเตือนแล้ว!" : "ตั้งเตือนวันปล่อยโจทย์"}
-                </button>
-
-                <span className="font-mono text-xs text-hh-text-muted">
+              <div className="pt-2 flex items-center gap-4">
+                <span className="font-mono text-xs text-hh-text-muted bg-hh-surface-raised/80 px-4 py-2 rounded-full border border-hh-border/40">
                   เปิดระบบรับผลงาน: 25 – 28 ก.ย. 2569
                 </span>
               </div>
