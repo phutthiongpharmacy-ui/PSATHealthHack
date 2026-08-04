@@ -49,13 +49,6 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
       {/* Hero Core Content */}
       <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop my-auto text-center flex flex-col items-center">
         <div className="space-y-8 flex flex-col items-center w-full max-w-4xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface border border-hh-cyan/30 backdrop-blur-md">
-            <span className="font-mono text-xs text-hh-cyan tracking-wider uppercase font-semibold">
-              PSAT HealthHack 2026 • Registration Open (15 Aug – 20 Sep 2026)
-            </span>
-          </div>
-
           {/* Headline */}
           <h1 className="font-sora text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-tight text-white font-extrabold tracking-tight">
             PSAT HealthHack 2026 <br />
@@ -70,7 +63,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
           </p>
 
           {/* Countdown Timer Module */}
-          <div className="flex gap-3 sm:gap-4 pt-2 pb-2 justify-center flex-wrap">
+          <div className="flex gap-3 sm:gap-4 pt-2 justify-center flex-wrap">
             <div className="flex flex-col items-center justify-center bg-hh-surface/80 backdrop-blur border border-hh-cyan/30 rounded-2xl w-20 h-20 sm:w-24 sm:h-24 shadow-[0_0_20px_rgba(99,210,229,0.1)]">
               <span className="font-sora text-2xl sm:text-3xl text-white font-bold">
                 {String(timeLeft.days).padStart(2, "0")}
@@ -103,6 +96,13 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
                 SECS
               </span>
             </div>
+          </div>
+
+          {/* Registration Date Pill Badge directly under Countdown Timer */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface border border-hh-cyan/30 backdrop-blur-md mt-2">
+            <span className="font-mono text-xs text-hh-cyan tracking-wider uppercase font-semibold">
+              PSAT HealthHack 2026 • Registration Open (15 Aug – 20 Sep 2026)
+            </span>
           </div>
 
           {/* Action Conversion Buttons */}
