@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import HeroVideoBackground from "./HeroVideoBackground";
 
 interface HeroSectionProps {
@@ -49,6 +50,36 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
       {/* Hero Core Content */}
       <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop my-auto text-center flex flex-col items-center">
         <div className="space-y-8 flex flex-col items-center w-full max-w-4xl">
+          
+          {/* Top Organization Logos Container */}
+          <div className="flex items-center justify-center gap-6 sm:gap-8 pt-2 pb-1">
+            {/* PSAT Logo */}
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white/95 backdrop-blur-md rounded-2xl p-2.5 border border-hh-cyan/40 shadow-[0_0_25px_rgba(99,210,229,0.3)] flex items-center justify-center transition-transform hover:scale-105">
+              <Image
+                src="/images/psat-logo.png"
+                alt="PSAT Logo"
+                width={80}
+                height={80}
+                className="object-contain w-full h-full"
+                priority
+              />
+            </div>
+
+            <div className="w-px h-10 bg-hh-cyan/30" />
+
+            {/* Pharmacy Council Logo */}
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white/95 backdrop-blur-md rounded-2xl p-2.5 border border-hh-cyan/40 shadow-[0_0_25px_rgba(99,210,229,0.3)] flex items-center justify-center transition-transform hover:scale-105">
+              <Image
+                src="/images/pharmacy-council-logo.png"
+                alt="The Pharmacy Council Logo"
+                width={80}
+                height={80}
+                className="object-contain w-full h-full"
+                priority
+              />
+            </div>
+          </div>
+
           {/* Headline */}
           <h1 className="font-sora text-4xl sm:text-5xl md:text-6xl lg:text-[68px] leading-tight text-white font-extrabold tracking-tight">
             PSAT HealthHack 2026 <br />
