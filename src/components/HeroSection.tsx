@@ -52,28 +52,28 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
         <div className="space-y-8 flex flex-col items-center w-full max-w-4xl">
           
           {/* Top Organization Logos Container */}
-          <div className="flex items-center justify-center gap-6 sm:gap-8 pt-2 pb-1">
+          <div className="flex items-center justify-center gap-8 sm:gap-12 pt-2 pb-2">
             {/* PSAT Logo */}
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white/95 backdrop-blur-md rounded-2xl p-2.5 border border-hh-cyan/40 shadow-[0_0_25px_rgba(99,210,229,0.3)] flex items-center justify-center transition-transform hover:scale-105">
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 bg-white rounded-3xl p-3 border-2 border-hh-cyan/60 shadow-[0_0_35px_rgba(99,210,229,0.4)] flex items-center justify-center transition-all hover:scale-105">
               <Image
                 src="/images/psat-logo.png"
                 alt="PSAT Logo"
-                width={80}
-                height={80}
+                width={160}
+                height={160}
                 className="object-contain w-full h-full"
                 priority
               />
             </div>
 
-            <div className="w-px h-10 bg-hh-cyan/30" />
+            <div className="w-px h-16 bg-hh-cyan/40" />
 
             {/* Pharmacy Council Logo */}
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 bg-white/95 backdrop-blur-md rounded-2xl p-2.5 border border-hh-cyan/40 shadow-[0_0_25px_rgba(99,210,229,0.3)] flex items-center justify-center transition-transform hover:scale-105">
+            <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 bg-white rounded-3xl p-3 border-2 border-hh-cyan/60 shadow-[0_0_35px_rgba(99,210,229,0.4)] flex items-center justify-center transition-all hover:scale-105">
               <Image
                 src="/images/pharmacy-council-logo.png"
                 alt="The Pharmacy Council Logo"
-                width={80}
-                height={80}
+                width={160}
+                height={160}
                 className="object-contain w-full h-full"
                 priority
               />
