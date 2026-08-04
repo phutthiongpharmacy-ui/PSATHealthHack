@@ -1,0 +1,362 @@
+<!DOCTYPE html><html class="dark" lang="th" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Health Hack 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&amp;family=Sora:wght@400;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-bright": "#343a3f",
+                "primary": "#dbfcff",
+                "on-primary-container": "#006970",
+                "on-background": "#dde3ea",
+                "on-tertiary-fixed-variant": "#474649",
+                "background": "#0e1419",
+                "tertiary-container": "#dbd8db",
+                "outline": "#849495",
+                "surface-dim": "#0e1419",
+                "on-tertiary": "#313032",
+                "outline-variant": "#3b494b",
+                "on-tertiary-container": "#5f5e60",
+                "primary-fixed": "#7df4ff",
+                "on-secondary-fixed": "#121b2f",
+                "inverse-on-surface": "#2b3136",
+                "on-surface-variant": "#b9cacb",
+                "error": "#ffb4ab",
+                "on-error-container": "#ffdad6",
+                "surface-container-lowest": "#090f14",
+                "on-secondary-container": "#acb5cf",
+                "primary-fixed-dim": "#00dbe9",
+                "surface-container-low": "#161c21",
+                "on-error": "#690005",
+                "surface-container-highest": "#2f363b",
+                "surface-container": "#1a2025",
+                "on-primary-fixed-variant": "#004f54",
+                "secondary-fixed-dim": "#bdc6e1",
+                "surface-container-high": "#242b30",
+                "inverse-surface": "#dde3ea",
+                "secondary": "#bdc6e1",
+                "primary-container": "#00f0ff",
+                "on-primary": "#00363a",
+                "on-secondary": "#273045",
+                "tertiary-fixed": "#e5e1e4",
+                "secondary-fixed": "#d9e2fe",
+                "on-tertiary-fixed": "#1c1b1d",
+                "surface-variant": "#2f363b",
+                "surface": "#0e1419",
+                "tertiary-fixed-dim": "#c8c6c8",
+                "secondary-container": "#3e465d",
+                "on-primary-fixed": "#002022",
+                "error-container": "#93000a",
+                "surface-tint": "#00dbe9",
+                "on-secondary-fixed-variant": "#3e465d",
+                "inverse-primary": "#006970",
+                "on-surface": "#dde3ea",
+                "tertiary": "#f8f4f7"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "margin-desktop": "64px",
+                "unit": "8px",
+                "gutter": "24px",
+                "container-max": "1280px",
+                "margin-mobile": "20px"
+        },
+        "fontFamily": {
+                "headline-lg-mobile": [
+                        "Sora"
+                ],
+                "data-mono": [
+                        "Space Mono"
+                ],
+                "label-caps": [
+                        "Space Mono"
+                ],
+                "body-md": [
+                        "Hanken Grotesk"
+                ],
+                "headline-md": [
+                        "Sora"
+                ],
+                "body-lg": [
+                        "Hanken Grotesk"
+                ],
+                "headline-lg": [
+                        "Sora"
+                ],
+                "display-lg": [
+                        "Sora"
+                ]
+        },
+        "fontSize": {
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "data-mono": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "800"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.surface-container-lowest');
+            color: theme('colors.on-background');
+        }
+        .glass-panel {
+            background: rgba(9, 15, 20, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+        }
+        .glow-primary {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+        .glow-primary-text {
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        }
+        .scanline:focus-within::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: theme('colors.primary-container');
+            animation: scan 2s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary">
+<!-- Header/Navigation -->
+<header class="fixed top-0 w-full z-50 border-b border-primary-container/10 bg-background/70 backdrop-blur-xl shadow-[0_0_30px_rgba(0,240,255,0.05)]">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto"><div class="flex items-center gap-4">
+<span class="font-display-lg text-headline-md font-extrabold text-primary-container tracking-tighter"><span class="a_GcMg font-feature-liga-off font-feature-clig-off font-feature-calt-off text-decoration-none text-strikethrough-none" style="color: rgba(0,0,0,var(--O42jJQ,1)); caret-color: rgb(0, 0, 0); --Ys-XuQ: none; font-weight: 400; font-kerning: normal;">PSAT </span>HealthHack 2026</span>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex gap-8 items-center"><a class="font-headline-md text-sm text-primary-container font-bold border-b-2 border-primary-container pb-1 transition-all" href="#">หน้าแรก</a><a class="font-headline-md text-sm text-on-surface-variant hover:text-primary-container transition-colors px-3 py-1 hover:bg-primary-container/5 rounded-lg transition-all duration-300" href="#">เกี่ยวกับเรา</a><a class="font-headline-md text-sm text-on-surface-variant hover:text-primary-container transition-colors px-3 py-1 hover:bg-primary-container/5 rounded-lg transition-all duration-300" href="#">กำหนดการ</a><a class="font-headline-md text-sm text-on-surface-variant hover:text-primary-container transition-colors px-3 py-1 hover:bg-primary-container/5 rounded-lg transition-all duration-300" href="#">คำถามที่พบบ่อย</a></nav>
+<button class="bg-primary-container text-on-primary font-label-caps px-6 py-2 rounded-lg font-bold hover:bg-primary-fixed glow-primary transition-all shadow-[0_0_15px_rgba(0,240,255,0.4)] active:scale-95">
+                ลงทะเบียน
+            </button>
+</div></div>
+</header>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pb-24 px-margin-mobile md:px-margin-desktop overflow-hidden pt-24 py-16">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDS_3Cgk-ju94sUNNucGZ7dyQnftCfnyYZbUYT3a-uhRRAeZp5Y2bhzCIzNWyRe7GkdLE5yPBq-d4Wc0zbG3ZKUIiiBuGBHrXt4RVlQXDzHapqH5xK4OVBVLO1n_YvE4Ap7lMvAL18QxvjdGYnYw-qbPi6pRpx46NbnSGrTfgMCVWckgTPaoOV6J1Vn3EJO9pHK9t3XY7YYG6oY7Rq3_VRA4WCnxeWXOAC6aJnXILpJukIyUe7uKeWQTfsNsTVgniZVujI&quot;);"></div>
+<div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-surface-container-lowest bg-black/40"></div>
+<div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-container/5 rounded-full blur-[120px] animate-pulse"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-container/10 rounded-full blur-[150px] animate-pulse" style="animation-delay: 1s;"></div>
+</div>
+<div class="relative z-10 w-full max-w-container-max mx-auto flex flex-col items-center justify-center text-center mt-16">
+<div class="space-y-8 flex flex-col items-center w-full">
+
+<h1 class="font-display-lg text-display-lg md:text-[64px] leading-tight text-white font-extrabold">PSAT Healthhack2026 <br>
+<span class="text-primary-container glow-primary-text text-headline-lg md:text-[40px]">นวัตกรรมเพื่อสุขภาพแห่งอนาคต</span></h1>
+<p class="font-body-lg text-body-lg text-white/90 max-w-xl leading-relaxed">เปิดรับสมัครตั้งแต่ 15 สิงหาคม –  20 กันยายน</p>
+<!-- Countdown Timer -->
+<div class="flex gap-4 pt-4 pb-2 justify-center">
+<div class="flex flex-col items-center justify-center bg-surface-container-lowest/80 backdrop-blur border border-primary-container/30 rounded-xl w-24 h-24 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+<span class="font-display-lg text-headline-lg text-primary-container font-bold">45</span>
+<span class="font-label-caps text-xs text-on-surface-variant mt-1">DAYS</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-surface-container-lowest/80 backdrop-blur border border-primary-container/30 rounded-xl w-24 h-24 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+<span class="font-display-lg text-headline-lg text-primary-container font-bold">12</span>
+<span class="font-label-caps text-xs text-on-surface-variant mt-1">HOURS</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-surface-container-lowest/80 backdrop-blur border border-primary-container/30 rounded-xl w-24 h-24 shadow-[0_0_15px_rgba(0,240,255,0.1)]">
+<span class="font-display-lg text-headline-lg text-primary-container font-bold">30</span>
+<span class="font-label-caps text-xs text-on-surface-variant mt-1">MINS</span>
+</div>
+</div>
+<div class="pt-6 flex gap-4 justify-center">
+<button class="bg-primary-container text-on-primary font-headline-md text-headline-md px-8 py-4 rounded font-bold hover:bg-primary-fixed glow-primary transition-all flex items-center gap-2">
+                        ลงทะเบียนเลย <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border border-primary-container text-primary-container font-headline-md text-headline-md px-8 py-4 rounded font-bold hover:bg-primary-container/10 transition-all">
+                        ดูรายละเอียด
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="px-margin-mobile md:px-margin-desktop relative py-16"><div class="max-w-container-max mx-auto">
+<div class="grid grid-cols-1 gap-20 items-center">
+<div class="glass-panel p-8 rounded-2xl bg-white/90 space-y-8">
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-1 h-12 bg-primary-container glow-primary shadow-[0_0_15px_rgba(0,240,255,0.8)]"></div>
+<h2 class="font-headline-lg text-headline-lg md:text-[40px] text-surface-container-lowest">เกี่ยวกับงาน</h2>
+</div>
+<p class="font-body-lg text-body-lg text-surface-container-low leading-relaxed font-bold">
+          Health Hack 2026 เป็นพื้นที่สำหรับนักพัฒนาซอฟต์แวร์, บุคลากรทางการแพทย์, นักออกแบบ, และผู้ประกอบการ มาร่วมกันสร้างสรรค์นวัตกรรมเพื่อแก้ไขปัญหาความท้าทายในระบบสาธารณสุขของประเทศ
+        </p>
+</div>
+<div class="space-y-6 border-l border-primary-container/20 pl-8">
+<p class="font-body-md text-body-md text-surface-variant leading-relaxed">เราเชื่อว่าเทคโนโลยีสามารถยกระดับคุณภาพชีวิตและเพิ่มประสิทธิภาพในการเข้าถึงการรักษาพยาบาลได้ ภายใน 48 ชั่วโมง คุณจะได้ร่วมทีมกับผู้เชี่ยวชาญหลากสาขา เพื่อเปลี่ยนไอเดียให้กลายเป็นโปรโตไทป์ที่ใช้งานได้จริง</p>
+<div class="flex gap-8"><div class="flex flex-col"><span class="font-display-lg text-headline-md text-primary-container font-bold text-on-primary-container">48</span><span class="font-label-caps text-xs text-on-surface-variant">ชั่วโมงแห่งการสร้างสรรค์</span></div><div class="flex flex-col"><span class="font-display-lg text-headline-md text-primary-container font-bold text-on-primary-container">500k+</span><span class="font-label-caps text-xs text-on-surface-variant">รางวัลรวมมูลค่า</span></div></div>
+</div>
+</div>
+</div>
+</div></section><section class="px-margin-mobile md:px-margin-desktop relative py-16 bg-white">
+<div class="max-w-container-max mx-auto space-y-12">
+<div class="text-center space-y-4">
+<h2 class="font-display-lg text-headline-lg md:text-[40px] text-surface-container-lowest uppercase tracking-wider">วิทยากรรับเชิญ</h2>
+<div class="w-24 h-1 bg-primary-container mx-auto glow-primary shadow-[0_0_15px_rgba(0,240,255,0.8)]"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Speaker 1 -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col items-center text-center space-y-4 transition-all hover:scale-105 bg-surface-container-low/5">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-primary-container/40 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+<img alt="Speaker Icon" class="w-1/2 h-1/2 object-contain mx-auto my-auto absolute inset-0 m-auto opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1GAEIR2T5EMDkDM4mPuT5t-yZ1MucauFOQ_-JhOSMYqNEgG5FNnNJ_mvwe-DBlkIDSm-g1WTfUCeDWiZ4ieQxviVoM8jc2G7T2zspuRTL3isF2cQk7SUgoAd6ZJfiWGgI0s77vxtS9xsOyWzqxgjxQIBaICUAZnaWnuSg-nci3cWSjbBsWtoximoWfOmrZyH5noioS8frB78b7nvG-Za6oGg2qeI1Vu1XUoYsWJl7KaIvGlylDTj1m_yCPQuULejfQi4">
+</div>
+<div class="space-y-1">
+<h3 class="font-headline-md text-surface-container-lowest">ดร. อารยา สมบูรณ์</h3>
+<p class="font-label-caps text-xs text-on-primary-container">Data Scientist for Health Tech</p>
+</div>
+</div>
+<!-- Speaker 2 -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col items-center text-center space-y-4 transition-all hover:scale-105 bg-surface-container-low/5">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-primary-container/40 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+<img alt="Speaker Icon" class="w-1/2 h-1/2 object-contain mx-auto my-auto absolute inset-0 m-auto opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_rFAj5NuZBJmmjHZXZUc_oSE2rt0pQASI5cLxLmNF8kWsfzPxw3l0YLqfvMWUKRu3bYo4x7Hul1oG__6PvfPhma61iBfsUKNgyS3rG4ktiE80DneZmhyoJhl_sAdgXEUnVSyX6_7sxZYQ8kaahUzdyV0FzII9HlmSnDmN29KAZ0VYYj9AZFqTMujcpo9mabI8be6Wc76uPmFvGJQLMRb-V9S8Npx8WajGxl4qpjqsh_Qju9lpYFB0CjF78hvoC2huc">
+</div>
+<div class="space-y-1">
+<h3 class="font-headline-md text-surface-container-lowest">ดร. เอลิน เฉิน</h3>
+<p class="font-label-caps text-xs text-on-primary-container">Biotechnology Specialist</p>
+</div>
+</div>
+<!-- Speaker 3 -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col items-center text-center space-y-4 transition-all hover:scale-105 bg-surface-container-low/5">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-primary-container/40 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+<img alt="Speaker Icon" class="w-1/2 h-1/2 object-contain mx-auto my-auto absolute inset-0 m-auto opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN-ixRaXL3lKAr5Wbk57Y2ptJhY4a4MiMWlLpP7lAraR0OYnt1_uC-3dGE5UQg6VpVJtt9xqC-bVan1tXVtRJhL6VXtDLj63L5nkAtT1LzTND1DNplyGbzAN_V7IrsVnqqyDWcTm4jbPSzIrkyocDDuYmO60dUyOyHyiUZelKbBs0W2tMSxHYLWNg5euSBoThJx4YE2LAnAhTSyoi9vYa5QKN05rnjvdR2Hj2N8vu2MxmuO8rLwdFd7UB_zHGgsOSSsYs">
+</div>
+<div class="space-y-1">
+<h3 class="font-headline-md text-surface-container-lowest">คุณรดา รัตนไพศาล</h3>
+<p class="font-label-caps text-xs text-on-primary-container">Healthcare Innovation Leader</p>
+</div>
+</div>
+<!-- Speaker 4 -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col items-center text-center space-y-4 transition-all hover:scale-105 bg-surface-container-low/5">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-primary-container/40 shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+<img alt="Speaker Icon" class="w-1/2 h-1/2 object-contain mx-auto my-auto absolute inset-0 m-auto opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv-QDg5XlP3-pzqCZuAsQ5k4uxZzLwMIuje2dBMy9hkdp9P6ijuCFDuzRFia1Ce9W6nikDS1dfkG0eJkzQr6aSoicfxEOFFVfFSrfs2dM-K3tkgUb7_3ssHWMncXVcwfA5o6Ger1kGEo866jAolgrKlK4IlSOmj_egpDNS-XTgbT4tDYFRotFMJc6UCeVcrubIG6l_eQ13TXTLICiDQZoNmocul0PX4-RE_grkoDUUYI--8v14hnwgiWm9TXJGT2au6kI">
+</div>
+<div class="space-y-1">
+<h3 class="font-headline-md text-surface-container-lowest">คุณเมธา วงศ์เทวัญ</h3>
+<p class="font-label-caps text-xs text-on-primary-container">Cyber-Medic Expert</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Themes / Tracks Section -->
+<!-- Competition Format -->
+<!-- Footer -->
+<section class="px-margin-mobile md:px-margin-desktop border-t border-primary-container/10 py-16">
+<div class="max-w-container-max mx-auto text-center space-y-12">
+<h2 class="font-label-caps text-on-surface-variant tracking-[0.2em] opacity-60">สนับสนุนโดย</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center"><div class="h-16 border border-primary-container/20 rounded flex items-center justify-center bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all group"><span class="font-display-lg text-headline-md text-primary-container glow-primary-text">?</span></div><div class="h-16 border border-primary-container/20 rounded flex items-center justify-center bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all group"><span class="font-display-lg text-headline-md text-primary-container glow-primary-text">?</span></div><div class="h-16 border border-primary-container/20 rounded flex items-center justify-center bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all group"><span class="font-display-lg text-headline-md text-primary-container glow-primary-text">?</span></div><div class="h-16 border border-primary-container/20 rounded flex items-center justify-center bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all group"><span class="font-display-lg text-headline-md text-primary-container glow-primary-text">?</span></div><div class="h-16 border border-primary-container/20 rounded flex items-center justify-center bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all group"><span class="font-display-lg text-headline-md text-primary-container glow-primary-text">?</span></div><div class="h-16 border border-primary-container/20 rounded flex items-center justify-center bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all group"><span class="font-display-lg text-headline-md text-primary-container glow-primary-text">?</span></div></div>
+</div>
+</section><section class="px-margin-mobile md:px-margin-desktop relative py-24 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto space-y-12">
+<div class="text-center space-y-4">
+<h2 class="font-display-lg text-headline-lg md:text-[40px] text-white uppercase tracking-wider glow-primary-text">ภาพบรรยากาศงานปีที่แล้ว</h2>
+<div class="w-24 h-1 bg-primary-container mx-auto glow-primary shadow-[0_0_15px_rgba(0,240,255,0.8)]"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="aspect-video rounded-xl border border-primary-container/20 bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all duration-300"></div>
+<div class="aspect-video rounded-xl border border-primary-container/20 bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all duration-300"></div>
+<div class="aspect-video rounded-xl border border-primary-container/20 bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all duration-300"></div>
+<div class="aspect-video rounded-xl border border-primary-container/20 bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all duration-300"></div>
+<div class="aspect-video rounded-xl border border-primary-container/20 bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all duration-300"></div>
+<div class="aspect-video rounded-xl border border-primary-container/20 bg-primary-container/5 shadow-[0_0_15px_rgba(0,240,255,0.1)] hover:border-primary-container/40 transition-all duration-300"></div>
+</div>
+</div>
+</section><footer class="w-full py-16 border-t border-primary-container/20 bg-background bg-gradient-to-t from-black to-transparent">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop gap-gutter w-full max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md text-primary opacity-80 hover:opacity-100 transition-opacity glow-primary-text">
+                HealthHack 2026
+            </div>
+<div class="font-body-md text-body-md text-on-surface-variant text-center md:text-left">
+                © 2026 HealthHack. นวัตกรรมเพื่อสุขภาพแห่งอนาคต
+            </div>
+<nav class="flex gap-8 font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary-container transition-colors opacity-80 hover:opacity-100" href="#">นโยบายความเป็นส่วนตัว</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors opacity-80 hover:opacity-100" href="#">เงื่อนไขการใช้งาน</a>
+<a class="text-on-surface-variant hover:text-primary-container transition-colors opacity-80 hover:opacity-100" href="#">ติดต่อเรา</a>
+</nav>
+</div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>OTP Input - Health Hack 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Space+Mono:wght@400;700&amp;family=Hanken+Grotesk:wght@400;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e5e1e4",
+                      "inverse-surface": "#dde3ea",
+                      "on-primary-fixed": "#002022",
+                      "on-error-container": "#ffdad6",
+                      "on-surface-variant": "#b9cacb",
+                      "secondary-fixed": "#d9e2fe",
+                      "on-secondary": "#273045",
+                      "secondary-fixed-dim": "#bdc6e1",
+                      "background": "#0e1419",
+                      "surface-container-low": "#161c21",
+                      "surface-variant": "#2f363b",
+                      "tertiary-container": "#dbd8db",
+                      "on-secondary-container": "#acb5cf",
+                      "surface-tint": "#00dbe9",
+                      "error-container": "#93000a",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed-variant": "#3e465d",
+                      "on-secondary-fixed": "#121b2f",
+                      "on-primary-container": "#006970",
+                      "inverse-on-surface": "#2b3136",
+                      "on-tertiary-container": "#5f5e60",
+                      "on-error": "#690005",
+                      "primary-fixed-dim": "#ffffff", // Overridden for monochrome
+                      "inverse-primary": "#006970",
+                      "surface": "#0e1419",
+                      "surface-container": "#1a2025",
+                      "secondary-container": "#3e465d",
+                      "surface-dim": "#0e1419",
+                      "primary-container": "#00f0ff",
+                      "on-tertiary": "#313032",
+                      "on-background": "#dde3ea",
+                      "secondary": "#bdc6e1",
+                      "on-primary-fixed-variant": "#004f54",
+                      "surface-container-high": "#242b30",
+                      "on-tertiary-fixed": "#1c1b1d",
+                      "surface-bright": "#343a3f",
+                      "on-tertiary-fixed-variant": "#474649",
+                      "outline-variant": "#3b494b",
+                      "surface-container-lowest": "#090f14",
+                      "on-primary": "#000000", // Overridden for monochrome
+                      "primary-fixed": "#ffffff", // Overridden for monochrome
+                      "primary": "#ffffff", // Overridden for monochrome
+                      "surface-container-highest": "#2f363b",
+                      "on-surface": "#ffffff", // Overridden for monochrome
+                      "outline": "#849495",
+                      "tertiary-fixed-dim": "#c8c6c8",
+                      "tertiary": "#f8f4f7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Sora"
+                      ],
+                      "headline-lg": [
+                              "Sora"
+                      ],
+                      "data-mono": [
+                              "Space Mono"
+                      ],
+                      "display-lg": [
+                              "Sora"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-caps": [
+                              "Space Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Sora"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        /* Minimalist Monochromatic Background Grid */
+        .bg-grid-monochrome {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Input specific styles for OTP */
+        .otp-input::-webkit-outer-spin-button,
+        .otp-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .otp-input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center font-body-md text-on-surface bg-grid-monochrome relative overflow-hidden h-screen m-0">
+<!-- Ambient glow strictly in monochrome -->
+
+<!-- Main Container -->
+<main class="z-10 w-full max-w-lg px-margin-mobile md:px-0">
+<!-- Modal Card -->
+<div class="bg-surface-container-low/80 backdrop-blur-2xl border border-white/10 rounded-xl p-8 md:p-12 relative overflow-hidden">
+<!-- Glassmorphism Edge Highlight -->
+
+<div class="absolute top-0 left-0 w-[1px] h-full bg-gradient-to-b from-white/20 via-transparent to-transparent"></div>
+<!-- Back Link -->
+<div class="mb-8 flex items-center">
+<a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform" data-icon="arrow_back">arrow_back</span>
+<span class="font-data-mono text-data-mono uppercase">ย้อนกลับ</span>
+</a>
+</div>
+<!-- Step Indicator -->
+<div class="flex items-center gap-4 mb-8">
+<div class="h-[2px] flex-1 bg-white/20 relative">
+<div class="absolute top-0 left-0 h-full w-full bg-white"></div>
+</div>
+<span class="font-label-caps text-label-caps text-white">STEP 02</span>
+<div class="h-[2px] flex-1 bg-white/20"></div>
+</div>
+<!-- Header Section -->
+<div class="text-center mb-10">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-variant border border-white/20 mb-6">
+<span class="material-symbols-outlined text-white text-[32px]" data-icon="lock">lock</span>
+</div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white mb-3">กรอกรหัส OTP</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] mx-auto">
+                    รหัสถูกส่งไปยังอีเมลของคุณแล้ว <br>
+<span class="text-white mt-1 block font-data-mono">(example@email.com)</span>
+</p>
+</div>
+<!-- Form Form -->
+<form class="flex flex-col gap-8" id="otp-form">
+<!-- OTP Inputs -->
+<div class="flex justify-between gap-2 md:gap-4" id="otp-inputs">
+<input autofocus="" class="otp-input w-12 h-14 md:w-14 md:h-16 bg-surface-container border border-white/20 text-center font-display-lg text-headline-md text-white rounded focus:border-white focus:ring-1 focus:ring-white focus:outline-none transition-all" maxlength="1" type="text">
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 bg-surface-container border border-white/20 text-center font-display-lg text-headline-md text-white rounded focus:border-white focus:ring-1 focus:ring-white focus:outline-none transition-all" maxlength="1" type="text">
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 bg-surface-container border border-white/20 text-center font-display-lg text-headline-md text-white rounded focus:border-white focus:ring-1 focus:ring-white focus:outline-none transition-all" maxlength="1" type="text">
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 bg-surface-container border border-white/20 text-center font-display-lg text-headline-md text-white rounded focus:border-white focus:ring-1 focus:ring-white focus:outline-none transition-all" maxlength="1" type="text">
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 bg-surface-container border border-white/20 text-center font-display-lg text-headline-md text-white rounded focus:border-white focus:ring-1 focus:ring-white focus:outline-none transition-all" maxlength="1" type="text">
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 bg-surface-container border border-white/20 text-center font-display-lg text-headline-md text-white rounded focus:border-white focus:ring-1 focus:ring-white focus:outline-none transition-all" maxlength="1" type="text">
+</div>
+<!-- Timer / Resend -->
+<div class="text-center">
+<p class="font-data-mono text-data-mono text-on-surface-variant flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="timer">timer</span>
+                        ขอรหัสใหม่ได้ในอีก <span class="text-white font-bold" id="timer">01:30</span>
+</p>
+</div>
+<!-- Action Button -->
+<button class="w-full py-4 bg-white text-black font-headline-md text-body-lg uppercase tracking-wider rounded flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors active:scale-[0.98]" type="button">
+                    ยืนยันรหัส OTP
+                    <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+</div>
+</main>
+<script>
+        // Simple OTP input logic for demonstration
+        const inputs = document.querySelectorAll('.otp-input');
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1) {
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value.length === 0) {
+                    if (index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                }
+            });
+        });
+    </script>
+
+
+
+
+</body></html>

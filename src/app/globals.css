@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --hh-bg: #041a1d;
+  --hh-surface: #0f3c3f;
+  --hh-surface-raised: #1e4e51;
+  --hh-border: #246a6d;
+  --hh-text: #f5f6f6;
+  --hh-text-muted: #c2d3d4;
+  --hh-cyan: #63d2e5;
+  --hh-mint: #30d6bc;
+  --hh-emerald: #2ac298;
+  --hh-highlight: #7dfbf2;
+  --hh-action: #ff6a00;
+  --hh-time: #ca9b52;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  button,
+  input,
+  select,
+  textarea {
+    font-family: var(--font-noto-sans-thai), "Noto Sans Thai", sans-serif;
+    @apply antialiased selection:bg-hh-action selection:text-black;
+  }
+
+  /* Force Noto Sans Thai on all headers and sora/hanken classes */
+  .font-sora,
+  .font-hanken,
+  .font-thai {
+    font-family: var(--font-noto-sans-thai), "Noto Sans Thai", sans-serif !important;
+  }
+
+  /* Accessibility focus ring */
+  *:focus-visible {
+    outline: 2px solid #63d2e5;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  @keyframes cyberFloat {
+
+    0%,
+    100% {
+      transform: scale(1.03) translateY(0px);
+    }
+
+    50% {
+      transform: scale(1.08) translateY(-12px);
+    }
+  }
+
+  @keyframes gridMove {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 48px 48px;
+    }
+  }
+
+  @keyframes pulseGlow {
+
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.65;
+      transform: scale(1.2);
+    }
+  }
+
+  .animate-cyber-float {
+    animation: cyberFloat 16s ease-in-out infinite;
+  }
+
+  .animate-grid-move {
+    animation: gridMove 20s linear infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 8s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-cyber-float,
+  .animate-grid-move,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
+}
