@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
-import ChallengeRevealSection from "@/components/ChallengeRevealSection";
 import SpeakersSection from "@/components/SpeakersSection";
 import PastAtmosphereSection from "@/components/PastAtmosphereSection";
 import Footer from "@/components/Footer";
@@ -18,7 +17,6 @@ export default function Home() {
       <Navbar onOpenEligibility={() => setIsEligibilityOpen(true)} />
       <HeroSection onOpenEligibility={() => setIsEligibilityOpen(true)} />
       <AboutSection />
-      <ChallengeRevealSection />
       <SpeakersSection />
       <PastAtmosphereSection />
       <Footer />

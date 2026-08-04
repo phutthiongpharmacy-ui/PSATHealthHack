@@ -81,10 +81,13 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
               </button>
             )}
             <Link
-              href="/#faq"
-              className="text-sm text-hh-text-muted hover:text-white transition-colors px-3 py-1.5 hover:bg-white/5 rounded-lg"
+              href="/challenge"
+              className={`text-sm transition-all py-1.5 px-3 rounded-lg ${isActive("/challenge")
+                ? "text-hh-cyan font-bold bg-hh-cyan/10 border border-hh-cyan/30"
+                : "text-hh-text-muted hover:text-white hover:bg-white/5"
+                }`}
             >
-              คำถามที่พบบ่อย
+              โจทย์การแข่งขัน
             </Link>
           </nav>
 
@@ -152,11 +155,11 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
               </button>
             )}
             <Link
-              href="/#faq"
+              href="/challenge"
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-hh-cyan transition-colors py-2 border-b border-white/5 flex items-center justify-between"
             >
-              <span>คำถามที่พบบ่อย</span>
+              <span>โจทย์การแข่งขัน</span>
               <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
             </Link>
           </nav>
