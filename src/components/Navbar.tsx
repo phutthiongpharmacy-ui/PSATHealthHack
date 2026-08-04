@@ -34,7 +34,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
         : "bg-transparent py-5"
         }`}
     >
-      <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto">
+      <div className="flex justify-between items-center px-4 sm:px-8 md:px-12 lg:px-16 w-full max-w-[1700px] mx-auto">
         <Link href="/" className="flex items-center gap-3 group">
           <span className="font-sora text-xl md:text-2xl font-extrabold text-white tracking-tighter flex items-center">
             <span className="text-hh-cyan mr-1.5 font-bold">PSAT</span>
@@ -43,7 +43,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8 lg:gap-12">
           <nav className="flex gap-6 items-center font-sora">
             <Link
               href="/"
