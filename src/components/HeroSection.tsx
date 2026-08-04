@@ -138,15 +138,15 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
 
           {/* Action Conversion Buttons */}
           <div className="pt-4 flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/register"
-              className="bg-hh-action text-black font-sora text-base px-8 py-4 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-95 flex items-center gap-2"
+            <button
+              onClick={onOpenEligibility}
+              className="bg-hh-action text-black font-sora text-base px-8 py-4 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-95 flex items-center gap-2 cursor-pointer"
             >
               สมัครแข่งขันตอนนี้
               <span className="material-symbols-outlined text-xl">
                 arrow_forward
               </span>
-            </Link>
+            </button>
             <Link
               href="/schedule"
               className="bg-hh-surface-raised border border-hh-cyan/40 text-hh-cyan font-sora text-base px-8 py-4 rounded-full font-bold hover:bg-hh-cyan/15 transition-all backdrop-blur-md flex items-center gap-2"
