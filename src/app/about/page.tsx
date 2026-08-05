@@ -14,7 +14,7 @@ export default function AboutPage() {
       <Navbar onOpenEligibility={() => setIsEligibilityOpen(true)} />
 
       {/* Header */}
-      <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-center border-b border-hh-border/30">
+      <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
         <div className="max-w-4xl mx-auto space-y-4">
           <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest px-4 py-1.5 rounded-full bg-hh-surface border border-hh-cyan/30 inline-block">
             ABOUT US & INTRODUCTION
@@ -22,7 +22,7 @@ export default function AboutPage() {
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
             เกี่ยวกับ <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHacks 2026</span>
           </h1>
-          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl leading-relaxed">
             สหพันธ์นิสิตนักศึกษาเภสัชศาสตร์แห่งประเทศไทย (สนภท.)
           </p>
         </div>
