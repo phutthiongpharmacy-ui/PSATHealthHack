@@ -413,8 +413,8 @@ export default function RegisterPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <label
                         className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer transition-all ${teamType === "pharmacy"
-                            ? "bg-primary-container/10 border-primary-container text-white"
-                            : "border-white/20 text-on-surface-variant hover:bg-white/5"
+                          ? "bg-primary-container/10 border-primary-container text-white"
+                          : "border-white/20 text-on-surface-variant hover:bg-white/5"
                           }`}
                       >
                         <input
@@ -431,8 +431,8 @@ export default function RegisterPage() {
 
                       <label
                         className={`flex items-center gap-3 p-4 border rounded-xl cursor-pointer transition-all ${teamType === "non-pharmacy"
-                            ? "bg-primary-container/10 border-primary-container text-white"
-                            : "border-white/20 text-on-surface-variant hover:bg-white/5"
+                          ? "bg-primary-container/10 border-primary-container text-white"
+                          : "border-white/20 text-on-surface-variant hover:bg-white/5"
                           }`}
                       >
                         <input
@@ -470,8 +470,8 @@ export default function RegisterPage() {
                       type="button"
                       onClick={() => setActiveMemberTab(idx)}
                       className={`px-4 py-2 rounded-lg font-mono text-xs font-bold transition-all flex items-center gap-2 ${activeMemberTab === idx
-                          ? "bg-primary-container text-on-primary shadow-[0_0_10px_rgba(0,240,255,0.4)]"
-                          : "bg-white/5 text-on-surface-variant hover:bg-white/10"
+                        ? "bg-primary-container text-on-primary shadow-[0_0_10px_rgba(0,240,255,0.4)]"
+                        : "bg-white/5 text-on-surface-variant hover:bg-white/10"
                         }`}
                     >
                       {idx === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${idx + 1}`}
