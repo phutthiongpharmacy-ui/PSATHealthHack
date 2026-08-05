@@ -334,10 +334,23 @@ export default function RegisterPage() {
       {step === 2 && (
         <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center justify-center w-13 h-13 rounded-none bg-hh-cyan/15 border border-hh-cyan/40 text-hh-cyan mx-auto shadow-[0_0_12px_rgba(99,210,229,0.3)]">
-                <span className="material-symbols-outlined text-2xl">pin</span>
+            <div className="text-center space-y-4">
+              {/* Cyber OTP Icon Badge */}
+              <div className="relative inline-flex items-center justify-center mx-auto group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-hh-cyan/50 to-hh-mint/40 rounded-sm blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/60 flex items-center justify-center text-hh-cyan shadow-[0_0_20px_rgba(99,210,229,0.3)]">
+                  {/* Cyber corner accents */}
+                  <span className="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-hh-cyan"></span>
+                  <span className="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-hh-cyan"></span>
+                  <span className="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-hh-cyan"></span>
+                  <span className="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-hh-cyan"></span>
+                  
+                  <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_8px_rgba(99,210,229,0.8)]">
+                    mark_email_read
+                  </span>
+                </div>
               </div>
+
               <h1 className="font-sora text-xl sm:text-2xl font-extrabold text-white">
                 กรอกรหัส OTP 6 หลัก
               </h1>
