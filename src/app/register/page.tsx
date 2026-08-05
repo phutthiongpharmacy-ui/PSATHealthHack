@@ -196,11 +196,11 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-hh-bg text-hh-text flex flex-col items-center justify-start relative overflow-hidden py-8 px-margin-mobile md:px-margin-desktop">
+    <main className="min-h-screen bg-hh-bg text-hh-text flex flex-col items-center justify-start relative overflow-hidden py-8 px-4 sm:px-8 md:px-12 font-hanken">
       {/* Background Cyber Grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
-      {/* Top Header Navigation */}
+      {/* Top Navigation */}
       <div className="w-full max-w-3xl flex items-center justify-between z-20 pb-4 pt-2 border-b border-hh-border/30">
         <Link
           href="/"
@@ -216,7 +216,7 @@ export default function RegisterPage() {
         </span>
       </div>
 
-      {/* Visual Stepper Header */}
+      {/* Main Stepper Header */}
       <div className="z-10 w-full max-w-3xl my-6">
         <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center">
           {/* Step 1 */}
@@ -230,7 +230,7 @@ export default function RegisterPage() {
             }`}>
               {step > 1 ? <span className="material-symbols-outlined text-lg">check</span> : "1"}
             </div>
-            <span className={`text-[11px] sm:text-xs font-semibold mt-1.5 ${step === 1 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
+            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 1 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
               ยืนยันอีเมล
             </span>
           </div>
@@ -246,7 +246,7 @@ export default function RegisterPage() {
             }`}>
               {step > 2 ? <span className="material-symbols-outlined text-lg">check</span> : "2"}
             </div>
-            <span className={`text-[11px] sm:text-xs font-semibold mt-1.5 ${step === 2 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
+            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 2 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
               กรอก OTP
             </span>
           </div>
@@ -262,7 +262,7 @@ export default function RegisterPage() {
             }`}>
               {step > 3 ? <span className="material-symbols-outlined text-lg">check</span> : "3"}
             </div>
-            <span className={`text-[11px] sm:text-xs font-semibold mt-1.5 ${step === 3 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
+            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 3 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
               ข้อมูลทีม & สมาชิก
             </span>
           </div>
@@ -276,7 +276,7 @@ export default function RegisterPage() {
             }`}>
               4
             </div>
-            <span className={`text-[11px] sm:text-xs font-semibold mt-1.5 ${step === 4 ? "text-hh-emerald font-bold" : "text-hh-text-muted"}`}>
+            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 4 ? "text-hh-emerald font-bold" : "text-hh-text-muted"}`}>
               เสร็จสิ้น
             </span>
           </div>
@@ -294,14 +294,14 @@ export default function RegisterPage() {
               <h1 className="font-sora text-2xl font-bold text-white">
                 ยืนยันตัวตนด้วยอีเมล
               </h1>
-              <p className="font-hanken text-sm text-hh-text-muted">
+              <p className="text-sm text-hh-text-muted">
                 กรอกอีเมลของคุณเพื่อรับรหัส OTP ในการเริ่มต้นลงทะเบียนสมัครแข่งขัน
               </p>
             </div>
 
             <form onSubmit={handleRequestOtp} className="space-y-5">
               <div className="space-y-2">
-                <label className="font-mono text-xs text-hh-cyan uppercase tracking-wider flex items-center gap-1.5 font-bold">
+                <label className="text-xs text-hh-cyan uppercase tracking-wider flex items-center gap-1.5 font-bold font-mono">
                   <span className="material-symbols-outlined text-sm">alternate_email</span>
                   อีเมล (EMAIL) *
                 </label>
@@ -311,7 +311,7 @@ export default function RegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="example@email.com"
                   autoFocus
-                  className="w-full h-13 bg-hh-bg border border-hh-border/80 px-4 font-hanken text-white rounded-xl focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan focus:outline-none transition-all"
+                  className="w-full h-13 bg-hh-bg border border-hh-border/80 px-4 text-white rounded-xl focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan focus:outline-none transition-all"
                 />
                 {emailError && (
                   <p className="text-xs text-red-400 font-mono mt-1">{emailError}</p>
@@ -341,7 +341,7 @@ export default function RegisterPage() {
               <h1 className="font-sora text-2xl font-bold text-white">
                 กรอกรหัส OTP 6 หลัก
               </h1>
-              <p className="font-hanken text-sm text-hh-text-muted">
+              <p className="text-sm text-hh-text-muted">
                 รหัสถูกส่งไปยังอีเมล <span className="text-white font-mono font-bold">{email}</span>
               </p>
             </div>
@@ -418,7 +418,7 @@ export default function RegisterPage() {
               }`}
             >
               <span className="material-symbols-outlined text-base">groups</span>
-              1. ตั้งชื่อทีม & เลือกประเภท
+              1. ตั้งชื่อทีม & ประเภท
               {teamName.trim() && <span className="text-black font-extrabold text-xs">✓</span>}
             </button>
             <button
@@ -450,14 +450,14 @@ export default function RegisterPage() {
                   <span className="material-symbols-outlined text-hh-cyan text-2xl">groups</span>
                   ข้อมูลทั่วไปของทีม
                 </h2>
-                <p className="font-hanken text-xs text-hh-text-muted">
+                <p className="text-xs text-hh-text-muted">
                   ตั้งชื่อทีมและเลือกประเภทการแข่งขันเพื่อเริ่มต้น
                 </p>
               </div>
 
               {/* Team Name */}
               <div className="space-y-2">
-                <label className="font-mono text-xs text-hh-cyan uppercase font-bold flex items-center gap-1.5">
+                <label className="text-xs text-hh-cyan uppercase font-bold flex items-center gap-1.5 font-mono">
                   <span className="material-symbols-outlined text-sm">edit_note</span>
                   ชื่อทีม (TEAM NAME) *
                 </label>
@@ -468,13 +468,13 @@ export default function RegisterPage() {
                   onChange={(e) => setTeamName(e.target.value)}
                   placeholder="ตัวอย่างเช่น: PharmaInnovators 2026"
                   autoFocus
-                  className="w-full bg-hh-bg border border-hh-border/80 rounded-xl p-4 font-hanken text-white text-base focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan focus:outline-none transition-all"
+                  className="w-full bg-hh-bg border border-hh-border/80 rounded-xl p-4 text-white text-base focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan focus:outline-none transition-all"
                 />
               </div>
 
               {/* Team Type Cards */}
               <div className="space-y-3 pt-2">
-                <label className="font-mono text-xs text-hh-cyan uppercase font-bold flex items-center gap-1.5">
+                <label className="text-xs text-hh-cyan uppercase font-bold flex items-center gap-1.5 font-mono">
                   <span className="material-symbols-outlined text-sm">category</span>
                   ประเภททีมผู้เข้าร่วม *
                 </label>
@@ -495,7 +495,7 @@ export default function RegisterPage() {
                       )}
                     </div>
                     <h3 className="font-sora text-sm font-bold text-white">ทีมที่มีนิสิต/นักศึกษาเภสัชศาสตร์</h3>
-                    <p className="font-hanken text-xs text-hh-text-muted leading-relaxed">
+                    <p className="text-xs text-hh-text-muted leading-relaxed">
                       มีสมาชิกอย่างน้อย 1 คน กำลังศึกษาอยู่ในคณะเภสัชศาสตร์
                     </p>
                   </div>
@@ -515,7 +515,7 @@ export default function RegisterPage() {
                       )}
                     </div>
                     <h3 className="font-sora text-sm font-bold text-white">ทีมทั่วไป</h3>
-                    <p className="font-hanken text-xs text-hh-text-muted leading-relaxed">
+                    <p className="text-xs text-hh-text-muted leading-relaxed">
                       ทีมนิสิต/นักศึกษา หรือบุคคลทั่วไปจากสาขาวิชาอื่น
                     </p>
                   </div>
@@ -613,12 +613,12 @@ export default function RegisterPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">คำนำหน้า *</label>
+                        <label className="text-xs text-hh-text-muted">คำนำหน้า *</label>
                         <select
                           required
                           value={members[activeMemberTab].title}
                           onChange={(e) => updateMember(activeMemberTab, "title", e.target.value)}
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         >
                           <option value="" disabled>-- เลือก --</option>
                           <option value="mr">นาย</option>
@@ -628,30 +628,30 @@ export default function RegisterPage() {
                       </div>
 
                       <div className="space-y-1 sm:col-span-2">
-                        <label className="font-mono text-xs text-hh-text-muted">ชื่อจริง - นามสกุล *</label>
+                        <label className="text-xs text-hh-text-muted">ชื่อจริง - นามสกุล *</label>
                         <input
                           type="text"
                           required
                           value={members[activeMemberTab].fullName}
                           onChange={(e) => updateMember(activeMemberTab, "fullName", e.target.value)}
                           placeholder="นายสมชาย ใจดี"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">ชื่อเล่น</label>
+                        <label className="text-xs text-hh-text-muted">ชื่อเล่น</label>
                         <input
                           type="text"
                           value={members[activeMemberTab].nickname}
                           onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value)}
                           placeholder="กอล์ฟ"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">อายุ (15-30 ปี) *</label>
+                        <label className="text-xs text-hh-text-muted">อายุ (15-30 ปี) *</label>
                         <input
                           type="number"
                           min="15"
@@ -660,19 +660,19 @@ export default function RegisterPage() {
                           value={members[activeMemberTab].age}
                           onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
                           placeholder="20"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1 sm:col-span-3">
-                        <label className="font-mono text-xs text-hh-text-muted">คณะ / สถาบัน / โรงเรียน *</label>
+                        <label className="text-xs text-hh-text-muted">คณะ / สถาบัน / โรงเรียน *</label>
                         <input
                           type="text"
                           required
                           value={members[activeMemberTab].institution}
                           onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
                           placeholder="คณะเภสัชศาสตร์ มหาวิทยาลัย..."
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
                     </div>
@@ -687,38 +687,38 @@ export default function RegisterPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">อีเมล *</label>
+                        <label className="text-xs text-hh-text-muted">อีเมล *</label>
                         <input
                           type="email"
                           required
                           value={members[activeMemberTab].email}
                           onChange={(e) => updateMember(activeMemberTab, "email", e.target.value)}
                           placeholder="name@email.com"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">Line ID *</label>
+                        <label className="text-xs text-hh-text-muted">Line ID *</label>
                         <input
                           type="text"
                           required
                           value={members[activeMemberTab].lineId}
                           onChange={(e) => updateMember(activeMemberTab, "lineId", e.target.value)}
                           placeholder="line_id_123"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">เบอร์โทรศัพท์ *</label>
+                        <label className="text-xs text-hh-text-muted">เบอร์โทรศัพท์ *</label>
                         <input
                           type="tel"
                           required
                           value={members[activeMemberTab].phone}
                           onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value)}
                           placeholder="08X-XXX-XXXX"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
                     </div>
@@ -733,35 +733,35 @@ export default function RegisterPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="space-y-1 sm:col-span-3">
-                        <label className="font-mono text-xs text-hh-text-muted">แพ้อาหาร / ยา (ระบุ 'ไม่มี' หากไม่มี)</label>
+                        <label className="text-xs text-hh-text-muted">แพ้อาหาร / ยา (ระบุ 'ไม่มี' หากไม่มี)</label>
                         <input
                           type="text"
                           value={members[activeMemberTab].allergies}
                           onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value)}
                           placeholder="เช่น แพ้กุ้ง, แพ้ยาเพนนิซิลิน"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1">
-                        <label className="font-mono text-xs text-hh-text-muted">ผู้ติดต่อฉุกเฉิน</label>
+                        <label className="text-xs text-hh-text-muted">ผู้ติดต่อฉุกเฉิน</label>
                         <input
                           type="text"
                           value={members[activeMemberTab].emergencyName}
                           onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value)}
                           placeholder="ชื่อ-นามสกุล"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
 
                       <div className="space-y-1 sm:col-span-2">
-                        <label className="font-mono text-xs text-hh-text-muted">เบอร์ผู้ติดต่อฉุกเฉิน</label>
+                        <label className="text-xs text-hh-text-muted">เบอร์ผู้ติดต่อฉุกเฉิน</label>
                         <input
                           type="tel"
                           value={members[activeMemberTab].emergencyPhone}
                           onChange={(e) => updateMember(activeMemberTab, "emergencyPhone", e.target.value)}
                           placeholder="08X-XXX-XXXX"
-                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 font-hanken text-white text-sm focus:border-hh-cyan focus:outline-none"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
                         />
                       </div>
                     </div>
@@ -843,7 +843,7 @@ export default function RegisterPage() {
               ลงทะเบียนสำเร็จแล้ว!
             </h1>
 
-            <p className="font-hanken text-hh-text-muted text-sm leading-relaxed">
+            <p className="text-hh-text-muted text-sm leading-relaxed">
               ขอแสดงความยินดี ทีม{" "}
               <span className="text-hh-cyan font-bold font-sora">
                 &quot;{teamName}&quot;
