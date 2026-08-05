@@ -563,23 +563,6 @@ export default function RegisterPage() {
               {/* Active Member Form Inputs */}
               {members[activeMemberTab] && (
                 <div className="space-y-5 pt-2">
-                  <div className="p-3 rounded-xl bg-hh-surface/90 border border-hh-border/50 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
-                    <span className="text-hh-cyan font-mono flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-sm">edit</span>
-                      กำลังกรอก: <strong className="text-white font-sora text-sm">{activeMemberTab === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${activeMemberTab + 1}`}</strong>
-                    </span>
-
-                    {activeMemberTab > 0 && members[0]?.institution && (
-                      <button
-                        type="button"
-                        onClick={() => copyInstitutionFromLeader(activeMemberTab)}
-                        className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 self-start sm:self-auto cursor-pointer"
-                      >
-                        <span className="material-symbols-outlined text-xs">content_copy</span>
-                        คัดลอกคณะ/สถาบันเดียวกับหัวหน้าทีม
-                      </button>
-                    )}
-                  </div>
 
                   {/* 1. Title Pills & Name */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -653,6 +636,16 @@ export default function RegisterPage() {
                     <div className="space-y-1.5 sm:col-span-2">
                       <label className="text-xs text-white font-bold flex items-center justify-between">
                         <span>คณะ / สถาบัน / โรงเรียน <span className="text-hh-action">*</span></span>
+                        {activeMemberTab > 0 && members[0]?.institution && (
+                          <button
+                            type="button"
+                            onClick={() => copyInstitutionFromLeader(activeMemberTab)}
+                            className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
+                          >
+                            <span className="material-symbols-outlined text-xs">content_copy</span>
+                            คัดลอกคณะเดียวกับหัวหน้าทีม
+                          </button>
+                        )}
                       </label>
                       <input
                         type="text"
