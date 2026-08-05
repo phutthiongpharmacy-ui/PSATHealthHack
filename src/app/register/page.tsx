@@ -282,25 +282,25 @@ export default function RegisterPage() {
 
       {/* STEP 1: EMAIL ENTRY */}
       {step === 1 && (
-        <div className="z-10 w-full max-w-lg my-auto">
-          <div className="bg-hh-surface/90 backdrop-blur-2xl border border-hh-border/60 rounded-3xl p-8 md:p-10 relative overflow-hidden shadow-2xl space-y-6">
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan mx-auto">
-                <span className="material-symbols-outlined text-2xl">mail</span>
+        <div className="z-10 w-full max-w-xl sm:max-w-2xl my-auto">
+          <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-8 sm:p-12 shadow-2xl space-y-8">
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan mx-auto">
+                <span className="material-symbols-outlined text-3xl">mail</span>
               </div>
-              <h1 className="font-sora text-2xl font-bold text-white">
+              <h1 className="font-sora text-2xl sm:text-3xl font-extrabold text-white">
                 ยืนยันตัวตนด้วยอีเมล
               </h1>
-              <p className="text-sm text-hh-text-muted">
-                กรอกอีเมลของคุณเพื่อรับรหัส OTP ในการเริ่มต้นลงทะเบียนสมัครแข่งขัน
+              <p className="font-hanken text-base text-hh-text-muted max-w-md mx-auto leading-relaxed">
+                กรอกอีเมลของคุณเพื่อรับรหัส OTP สำหรับเข้าสู่ระบบสมัครแข่งขัน
               </p>
             </div>
 
-            <form onSubmit={handleRequestOtp} className="space-y-5">
-              <div className="space-y-2">
-                <label className="text-xs text-hh-cyan uppercase tracking-wider flex items-center gap-1.5 font-bold font-mono">
-                  <span className="material-symbols-outlined text-sm">alternate_email</span>
-                  อีเมล (EMAIL) *
+            <form onSubmit={handleRequestOtp} className="space-y-6">
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-hh-cyan tracking-wider flex items-center gap-2">
+                  <span className="material-symbols-outlined text-base">alternate_email</span>
+                  อีเมลของคุณ (EMAIL) *
                 </label>
                 <input
                   type="email"
@@ -308,19 +308,19 @@ export default function RegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="example@email.com"
                   autoFocus
-                  className="w-full h-13 bg-hh-bg border border-hh-border/80 px-4 text-white rounded-xl focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan focus:outline-none transition-all"
+                  className="w-full py-4 px-5 bg-hh-bg border-2 border-hh-border/80 text-white font-hanken text-lg rounded-2xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/30 focus:outline-none transition-all leading-normal shadow-inner"
                 />
                 {emailError && (
-                  <p className="text-xs text-red-400 font-mono mt-1">{emailError}</p>
+                  <p className="text-xs sm:text-sm text-red-400 font-mono mt-1.5">{emailError}</p>
                 )}
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3.5 bg-hh-action text-black font-sora text-base font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 hover:bg-orange-400 transition-all shadow-[0_0_20px_rgba(255,106,0,0.4)] cursor-pointer"
+                className="w-full py-4 bg-hh-action text-black font-sora text-base sm:text-lg font-extrabold uppercase tracking-wider rounded-2xl flex items-center justify-center gap-3 hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-98 cursor-pointer"
               >
                 ขอรับรหัส OTP
-                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                <span className="material-symbols-outlined text-xl">arrow_forward</span>
               </button>
             </form>
           </div>
@@ -329,22 +329,23 @@ export default function RegisterPage() {
 
       {/* STEP 2: OTP VERIFICATION */}
       {step === 2 && (
-        <div className="z-10 w-full max-w-lg my-auto">
-          <div className="bg-hh-surface/90 backdrop-blur-2xl border border-hh-border/60 rounded-3xl p-8 md:p-10 relative overflow-hidden shadow-2xl space-y-6">
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan mx-auto">
-                <span className="material-symbols-outlined text-2xl">pin</span>
+        <div className="z-10 w-full max-w-xl sm:max-w-2xl my-auto">
+          <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-8 sm:p-12 shadow-2xl space-y-8">
+            <div className="text-center space-y-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan mx-auto">
+                <span className="material-symbols-outlined text-3xl">pin</span>
               </div>
-              <h1 className="font-sora text-2xl font-bold text-white">
+              <h1 className="font-sora text-2xl sm:text-3xl font-extrabold text-white">
                 กรอกรหัส OTP 6 หลัก
               </h1>
-              <p className="text-sm text-hh-text-muted">
-                รหัสถูกส่งไปยังอีเมล <span className="text-white font-mono font-bold">{email}</span>
+              <p className="font-hanken text-base text-hh-text-muted leading-relaxed">
+                รหัสยืนยัน OTP ถูกส่งไปที่ <br className="sm:hidden" />
+                <span className="text-hh-cyan font-mono font-bold text-lg bg-hh-bg px-3 py-1 rounded-lg border border-hh-cyan/30 inline-block mt-1">{email}</span>
               </p>
             </div>
 
-            <form onSubmit={handleVerifyOtp} className="space-y-6">
-              <div className="flex justify-center gap-2 sm:gap-3">
+            <form onSubmit={handleVerifyOtp} className="space-y-8">
+              <div className="flex justify-center gap-2 sm:gap-4">
                 {otp.map((digit, idx) => (
                   <input
                     key={idx}
@@ -354,45 +355,45 @@ export default function RegisterPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-11 h-13 sm:w-13 sm:h-15 bg-hh-bg border border-hh-cyan/40 text-center font-sora text-2xl text-white font-bold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/50 focus:outline-none transition-all shadow-inner"
+                    className="w-12 sm:w-16 h-16 sm:h-20 bg-hh-bg border-2 border-hh-cyan/50 text-center font-sora text-3xl sm:text-4xl text-hh-cyan font-extrabold rounded-2xl focus:border-hh-cyan focus:ring-4 focus:ring-hh-cyan/30 focus:outline-none transition-all leading-none shadow-inner"
                   />
                 ))}
               </div>
 
               {otpError && (
-                <p className="text-center text-xs text-red-400 font-mono">{otpError}</p>
+                <p className="text-center text-xs sm:text-sm text-red-400 font-mono">{otpError}</p>
               )}
 
-              <div className="text-center space-y-1">
-                <p className="font-mono text-xs text-hh-text-muted flex items-center justify-center gap-1.5">
+              <div className="text-center space-y-2">
+                <p className="font-mono text-xs sm:text-sm text-hh-text-muted flex items-center justify-center gap-2">
                   <span className="material-symbols-outlined text-base">timer</span>
-                  ขอรหัสใหม่ได้ในอีก <span className="text-white font-bold">{formatTimer(timerSeconds)}</span>
+                  ขอรหัสใหม่ได้ในอีก <span className="text-white font-bold text-sm sm:text-base">{formatTimer(timerSeconds)}</span>
                 </p>
                 {timerSeconds === 0 && (
                   <button
                     type="button"
                     onClick={() => setTimerSeconds(90)}
-                    className="text-xs text-hh-cyan hover:underline font-mono cursor-pointer"
+                    className="text-xs sm:text-sm text-hh-cyan hover:underline font-mono cursor-pointer font-bold"
                   >
                     ส่งรหัส OTP อีกครั้ง
                   </button>
                 )}
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="w-1/3 py-3 border border-hh-border text-white font-sora text-sm rounded-xl hover:bg-white/10 transition-colors"
+                  className="w-1/3 py-4 border border-hh-border/80 text-white font-sora text-sm sm:text-base rounded-2xl hover:bg-white/10 transition-colors font-bold cursor-pointer"
                 >
                   แก้ไขอีเมล
                 </button>
                 <button
                   type="submit"
-                  className="w-2/3 py-3.5 bg-hh-action text-black font-sora text-base font-bold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 hover:bg-orange-400 transition-all shadow-[0_0_20px_rgba(255,106,0,0.4)] cursor-pointer"
+                  className="w-2/3 py-4 bg-hh-action text-black font-sora text-base sm:text-lg font-extrabold uppercase tracking-wider rounded-2xl flex items-center justify-center gap-2 hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-98 cursor-pointer"
                 >
                   ยืนยัน OTP
-                  <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                  <span className="material-symbols-outlined text-xl">arrow_forward</span>
                 </button>
               </div>
             </form>
