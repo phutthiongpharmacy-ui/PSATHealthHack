@@ -72,14 +72,6 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             >
               กำหนดการ
             </Link>
-            {onOpenEligibility && (
-              <button
-                onClick={onOpenEligibility}
-                className="text-sm text-hh-text-muted hover:text-white transition-colors px-3.5 py-1 cursor-pointer"
-              >
-                คุณสมบัติ
-              </button>
-            )}
             <Link
               href="/challenge"
               className={`text-sm transition-colors py-1 px-3.5 ${isActive("/challenge")
@@ -89,6 +81,14 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             >
               โจทย์การแข่งขัน
             </Link>
+            {onOpenEligibility && (
+              <button
+                onClick={onOpenEligibility}
+                className="text-sm text-hh-text-muted hover:text-white transition-colors px-3.5 py-1 cursor-pointer"
+              >
+                คุณสมบัติ
+              </button>
+            )}
           </nav>
 
           {/* PRIS Orange Primary Conversion Button */}
@@ -142,6 +142,14 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
               <span>กำหนดการ</span>
               <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
             </Link>
+            <Link
+              href="/challenge"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between"
+            >
+              <span>โจทย์การแข่งขัน</span>
+              <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
+            </Link>
             {onOpenEligibility && (
               <button
                 onClick={() => {
@@ -154,14 +162,6 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
                 <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
               </button>
             )}
-            <Link
-              href="/challenge"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between"
-            >
-              <span>โจทย์การแข่งขัน</span>
-              <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
-            </Link>
           </nav>
           <div className="pt-2">
             <Link
