@@ -69,7 +69,7 @@ export default function SchedulePage() {
       <Navbar onOpenEligibility={() => setIsEligibilityOpen(true)} />
 
       <div className="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto space-y-12">
-        <div className="text-center md:text-left space-y-4">
+        <div className="text-left space-y-4">
           <span className="font-mono text-xs text-primary-container uppercase tracking-widest bg-primary-container/10 px-4 py-1.5 rounded-full border border-primary-container/30">
             Timeline & Schedule
           </span>

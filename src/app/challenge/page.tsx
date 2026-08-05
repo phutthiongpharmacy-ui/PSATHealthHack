@@ -14,15 +14,15 @@ export default function ChallengePage() {
       <Navbar onOpenEligibility={() => setIsEligibilityOpen(true)} />
 
       {/* Page Header */}
-      <div className="relative py-12 px-margin-mobile md:px-margin-desktop text-center border-b border-hh-border/40">
+      <div className="relative py-12 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/40">
         <div className="max-w-container-max mx-auto space-y-4">
-          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest px-3.5 py-1 rounded-full bg-hh-surface border border-hh-cyan/30">
+          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest px-3.5 py-1 rounded-full bg-hh-surface border border-hh-cyan/30 inline-block">
             PSAT HEALTHHACK 2026 • CHALLENGES
           </span>
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
             โจทย์การแข่งขัน
           </h1>
-          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl mx-auto">
+          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl leading-relaxed">
             โจทย์การแข่งขันลับ 72 ชั่วโมง จะได้รับการเปิดเผยพร้อมกันทั่วประเทศในระบบ
           </p>
         </div>
