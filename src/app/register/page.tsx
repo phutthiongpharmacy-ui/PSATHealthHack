@@ -21,6 +21,7 @@ export default function RegisterPage() {
 
   // Step 3: Team & Member Details (Minimum 3 members, Maximum 5 members)
   const [teamName, setTeamName] = useState("");
+  const [educationLevel, setEducationLevel] = useState<"university" | "highschool">("university");
   const [teamType, setTeamType] = useState<"pharmacy" | "non-pharmacy">("pharmacy");
 
   interface Member {
@@ -29,6 +30,7 @@ export default function RegisterPage() {
     nickname: string;
     age: string;
     institution: string;
+    gradeLevel: string;
     allergies: string;
     email: string;
     lineId: string;
@@ -43,6 +45,7 @@ export default function RegisterPage() {
     nickname: "",
     age: "",
     institution: "",
+    gradeLevel: "",
     allergies: "",
     email: "",
     lineId: "",
@@ -443,57 +446,111 @@ export default function RegisterPage() {
                   />
                 </div>
 
-                {/* Team Type Options */}
+                {/* Education Level Selection */}
                 <div className="space-y-2">
                   <label className="text-xs text-white font-bold flex items-center justify-between">
-                    <span>ประเภททีม (Team Type) <span className="text-hh-action">*</span></span>
+                    <span>ระดับการศึกษา <span className="text-hh-action">*</span></span>
                     <span className="text-[11px] text-hh-text-muted font-normal font-mono">จำเป็น</span>
                   </label>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div
-                      onClick={() => setTeamType("pharmacy")}
+                      onClick={() => setEducationLevel("university")}
                       className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
-                        teamType === "pharmacy"
+                        educationLevel === "university"
                           ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
                           : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
                       }`}
                     >
                       <input
                         type="radio"
-                        name="teamTypeRadio"
-                        checked={teamType === "pharmacy"}
-                        onChange={() => setTeamType("pharmacy")}
+                        name="educationLevelRadio"
+                        checked={educationLevel === "university"}
+                        onChange={() => setEducationLevel("university")}
                         className="accent-hh-cyan w-4 h-4"
                       />
                       <div>
-                        <div className="font-sora text-xs sm:text-sm font-bold text-white">ทีมที่มีนิสิต/นักศึกษาเภสัชศาสตร์</div>
-                        <div className="text-[11px] text-hh-text-muted">มีสมาชิกอย่างน้อย 1 คนเรียนคณะเภสัชฯ</div>
+                        <div className="font-sora text-xs sm:text-sm font-bold text-white">ระดับอุดมศึกษา</div>
+                        <div className="text-[11px] text-hh-text-muted">นิสิต / นักศึกษาระดับมหาวิทยาลัย</div>
                       </div>
                     </div>
 
                     <div
-                      onClick={() => setTeamType("non-pharmacy")}
+                      onClick={() => setEducationLevel("highschool")}
                       className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
-                        teamType === "non-pharmacy"
+                        educationLevel === "highschool"
                           ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
                           : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
                       }`}
                     >
                       <input
                         type="radio"
-                        name="teamTypeRadio"
-                        checked={teamType === "non-pharmacy"}
-                        onChange={() => setTeamType("non-pharmacy")}
+                        name="educationLevelRadio"
+                        checked={educationLevel === "highschool"}
+                        onChange={() => setEducationLevel("highschool")}
                         className="accent-hh-cyan w-4 h-4"
                       />
                       <div>
-                        <div className="font-sora text-xs sm:text-sm font-bold text-white">ทีมทั่วไป</div>
-                        <div className="text-[11px] text-hh-text-muted">ไม่มีนิสิตเภสัชศาสตร์ในทีม</div>
+                        <div className="font-sora text-xs sm:text-sm font-bold text-white">ระดับมัธยมศึกษาตอนปลาย</div>
+                        <div className="text-[11px] text-hh-text-muted">นักเรียน ม.4 - ม.6</div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                {/* Team Type Sub-Option (University Only) */}
+                {educationLevel === "university" && (
+                  <div className="space-y-2">
+                    <label className="text-xs text-white font-bold flex items-center justify-between">
+                      <span>ประเภททีม (Team Type) <span className="text-hh-action">*</span></span>
+                      <span className="text-[11px] text-hh-text-muted font-normal font-mono">จำเป็น</span>
+                    </label>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div
+                        onClick={() => setTeamType("pharmacy")}
+                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
+                          teamType === "pharmacy"
+                            ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
+                            : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="teamTypeRadio"
+                          checked={teamType === "pharmacy"}
+                          onChange={() => setTeamType("pharmacy")}
+                          className="accent-hh-cyan w-4 h-4"
+                        />
+                        <div>
+                          <div className="font-sora text-xs sm:text-sm font-bold text-white">ทีมที่มีนิสิต/นักศึกษาเภสัชศาสตร์</div>
+                          <div className="text-[11px] text-hh-text-muted">มีสมาชิกอย่างน้อย 1 คนเรียนคณะเภสัชฯ</div>
+                        </div>
+                      </div>
+
+                      <div
+                        onClick={() => setTeamType("non-pharmacy")}
+                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
+                          teamType === "non-pharmacy"
+                            ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
+                            : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="teamTypeRadio"
+                          checked={teamType === "non-pharmacy"}
+                          onChange={() => setTeamType("non-pharmacy")}
+                          className="accent-hh-cyan w-4 h-4"
+                        />
+                        <div>
+                          <div className="font-sora text-xs sm:text-sm font-bold text-white">ทีมทั่วไป (ไม่มีนิสิตเภสัชศาสตร์)</div>
+                          <div className="text-[11px] text-hh-text-muted">ไม่มีนิสิตเภสัชศาสตร์ในทีม</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -624,47 +681,113 @@ export default function RegisterPage() {
                       </div>
                     </div>
 
-                    {/* อายุ + คณะ/สถาบัน */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-                      <div className="space-y-1.5">
-                        <label className="text-xs text-white font-bold block">
-                          อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
-                        </label>
-                        <input
-                          type="number"
-                          min="15"
-                          max="30"
-                          required
-                          value={members[activeMemberTab].age}
-                          onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
-                          placeholder="20"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                        />
+                    {/* อายุ + สถาบัน/โรงเรียน (conditional on educationLevel) */}
+                    {educationLevel === "university" ? (
+                      /* ── อุดมศึกษา: อายุ + คณะ/สถาบัน ── */
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-xs text-white font-bold block">
+                            อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
+                          </label>
+                          <input
+                            type="number"
+                            min="15"
+                            max="30"
+                            required
+                            value={members[activeMemberTab].age}
+                            onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
+                            placeholder="20"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-xs text-white font-bold flex items-center justify-between">
+                            <span>คณะ / สถาบัน <span className="text-hh-action">*</span></span>
+                            {activeMemberTab > 0 && members[0]?.institution && (
+                              <button
+                                type="button"
+                                onClick={() => copyInstitutionFromLeader(activeMemberTab)}
+                                className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
+                              >
+                                <span className="material-symbols-outlined text-xs">content_copy</span>
+                                คัดลอกจากหัวหน้าทีม
+                              </button>
+                            )}
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={members[activeMemberTab].institution}
+                            onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
+                            placeholder="เช่น คณะเภสัชศาสตร์ มหาวิทยาลัยศิลปากร"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          />
+                        </div>
                       </div>
-                      <div className="space-y-1.5">
-                        <label className="text-xs text-white font-bold flex items-center justify-between">
-                          <span>คณะ / สถาบัน / โรงเรียน <span className="text-hh-action">*</span></span>
-                          {activeMemberTab > 0 && members[0]?.institution && (
-                            <button
-                              type="button"
-                              onClick={() => copyInstitutionFromLeader(activeMemberTab)}
-                              className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
-                            >
-                              <span className="material-symbols-outlined text-xs">content_copy</span>
-                              คัดลอกจากหัวหน้าทีม
-                            </button>
-                          )}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={members[activeMemberTab].institution}
-                          onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
-                          placeholder="เช่น คณะเภสัชศาสตร์ มหาวิทยาลัย..."
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                        />
+                    ) : (
+                      /* ── มัธยมปลาย: อายุ + ชื่อโรงเรียน + ระดับชั้น ── */
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
+                        <div className="space-y-1.5">
+                          <label className="text-xs text-white font-bold block">
+                            อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
+                          </label>
+                          <input
+                            type="number"
+                            min="15"
+                            max="30"
+                            required
+                            value={members[activeMemberTab].age}
+                            onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
+                            placeholder="17"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-xs text-white font-bold flex items-center justify-between">
+                            <span>ชื่อโรงเรียน <span className="text-hh-action">*</span></span>
+                            {activeMemberTab > 0 && members[0]?.institution && (
+                              <button
+                                type="button"
+                                onClick={() => copyInstitutionFromLeader(activeMemberTab)}
+                                className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
+                              >
+                                <span className="material-symbols-outlined text-xs">content_copy</span>
+                                คัดลอกจากหัวหน้าทีม
+                              </button>
+                            )}
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={members[activeMemberTab].institution}
+                            onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
+                            placeholder="เช่น โรงเรียนเตรียมอุดมศึกษา"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <label className="text-xs text-white font-bold block">
+                            ระดับชั้น <span className="text-hh-action">*</span>
+                          </label>
+                          <div className="flex gap-2 h-11 items-center">
+                            {["ม.4", "ม.5", "ม.6"].map((g) => (
+                              <button
+                                key={g}
+                                type="button"
+                                onClick={() => updateMember(activeMemberTab, "gradeLevel", g)}
+                                className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${
+                                  members[activeMemberTab].gradeLevel === g
+                                    ? "bg-hh-cyan text-black shadow-[0_0_10px_rgba(99,210,229,0.4)]"
+                                    : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
+                                }`}
+                              >
+                                {g}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* ─── SECTION B: ข้อมูลการติดต่อ ─── */}
