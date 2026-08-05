@@ -93,38 +93,51 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา เพื่อยกระดับสุขภาพประชาชนไทย
           </p>
 
-          {/* Countdown Timer Module */}
-          <div className="flex gap-3 sm:gap-4 pt-2 justify-center flex-wrap">
-            <div className="flex flex-col items-center justify-center bg-hh-surface/80 backdrop-blur border border-hh-cyan/30 rounded-2xl w-20 h-20 sm:w-24 sm:h-24 shadow-[0_0_20px_rgba(99,210,229,0.1)]">
-              <span className="font-sora text-2xl sm:text-3xl text-white font-bold">
+          {/* Countdown Timer Module - Frameless Minimalist Divider Style */}
+          <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 py-4 px-6 sm:px-8 rounded-3xl bg-hh-bg/40 backdrop-blur-md border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+            {/* Days */}
+            <div className="flex flex-col items-center min-w-[50px] sm:min-w-[70px]">
+              <span className="font-sora text-4xl sm:text-5xl md:text-6xl text-white font-extrabold tracking-tight [text-shadow:0_0_20px_rgba(255,255,255,0.5)]">
                 {String(timeLeft.days).padStart(2, "0")}
               </span>
-              <span className="font-mono text-[10px] sm:text-xs text-hh-text-muted mt-1 tracking-wider">
-                DAYS
+              <span className="font-sans text-xs sm:text-sm md:text-base text-white/90 font-bold mt-1 tracking-wide">
+                วัน
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center bg-hh-surface/80 backdrop-blur border border-hh-cyan/30 rounded-2xl w-20 h-20 sm:w-24 sm:h-24 shadow-[0_0_20px_rgba(99,210,229,0.1)]">
-              <span className="font-sora text-2xl sm:text-3xl text-white font-bold">
+
+            <div className="w-px h-10 sm:h-14 bg-white/25 shrink-0" />
+
+            {/* Hours */}
+            <div className="flex flex-col items-center min-w-[50px] sm:min-w-[70px]">
+              <span className="font-sora text-4xl sm:text-5xl md:text-6xl text-white font-extrabold tracking-tight [text-shadow:0_0_20px_rgba(255,255,255,0.5)]">
                 {String(timeLeft.hours).padStart(2, "0")}
               </span>
-              <span className="font-mono text-[10px] sm:text-xs text-hh-text-muted mt-1 tracking-wider">
-                HOURS
+              <span className="font-sans text-xs sm:text-sm md:text-base text-white/90 font-bold mt-1 tracking-wide">
+                ชั่วโมง
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center bg-hh-surface/80 backdrop-blur border border-hh-cyan/30 rounded-2xl w-20 h-20 sm:w-24 sm:h-24 shadow-[0_0_20px_rgba(99,210,229,0.1)]">
-              <span className="font-sora text-2xl sm:text-3xl text-white font-bold">
+
+            <div className="w-px h-10 sm:h-14 bg-white/25 shrink-0" />
+
+            {/* Mins */}
+            <div className="flex flex-col items-center min-w-[50px] sm:min-w-[70px]">
+              <span className="font-sora text-4xl sm:text-5xl md:text-6xl text-white font-extrabold tracking-tight [text-shadow:0_0_20px_rgba(255,255,255,0.5)]">
                 {String(timeLeft.mins).padStart(2, "0")}
               </span>
-              <span className="font-mono text-[10px] sm:text-xs text-hh-text-muted mt-1 tracking-wider">
-                MINS
+              <span className="font-sans text-xs sm:text-sm md:text-base text-white/90 font-bold mt-1 tracking-wide">
+                นาที
               </span>
             </div>
-            <div className="flex flex-col items-center justify-center bg-hh-surface/80 backdrop-blur border border-hh-cyan/30 rounded-2xl w-20 h-20 sm:w-24 sm:h-24 shadow-[0_0_20px_rgba(99,210,229,0.1)]">
-              <span className="font-sora text-2xl sm:text-3xl text-hh-cyan font-bold">
+
+            <div className="w-px h-10 sm:h-14 bg-white/25 shrink-0" />
+
+            {/* Secs */}
+            <div className="flex flex-col items-center min-w-[50px] sm:min-w-[70px]">
+              <span className="font-sora text-4xl sm:text-5xl md:text-6xl text-hh-cyan font-extrabold tracking-tight [text-shadow:0_0_20px_rgba(99,210,229,0.7)]">
                 {String(timeLeft.secs).padStart(2, "0")}
               </span>
-              <span className="font-mono text-[10px] sm:text-xs text-hh-text-muted mt-1 tracking-wider">
-                SECS
+              <span className="font-sans text-xs sm:text-sm md:text-base text-hh-cyan/90 font-bold mt-1 tracking-wide">
+                วินาที
               </span>
             </div>
           </div>
