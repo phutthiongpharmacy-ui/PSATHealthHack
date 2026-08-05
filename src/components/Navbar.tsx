@@ -47,27 +47,27 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
           <nav className="flex gap-6 items-center font-sora">
             <Link
               href="/"
-              className={`text-sm transition-all py-1.5 px-3 rounded-lg ${isActive("/")
-                ? "text-hh-cyan font-bold bg-hh-cyan/10 border border-hh-cyan/30"
-                : "text-hh-text-muted hover:text-white hover:bg-white/5"
+              className={`text-sm transition-colors py-1 px-3.5 ${isActive("/")
+                ? "text-hh-cyan font-extrabold"
+                : "text-hh-text-muted hover:text-white"
                 }`}
             >
               หน้าแรก
             </Link>
             <Link
               href="/about"
-              className={`text-sm transition-all py-1.5 px-3 rounded-lg ${isActive("/about")
-                ? "text-hh-cyan font-bold bg-hh-cyan/10 border border-hh-cyan/30"
-                : "text-hh-text-muted hover:text-white hover:bg-white/5"
+              className={`text-sm transition-colors py-1 px-3.5 ${isActive("/about")
+                ? "text-hh-cyan font-extrabold"
+                : "text-hh-text-muted hover:text-white"
                 }`}
             >
               เกี่ยวกับเรา
             </Link>
             <Link
               href="/schedule"
-              className={`text-sm transition-all py-1.5 px-3 rounded-lg ${isActive("/schedule")
-                ? "text-hh-cyan font-bold bg-hh-cyan/10 border border-hh-cyan/30"
-                : "text-hh-text-muted hover:text-white hover:bg-white/5"
+              className={`text-sm transition-colors py-1 px-3.5 ${isActive("/schedule")
+                ? "text-hh-cyan font-extrabold"
+                : "text-hh-text-muted hover:text-white"
                 }`}
             >
               กำหนดการ
@@ -75,16 +75,16 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             {onOpenEligibility && (
               <button
                 onClick={onOpenEligibility}
-                className="text-sm text-hh-text-muted hover:text-white transition-colors px-3 py-1.5 hover:bg-white/5 rounded-lg"
+                className="text-sm text-hh-text-muted hover:text-white transition-colors px-3.5 py-1 cursor-pointer"
               >
                 คุณสมบัติ
               </button>
             )}
             <Link
               href="/challenge"
-              className={`text-sm transition-all py-1.5 px-3 rounded-lg ${isActive("/challenge")
-                ? "text-hh-cyan font-bold bg-hh-cyan/10 border border-hh-cyan/30"
-                : "text-hh-text-muted hover:text-white hover:bg-white/5"
+              className={`text-sm transition-colors py-1 px-3.5 ${isActive("/challenge")
+                ? "text-hh-cyan font-extrabold"
+                : "text-hh-text-muted hover:text-white"
                 }`}
             >
               โจทย์การแข่งขัน
@@ -121,7 +121,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-hh-cyan transition-colors py-2 border-b border-white/5 flex items-center justify-between"
+              className="text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between"
             >
               <span>หน้าแรก</span>
               <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
@@ -129,7 +129,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-hh-cyan transition-colors py-2 border-b border-white/5 flex items-center justify-between"
+              className="text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between"
             >
               <span>เกี่ยวกับเรา</span>
               <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
@@ -137,7 +137,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             <Link
               href="/schedule"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-hh-cyan transition-colors py-2 border-b border-white/5 flex items-center justify-between"
+              className="text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between"
             >
               <span>กำหนดการ</span>
               <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
@@ -148,7 +148,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
                   setMobileMenuOpen(false);
                   onOpenEligibility();
                 }}
-                className="text-left text-white hover:text-hh-cyan transition-colors py-2 border-b border-white/5 flex items-center justify-between w-full"
+                className="text-left text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between w-full"
               >
                 <span>คุณสมบัติผู้สมัคร</span>
                 <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
@@ -157,7 +157,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             <Link
               href="/challenge"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-hh-cyan transition-colors py-2 border-b border-white/5 flex items-center justify-between"
+              className="text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between"
             >
               <span>โจทย์การแข่งขัน</span>
               <span className="material-symbols-outlined text-sm text-hh-text-muted">chevron_right</span>
