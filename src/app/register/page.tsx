@@ -345,7 +345,7 @@ export default function RegisterPage() {
             </div>
 
             <form onSubmit={handleVerifyOtp} className="space-y-6">
-              <div className="flex justify-center gap-2 sm:gap-3">
+              <div className="flex justify-center gap-1.5 sm:gap-2.5">
                 {otp.map((digit, idx) => (
                   <input
                     key={idx}
@@ -355,7 +355,7 @@ export default function RegisterPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-10 sm:w-13 h-13 sm:h-16 bg-hh-bg border border-hh-cyan/50 text-center font-sora text-2xl sm:text-3xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/30 focus:outline-none transition-all leading-none shadow-inner"
+                    className="w-9 sm:w-11 h-11 sm:h-13 bg-hh-bg border border-hh-cyan/50 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-lg sm:rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/30 focus:outline-none transition-all leading-none shadow-inner"
                   />
                 ))}
               </div>
