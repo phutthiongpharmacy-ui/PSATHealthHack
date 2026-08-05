@@ -16,7 +16,7 @@ export default function AboutPage() {
       {/* Header */}
       <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
         <div className="max-w-4xl mx-auto space-y-4">
-          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest px-4 py-1.5 rounded-full bg-hh-surface border border-hh-cyan/30 inline-block">
+          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
             ABOUT US & INTRODUCTION
           </span>
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">

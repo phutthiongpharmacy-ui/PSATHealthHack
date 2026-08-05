@@ -16,7 +16,7 @@ export default function ChallengePage() {
       {/* Page Header */}
       <div className="relative py-12 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/40">
         <div className="max-w-container-max mx-auto space-y-4">
-          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest px-3.5 py-1 rounded-full bg-hh-surface border border-hh-cyan/30 inline-block">
+          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
             PSAT HEALTHHACK 2026 • CHALLENGES
           </span>
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">

@@ -70,7 +70,7 @@ export default function SchedulePage() {
 
       <div className="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto space-y-12">
         <div className="text-left space-y-4">
-          <span className="font-mono text-xs text-primary-container uppercase tracking-widest bg-primary-container/10 px-4 py-1.5 rounded-full border border-primary-container/30">
+          <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
             Timeline & Schedule
           </span>
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
