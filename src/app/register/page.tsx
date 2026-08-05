@@ -562,174 +562,216 @@ export default function RegisterPage() {
 
               {/* Active Member Form Inputs */}
               {members[activeMemberTab] && (
-                <div className="space-y-5 pt-2">
+                <div className="space-y-6 pt-2">
+                  
+                  {/* GROUP 1: PERSONAL INFORMATION */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-hh-surface/60 border border-hh-border/50 space-y-4">
+                    <div className="text-xs font-bold text-hh-cyan uppercase tracking-wider font-mono flex items-center gap-1.5 border-b border-hh-border/30 pb-2.5">
+                      <span className="material-symbols-outlined text-sm">person</span>
+                      1. ข้อมูลส่วนตัว (Personal Details)
+                    </div>
 
-                  {/* 1. Title Pills & Name */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {/* Title Radio Pills (No Dropdown Menu) */}
-                    <div className="space-y-1.5 md:col-span-3">
-                      <label className="text-xs text-white font-bold flex items-center justify-between">
-                        <span>คำนำหน้า <span className="text-hh-action">*</span></span>
-                        <span className="text-[11px] text-hh-text-muted font-normal font-mono">เลือก 1 ข้อ</span>
-                      </label>
-                      <div className="flex flex-wrap gap-2">
-                        {["นาย", "นางสาว", "นาง"].map((t) => (
-                          <button
-                            key={t}
-                            type="button"
-                            onClick={() => updateMember(activeMemberTab, "title", t)}
-                            className={`px-4 py-2 rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${
-                              members[activeMemberTab].title === t
-                                ? "bg-hh-cyan text-black shadow-[0_0_10px_rgba(99,210,229,0.4)]"
-                                : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
-                            }`}
-                          >
-                            {t}
-                          </button>
-                        ))}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+                      {/* Title Pills */}
+                      <div className="md:col-span-8 space-y-1.5">
+                        <label className="text-xs text-white font-bold flex items-center justify-between">
+                          <span>คำนำหน้า <span className="text-hh-action">*</span></span>
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {["นาย", "นางสาว", "นาง"].map((t) => (
+                            <button
+                              key={t}
+                              type="button"
+                              onClick={() => updateMember(activeMemberTab, "title", t)}
+                              className={`px-4 py-2 rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${
+                                members[activeMemberTab].title === t
+                                  ? "bg-hh-cyan text-black shadow-[0_0_12px_rgba(99,210,229,0.4)]"
+                                  : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
+                              }`}
+                            >
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Age */}
+                      <div className="md:col-span-4 space-y-1.5">
+                        <label className="text-xs text-white font-bold">
+                          อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
+                        </label>
+                        <input
+                          type="number"
+                          min="15"
+                          max="30"
+                          required
+                          value={members[activeMemberTab].age}
+                          onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
+                          placeholder="20"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Full Name */}
+                      <div className="md:col-span-8 space-y-1.5">
+                        <label className="text-xs text-white font-bold">
+                          ชื่อจริง - นามสกุล <span className="text-hh-action">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={members[activeMemberTab].fullName}
+                          onChange={(e) => updateMember(activeMemberTab, "fullName", e.target.value)}
+                          placeholder="เช่น นายสมชาย ใจดี"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Nickname */}
+                      <div className="md:col-span-4 space-y-1.5">
+                        <label className="text-xs text-hh-text-muted font-bold">
+                          ชื่อเล่น (ถ้ามี)
+                        </label>
+                        <input
+                          type="text"
+                          value={members[activeMemberTab].nickname}
+                          onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value)}
+                          placeholder="เช่น กอล์ฟ"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Faculty / Institution */}
+                      <div className="md:col-span-8 space-y-1.5">
+                        <label className="text-xs text-white font-bold flex items-center justify-between">
+                          <span>คณะ / สถาบัน / โรงเรียน <span className="text-hh-action">*</span></span>
+                          {activeMemberTab > 0 && members[0]?.institution && (
+                            <button
+                              type="button"
+                              onClick={() => copyInstitutionFromLeader(activeMemberTab)}
+                              className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
+                            >
+                              <span className="material-symbols-outlined text-xs">content_copy</span>
+                              คัดลอกคณะเดียวกับหัวหน้าทีม
+                            </button>
+                          )}
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={members[activeMemberTab].institution}
+                          onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
+                          placeholder="เช่น คณะเภสัชศาสตร์ มหาวิทยาลัย..."
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Allergies */}
+                      <div className="md:col-span-4 space-y-1.5">
+                        <label className="text-xs text-hh-text-muted font-bold">
+                          แพ้อาหาร / ยา (ถ้ามี)
+                        </label>
+                        <input
+                          type="text"
+                          value={members[activeMemberTab].allergies}
+                          onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value)}
+                          placeholder="ระบุสิ่งที่แพ้ (หรือ 'ไม่มี')"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
                       </div>
                     </div>
+                  </div>
 
-                    {/* Full Name */}
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs text-white font-bold flex items-center justify-between">
-                        <span>ชื่อจริง - นามสกุล <span className="text-hh-action">*</span></span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={members[activeMemberTab].fullName}
-                        onChange={(e) => updateMember(activeMemberTab, "fullName", e.target.value)}
-                        placeholder="เช่น นายสมชาย ใจดี"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
+                  {/* GROUP 2: CONTACT INFORMATION */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-hh-surface/60 border border-hh-border/50 space-y-4">
+                    <div className="text-xs font-bold text-hh-cyan uppercase tracking-wider font-mono flex items-center gap-1.5 border-b border-hh-border/30 pb-2.5">
+                      <span className="material-symbols-outlined text-sm">contact_mail</span>
+                      2. ข้อมูลการติดต่อ (Contact Info)
                     </div>
 
-                    {/* Nickname */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs text-hh-text-muted font-bold">ชื่อเล่น (ถ้ามี)</label>
-                      <input
-                        type="text"
-                        value={members[activeMemberTab].nickname}
-                        onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value)}
-                        placeholder="เช่น กอล์ฟ"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {/* Email */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-white font-bold">
+                          อีเมล (EMAIL) <span className="text-hh-action">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={members[activeMemberTab].email}
+                          onChange={(e) => updateMember(activeMemberTab, "email", e.target.value)}
+                          placeholder="example@domain.com"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Line ID */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-white font-bold">
+                          LINE ID <span className="text-hh-action">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={members[activeMemberTab].lineId}
+                          onChange={(e) => updateMember(activeMemberTab, "lineId", e.target.value)}
+                          placeholder="line_id_123"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+
+                      {/* Phone Number */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-white font-bold">
+                          เบอร์โทรศัพท์ <span className="text-hh-action">*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={members[activeMemberTab].phone}
+                          onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value)}
+                          placeholder="08X-XXX-XXXX"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* GROUP 3: EMERGENCY CONTACT */}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-hh-surface/60 border border-hh-border/50 space-y-4">
+                    <div className="text-xs font-bold text-hh-cyan uppercase tracking-wider font-mono flex items-center gap-1.5 border-b border-hh-border/30 pb-2.5">
+                      <span className="material-symbols-outlined text-sm">emergency</span>
+                      3. ผู้ติดต่อฉุกเฉิน (Emergency Contact)
                     </div>
 
-                    {/* Age */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs text-white font-bold">อายุ (15 - 30 ปี) <span className="text-hh-action">*</span></label>
-                      <input
-                        type="number"
-                        min="15"
-                        max="30"
-                        required
-                        value={members[activeMemberTab].age}
-                        onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
-                        placeholder="20"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Emergency Contact Name */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-hh-text-muted font-bold">
+                          ชื่อผู้ติดต่อฉุกเฉิน (ถ้ามี)
+                        </label>
+                        <input
+                          type="text"
+                          value={members[activeMemberTab].emergencyName}
+                          onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value)}
+                          placeholder="ชื่อ-นามสกุล ผู้ติดต่อฉุกเฉิน"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
 
-                    {/* Faculty / Institution */}
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs text-white font-bold flex items-center justify-between">
-                        <span>คณะ / สถาบัน / โรงเรียน <span className="text-hh-action">*</span></span>
-                        {activeMemberTab > 0 && members[0]?.institution && (
-                          <button
-                            type="button"
-                            onClick={() => copyInstitutionFromLeader(activeMemberTab)}
-                            className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
-                          >
-                            <span className="material-symbols-outlined text-xs">content_copy</span>
-                            คัดลอกคณะเดียวกับหัวหน้าทีม
-                          </button>
-                        )}
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={members[activeMemberTab].institution}
-                        onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
-                        placeholder="เช่น คณะเภสัชศาสตร์ มหาวิทยาลัย..."
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
-
-                    {/* Allergies */}
-                    <div className="space-y-1.5 md:col-span-3">
-                      <label className="text-xs text-hh-text-muted font-bold">แพ้อาหาร / ยา (ระบุ 'ไม่มี' หากไม่มี)</label>
-                      <input
-                        type="text"
-                        value={members[activeMemberTab].allergies}
-                        onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value)}
-                        placeholder="ระบุสิ่งที่แพ้ (หากไม่มีให้กรอก 'ไม่มี')"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs text-white font-bold">อีเมล (EMAIL) <span className="text-hh-action">*</span></label>
-                      <input
-                        type="email"
-                        required
-                        value={members[activeMemberTab].email}
-                        onChange={(e) => updateMember(activeMemberTab, "email", e.target.value)}
-                        placeholder="example@domain.com"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
-
-                    {/* Line ID */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs text-white font-bold">LINE ID <span className="text-hh-action">*</span></label>
-                      <input
-                        type="text"
-                        required
-                        value={members[activeMemberTab].lineId}
-                        onChange={(e) => updateMember(activeMemberTab, "lineId", e.target.value)}
-                        placeholder="line_id_123"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
-
-                    {/* Phone Number */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs text-white font-bold">เบอร์โทรศัพท์ <span className="text-hh-action">*</span></label>
-                      <input
-                        type="tel"
-                        required
-                        value={members[activeMemberTab].phone}
-                        onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value)}
-                        placeholder="08X-XXX-XXXX"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
-
-                    {/* Emergency Contact Name */}
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <label className="text-xs text-hh-text-muted font-bold">ชื่อผู้ติดต่อฉุกเฉิน (ถ้ามี)</label>
-                      <input
-                        type="text"
-                        value={members[activeMemberTab].emergencyName}
-                        onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value)}
-                        placeholder="ชื่อผู้ติดต่อฉุกเฉิน"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
-                    </div>
-
-                    {/* Emergency Phone */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs text-hh-text-muted font-bold">เบอร์ผู้ติดต่อฉุกเฉิน</label>
-                      <input
-                        type="tel"
-                        value={members[activeMemberTab].emergencyPhone}
-                        onChange={(e) => updateMember(activeMemberTab, "emergencyPhone", e.target.value)}
-                        placeholder="08X-XXX-XXXX"
-                        className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:outline-none"
-                      />
+                      {/* Emergency Phone */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-hh-text-muted font-bold">
+                          เบอร์ผู้ติดต่อฉุกเฉิน (ถ้ามี)
+                        </label>
+                        <input
+                          type="tel"
+                          value={members[activeMemberTab].emergencyPhone}
+                          onChange={(e) => updateMember(activeMemberTab, "emergencyPhone", e.target.value)}
+                          placeholder="08X-XXX-XXXX"
+                          className="w-full bg-hh-bg border border-hh-border rounded-xl p-3 text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
