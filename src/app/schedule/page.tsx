@@ -65,21 +65,25 @@ export default function SchedulePage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background text-on-surface overflow-x-hidden">
+    <main className="min-h-screen bg-hh-bg text-hh-text overflow-x-hidden pt-24">
       <Navbar onOpenEligibility={() => setIsEligibilityOpen(true)} />
 
-      <div className="pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto space-y-12">
-        <div className="text-left space-y-4">
+      {/* Header */}
+      <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
+        <div className="max-w-4xl mx-auto space-y-4">
           <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
-            Timeline & Schedule
+            TIMELINE & SCHEDULE
           </span>
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
-            กำหนดการแข่งขัน <span className="text-primary-container">HealthHack 2026</span>
+            กำหนดการแข่งขัน <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHack 2026</span>
           </h1>
-          <p className="font-hanken text-base md:text-lg text-on-surface-variant max-w-2xl">
-            Official Competition Schedule. All dates are critical milestones for participants.
+          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl leading-relaxed">
+            กำหนดการอย่างเป็นทางการของการแข่งขันนวัตกรรมสุขภาพ
           </p>
         </div>
+      </div>
+
+      <div className="py-16 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-12">
 
         {/* Schedule Table Container */}
         <div className="max-w-4xl mx-auto overflow-hidden rounded-2xl border border-white/10 bg-surface-container-lowest shadow-[0_0_30px_rgba(0,240,255,0.05)]">
