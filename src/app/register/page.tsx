@@ -560,16 +560,16 @@ export default function RegisterPage() {
                 })}
               </div>
 
-              {/* Active Member Form Inputs (100% Equal 2-Column Grid Container) */}
+              {/* Active Member Form Inputs (Logical 2-Column Equal Grid) */}
               {members[activeMemberTab] && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4.5 pt-2">
                   
-                  {/* Row 1: คำนำหน้า (50%) + ชื่อเล่น (50%) */}
-                  <div className="space-y-1.5">
+                  {/* Row 1: คำนำหน้า (Full 2-Cols) */}
+                  <div className="space-y-1.5 md:col-span-2">
                     <label className="text-xs text-white font-bold block">
                       คำนำหน้า <span className="text-hh-action">*</span>
                     </label>
-                    <div className="flex gap-2 h-11 items-center">
+                    <div className="flex gap-2 h-11 items-center max-w-md">
                       {["นาย", "นางสาว", "นาง"].map((t) => (
                         <button
                           key={t}
@@ -587,20 +587,7 @@ export default function RegisterPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs text-hh-text-muted font-bold block">
-                      ชื่อเล่น (ถ้ามี)
-                    </label>
-                    <input
-                      type="text"
-                      value={members[activeMemberTab].nickname}
-                      onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value)}
-                      placeholder="เช่น กอล์ฟ"
-                      className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                    />
-                  </div>
-
-                  {/* Row 2: ชื่อจริง - นามสกุล (50%) + อายุ (50%) */}
+                  {/* Row 2: ชื่อจริง - นามสกุล (50%) + ชื่อเล่น (50%) */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-white font-bold block">
                       ชื่อจริง - นามสกุล <span className="text-hh-action">*</span>
@@ -615,6 +602,20 @@ export default function RegisterPage() {
                     />
                   </div>
 
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-hh-text-muted font-bold block">
+                      ชื่อเล่น (ถ้ามี)
+                    </label>
+                    <input
+                      type="text"
+                      value={members[activeMemberTab].nickname}
+                      onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value)}
+                      placeholder="เช่น กอล์ฟ"
+                      className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                    />
+                  </div>
+
+                  {/* Row 3: อายุ (50%) + คณะ / สถาบัน / โรงเรียน (50%) */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-white font-bold block">
                       อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
@@ -631,7 +632,6 @@ export default function RegisterPage() {
                     />
                   </div>
 
-                  {/* Row 3: คณะ / สถาบัน / โรงเรียน (50%) + แพ้อาหาร / ยา (50%) */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-white font-bold flex items-center justify-between">
                       <span>คณะ / สถาบัน / โรงเรียน <span className="text-hh-action">*</span></span>
@@ -656,20 +656,7 @@ export default function RegisterPage() {
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="text-xs text-hh-text-muted font-bold block">
-                      แพ้อาหาร / ยา (ถ้ามี)
-                    </label>
-                    <input
-                      type="text"
-                      value={members[activeMemberTab].allergies}
-                      onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value)}
-                      placeholder="ระบุสิ่งที่แพ้ (หรือ 'ไม่มี')"
-                      className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                    />
-                  </div>
-
-                  {/* Row 4: อีเมล (50%) + LINE ID (50%) */}
+                  {/* Row 4: อีเมล (50%) + เบอร์โทรศัพท์ (50%) */}
                   <div className="space-y-1.5">
                     <label className="text-xs text-white font-bold block">
                       อีเมล (EMAIL) <span className="text-hh-action">*</span>
@@ -686,6 +673,21 @@ export default function RegisterPage() {
 
                   <div className="space-y-1.5">
                     <label className="text-xs text-white font-bold block">
+                      เบอร์โทรศัพท์ <span className="text-hh-action">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={members[activeMemberTab].phone}
+                      onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value)}
+                      placeholder="08X-XXX-XXXX"
+                      className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                    />
+                  </div>
+
+                  {/* Row 5: LINE ID (50%) + แพ้อาหาร / ยา (50%) */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-white font-bold block">
                       LINE ID <span className="text-hh-action">*</span>
                     </label>
                     <input
@@ -698,17 +700,29 @@ export default function RegisterPage() {
                     />
                   </div>
 
-                  {/* Row 5: เบอร์โทรศัพท์ (50%) + เบอร์ผู้ติดต่อฉุกเฉิน (50%) */}
                   <div className="space-y-1.5">
-                    <label className="text-xs text-white font-bold block">
-                      เบอร์โทรศัพท์ <span className="text-hh-action">*</span>
+                    <label className="text-xs text-hh-text-muted font-bold block">
+                      แพ้อาหาร / ยา (ถ้ามี)
                     </label>
                     <input
-                      type="tel"
-                      required
-                      value={members[activeMemberTab].phone}
-                      onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value)}
-                      placeholder="08X-XXX-XXXX"
+                      type="text"
+                      value={members[activeMemberTab].allergies}
+                      onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value)}
+                      placeholder="ระบุสิ่งที่แพ้ (หรือ 'ไม่มี')"
+                      className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                    />
+                  </div>
+
+                  {/* Row 6: ชื่อผู้ติดต่อฉุกเฉิน (50%) + เบอร์ผู้ติดต่อฉุกเฉิน (50%) */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs text-hh-text-muted font-bold block">
+                      ชื่อผู้ติดต่อฉุกเฉิน (ถ้ามี)
+                    </label>
+                    <input
+                      type="text"
+                      value={members[activeMemberTab].emergencyName}
+                      onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value)}
+                      placeholder="ชื่อ-นามสกุล ผู้ติดต่อฉุกเฉิน"
                       className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
                     />
                   </div>
@@ -722,20 +736,6 @@ export default function RegisterPage() {
                       value={members[activeMemberTab].emergencyPhone}
                       onChange={(e) => updateMember(activeMemberTab, "emergencyPhone", e.target.value)}
                       placeholder="08X-XXX-XXXX"
-                      className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                    />
-                  </div>
-
-                  {/* Row 6: ชื่อผู้ติดต่อฉุกเฉิน (Full Width 2 Cols) */}
-                  <div className="space-y-1.5 md:col-span-2">
-                    <label className="text-xs text-hh-text-muted font-bold block">
-                      ชื่อผู้ติดต่อฉุกเฉิน (ถ้ามี)
-                    </label>
-                    <input
-                      type="text"
-                      value={members[activeMemberTab].emergencyName}
-                      onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value)}
-                      placeholder="ชื่อ-นามสกุล ผู้ติดต่อฉุกเฉิน"
                       className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
                     />
                   </div>
