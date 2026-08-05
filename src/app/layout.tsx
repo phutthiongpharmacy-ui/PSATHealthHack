@@ -42,11 +42,19 @@ export default function RootLayout({
       <head>
         <link
           rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        />
+        <link
+          rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         />
       </head>
       <body className="bg-background text-on-surface font-hanken min-h-screen flex flex-col antialiased">
         {children}
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          async
+        />
       </body>
     </html>
   );
