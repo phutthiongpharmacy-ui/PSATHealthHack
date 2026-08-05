@@ -332,7 +332,7 @@ export default function RegisterPage() {
         <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="text-center space-y-3">
-              <div className="inline-flex items-center justify-center w-13 h-13 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan mx-auto">
+              <div className="inline-flex items-center justify-center w-13 h-13 rounded-none bg-hh-cyan/15 border border-hh-cyan/40 text-hh-cyan mx-auto shadow-[0_0_12px_rgba(99,210,229,0.3)]">
                 <span className="material-symbols-outlined text-2xl">pin</span>
               </div>
               <h1 className="font-sora text-xl sm:text-2xl font-extrabold text-white">
@@ -340,7 +340,7 @@ export default function RegisterPage() {
               </h1>
               <p className="font-hanken text-xs sm:text-sm text-hh-text-muted leading-relaxed">
                 รหัสยืนยัน OTP ถูกส่งไปที่ <br className="sm:hidden" />
-                <span className="text-hh-cyan font-mono font-bold text-sm bg-hh-bg px-2.5 py-0.5 rounded-lg border border-hh-cyan/30 inline-block mt-1">{email}</span>
+                <span className="text-hh-cyan font-mono font-bold text-sm bg-hh-bg px-2.5 py-0.5 rounded-none border border-hh-cyan/30 inline-block mt-1">{email}</span>
               </p>
             </div>
 
@@ -355,7 +355,7 @@ export default function RegisterPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-9 sm:w-11 h-11 sm:h-13 bg-hh-bg border border-hh-cyan/50 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-lg sm:rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/30 focus:outline-none transition-all leading-none shadow-inner"
+                    className="w-9 sm:w-11 h-11 sm:h-13 bg-hh-bg border border-hh-cyan/60 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-none focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:outline-none transition-all leading-none shadow-inner"
                   />
                 ))}
               </div>
