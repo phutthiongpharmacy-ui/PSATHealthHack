@@ -535,7 +535,12 @@ export default function RegisterPage() {
                           : "bg-hh-surface border border-hh-border text-hh-text-muted hover:text-white"
                       }`}
                     >
-                      <span>{idx === 0 ? "👑 หัวหน้าทีม" : `👤 สมาชิกคนที่ ${idx + 1}`}</span>
+                      <span className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">
+                          {idx === 0 ? "stars" : "person"}
+                        </span>
+                        <span>{idx === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${idx + 1}`}</span>
+                      </span>
                       {complete && <span className="font-extrabold text-xs">✓</span>}
                       {members.length > 3 && idx >= 3 && (
                         <span
