@@ -92,13 +92,23 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
           </nav>
 
           {/* PRIS Orange Primary Conversion Button */}
-          <Link
-            href="/register"
-            className="bg-hh-action text-black font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2"
-          >
-            สมัครแข่งขัน
-            <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </Link>
+          {onOpenEligibility ? (
+            <button
+              onClick={onOpenEligibility}
+              className="bg-hh-action text-black font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2 cursor-pointer"
+            >
+              สมัครแข่งขัน
+              <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </button>
+          ) : (
+            <Link
+              href="/register"
+              className="bg-hh-action text-black font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2"
+            >
+              สมัครแข่งขัน
+              <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -164,13 +174,25 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             )}
           </nav>
           <div className="pt-2">
-            <Link
-              href="/register"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center block bg-hh-action text-black font-sora text-sm uppercase tracking-wider py-3.5 rounded-full font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)]"
-            >
-              สมัครแข่งขันตอนนี้
-            </Link>
+            {onOpenEligibility ? (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenEligibility();
+                }}
+                className="w-full text-center block bg-hh-action text-black font-sora text-sm uppercase tracking-wider py-3.5 rounded-full font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)] cursor-pointer"
+              >
+                สมัครแข่งขันตอนนี้
+              </button>
+            ) : (
+              <Link
+                href="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center block bg-hh-action text-black font-sora text-sm uppercase tracking-wider py-3.5 rounded-full font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)]"
+              >
+                สมัครแข่งขันตอนนี้
+              </Link>
+            )}
           </div>
         </div>
       )}
