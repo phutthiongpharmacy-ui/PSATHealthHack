@@ -93,8 +93,8 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา เพื่อยกระดับสุขภาพประชาชนไทย
           </p>
 
-          {/* Countdown Timer Module - Frameless Minimalist Divider Style */}
-          <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 py-4 px-6 sm:px-8 rounded-3xl bg-hh-bg/40 backdrop-blur-md border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+          {/* Countdown Timer Module - 100% Borderless Minimalist Divider Style */}
+          <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-10 py-2">
             {/* Days */}
             <div className="flex flex-col items-center min-w-[50px] sm:min-w-[70px]">
               <span className="font-sora text-4xl sm:text-5xl md:text-6xl text-white font-extrabold tracking-tight [text-shadow:0_0_20px_rgba(255,255,255,0.5)]">
