@@ -101,7 +101,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md">
               <span className="material-symbols-outlined text-hh-cyan text-base">verified</span>
-              <span className="font-semibold">สภาเภสัชกรรม ร่วมกับ 20 มหาวิทยาลัย</span>
+              <span className="font-semibold">สนภท. ร่วมกับ 20 มหาวิทยาลัย</span>
             </div>
           </div>
 
