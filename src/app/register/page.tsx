@@ -337,14 +337,8 @@ export default function RegisterPage() {
             <div className="text-center space-y-4">
               {/* Cyber OTP Icon Badge */}
               <div className="relative inline-flex items-center justify-center mx-auto group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-hh-cyan/50 to-hh-mint/40 rounded-sm blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/60 flex items-center justify-center text-hh-cyan shadow-[0_0_20px_rgba(99,210,229,0.3)]">
-                  {/* Cyber corner accents */}
-                  <span className="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-hh-cyan"></span>
-                  <span className="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-hh-cyan"></span>
-                  <span className="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-hh-cyan"></span>
-                  <span className="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-hh-cyan"></span>
-                  
+                <div className="absolute -inset-1 bg-gradient-to-r from-hh-cyan/50 to-hh-mint/40 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
+                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/60 rounded-2xl flex items-center justify-center text-hh-cyan shadow-[0_0_20px_rgba(99,210,229,0.3)]">
                   <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_8px_rgba(99,210,229,0.8)]">
                     mark_email_read
                   </span>
@@ -356,7 +350,7 @@ export default function RegisterPage() {
               </h1>
               <p className="font-hanken text-xs sm:text-sm text-hh-text-muted leading-relaxed">
                 รหัสยืนยัน OTP ถูกส่งไปที่ <br className="sm:hidden" />
-                <span className="text-hh-cyan font-mono font-bold text-sm bg-hh-bg px-2.5 py-0.5 rounded-none border border-hh-cyan/30 inline-block mt-1">{email}</span>
+                <span className="text-hh-cyan font-mono font-bold text-sm bg-hh-bg px-2.5 py-0.5 rounded-lg border border-hh-cyan/30 inline-block mt-1">{email}</span>
               </p>
             </div>
 
@@ -371,7 +365,7 @@ export default function RegisterPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-9 sm:w-11 h-11 sm:h-13 bg-hh-bg border border-hh-cyan/60 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-none focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:outline-none transition-all leading-none shadow-inner"
+                    className="w-9 sm:w-11 h-11 sm:h-13 bg-hh-bg border border-hh-cyan/60 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:outline-none transition-all leading-none shadow-inner"
                   />
                 ))}
               </div>
