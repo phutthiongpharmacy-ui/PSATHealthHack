@@ -19,7 +19,7 @@ export default function RegisterPage() {
   const [otpError, setOtpError] = useState("");
   const [timerSeconds, setTimerSeconds] = useState(90);
 
-  // Step 3: Team & Member Details
+  // Step 3: Team & Member Details (Minimum 3 members, Maximum 5 members)
   const [teamName, setTeamName] = useState("");
   const [teamType, setTeamType] = useState<"pharmacy" | "non-pharmacy">("pharmacy");
 
@@ -37,20 +37,25 @@ export default function RegisterPage() {
     emergencyPhone: string;
   }
 
+  const createEmptyMember = (): Member => ({
+    title: "",
+    fullName: "",
+    nickname: "",
+    age: "",
+    institution: "",
+    allergies: "",
+    email: "",
+    lineId: "",
+    phone: "",
+    emergencyName: "",
+    emergencyPhone: "",
+  });
+
+  // Default initialize with 3 members (Minimum 3 required per team)
   const [members, setMembers] = useState<Member[]>([
-    {
-      title: "",
-      fullName: "",
-      nickname: "",
-      age: "",
-      institution: "",
-      allergies: "",
-      email: "",
-      lineId: "",
-      phone: "",
-      emergencyName: "",
-      emergencyPhone: "",
-    },
+    createEmptyMember(),
+    createEmptyMember(),
+    createEmptyMember(),
   ]);
 
   const [activeMemberTab, setActiveMemberTab] = useState(0);
@@ -127,33 +132,23 @@ export default function RegisterPage() {
 
   const addMember = () => {
     if (members.length >= 5) {
-      alert("สามารถเพิ่มสมาชิกได้สูงสุด 5 คนต่อทีม");
+      alert("สามารถเพิ่มสมาชิกได้สูงสุด 5 คนต่อทีมเท่านั้น");
       return;
     }
-    // Auto fill institution from leader if available
     const leaderInst = members[0]?.institution || "";
     setMembers((prev) => [
       ...prev,
       {
-        title: "",
-        fullName: "",
-        nickname: "",
-        age: "",
+        ...createEmptyMember(),
         institution: leaderInst,
-        allergies: "",
-        email: "",
-        lineId: "",
-        phone: "",
-        emergencyName: "",
-        emergencyPhone: "",
       },
     ]);
     setActiveMemberTab(members.length);
   };
 
   const removeMember = (index: number) => {
-    if (members.length <= 1) {
-      alert("ต้องมีสมาชิกอย่างน้อย 1 คน");
+    if (members.length <= 3) {
+      alert("ทีมต้องมีสมาชิกอย่างน้อย 3 คนขึ้นไป (จำกัด 3 - 5 คนต่อทีม)");
       return;
     }
     setMembers((prev) => prev.filter((_, i) => i !== index));
@@ -172,8 +167,12 @@ export default function RegisterPage() {
       alert("กรุณากรอกชื่อทีม");
       return;
     }
+    if (members.length < 3) {
+      alert("ทีมต้องมีสมาชิกอย่างน้อย 3 คนขึ้นไป (3 - 5 คน)");
+      return;
+    }
     const emptyMemberIndex = members.findIndex(
-      (m) => !m.fullName.trim() || !m.title || !m.institution.trim() || !m.phone.trim()
+      (m) => !m.fullName.trim() || !m.title || !m.institution.trim() || !m.phone.trim() || !m.email.trim()
     );
     if (emptyMemberIndex !== -1) {
       setActiveMemberTab(emptyMemberIndex);
@@ -401,7 +400,7 @@ export default function RegisterPage() {
         </div>
       )}
 
-      {/* STEP 3: HIGH-EASE STREAMLINED FORM UI */}
+      {/* STEP 3: HIGH-EASE STREAMLINED FORM UI (MIN 3 MEMBERS, MAX 5 MEMBERS) */}
       {step === 3 && (
         <div className="z-10 w-full max-w-3xl my-4">
           <form onSubmit={handleSubmitRegistration} className="bg-hh-surface/90 backdrop-blur-2xl border border-hh-border/60 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-8">
@@ -415,7 +414,7 @@ export default function RegisterPage() {
                 ข้อมูลการสมัครสมาชิกและทีม
               </h1>
               <p className="text-xs sm:text-sm text-hh-text-muted">
-                กรุณากรอกข้อมูลให้ครบถ้วนก่อนยืนยันการลงทะเบียน
+                สมาชิกขั้นต่ำต้องมีอย่างน้อย 3 คน แต่ไม่เกิน 5 คนต่อทีม
               </p>
             </div>
 
@@ -497,13 +496,13 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* SECTION 2: TEAM MEMBERS INFO */}
+            {/* SECTION 2: TEAM MEMBERS INFO (MIN 3 MEMBERS, MAX 5 MEMBERS) */}
             <div className="p-5 sm:p-6 rounded-2xl bg-hh-bg/60 border border-hh-border/60 space-y-5">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hh-border/30 pb-3 gap-2">
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-hh-cyan text-xl">badge</span>
                   <h2 className="font-sora text-lg font-bold text-white">
-                    ส่วนที่ 2: ข้อมูลสมาชิกในทีม ({members.length}/5 คน)
+                    ส่วนที่ 2: ข้อมูลสมาชิกในทีม ({members.length}/5 คน • ขั้นต่ำ 3 คน)
                   </h2>
                 </div>
 
@@ -538,7 +537,7 @@ export default function RegisterPage() {
                     >
                       <span>{idx === 0 ? "👑 หัวหน้าทีม" : `👤 สมาชิกคนที่ ${idx + 1}`}</span>
                       {complete && <span className="font-extrabold text-xs">✓</span>}
-                      {members.length > 1 && idx > 0 && (
+                      {members.length > 3 && idx >= 3 && (
                         <span
                           onClick={(e) => {
                             e.stopPropagation();
@@ -740,15 +739,18 @@ export default function RegisterPage() {
 
             {/* ACTION SUBMIT BUTTON BAR */}
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-hh-border/40">
-              <button
-                type="button"
-                onClick={addMember}
-                disabled={members.length >= 5}
-                className="w-full sm:w-auto px-5 py-3 border border-hh-border rounded-xl font-sora text-xs font-bold text-white hover:bg-white/10 transition-colors uppercase disabled:opacity-40 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span className="material-symbols-outlined text-base">person_add</span>
-                + เพิ่มสมาชิกอีกคน ({members.length}/5)
-              </button>
+              {members.length < 5 ? (
+                <button
+                  type="button"
+                  onClick={addMember}
+                  className="w-full sm:w-auto px-5 py-3 border border-hh-border rounded-xl font-sora text-xs font-bold text-white hover:bg-white/10 transition-colors uppercase cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span className="material-symbols-outlined text-base">person_add</span>
+                  + เพิ่มสมาชิกคนที่ {members.length + 1} (สูงสุด 5 คน)
+                </button>
+              ) : (
+                <div className="text-xs text-hh-emerald font-mono font-bold">✓ สมาชิกครบตามโควตาสูงสุดแล้ว (5/5 คน)</div>
+              )}
 
               <button
                 type="submit"
