@@ -51,7 +51,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
       <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop my-auto text-center flex flex-col items-center">
         <div className="space-y-4 sm:space-y-5 md:space-y-6 flex flex-col items-center w-full max-w-4xl">
           
-          {/* Top Organization Logos Container */}
+          {/* 1. Top Organization Logos Container */}
           <div className="flex items-center justify-center gap-5 sm:gap-7 pt-1 pb-1">
             {/* PSAT Logo */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 bg-white rounded-2xl p-2 border border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.35)] flex items-center justify-center transition-all hover:scale-105">
@@ -80,20 +80,66 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl lg:text-[54px] leading-tight text-white font-extrabold tracking-tight">
+          {/* 2. Main Headline Banner */}
+          <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl lg:text-[56px] leading-tight text-white font-extrabold tracking-tight">
             PSAT HealthHack 2026 <br />
             <span className="text-hh-cyan [text-shadow:0_0_25px_rgba(99,210,229,0.5)] text-xl sm:text-2xl md:text-3xl block mt-1.5 font-bold">
               นวัตกรรมเพื่อสุขภาพแห่งอนาคต
             </span>
           </h1>
 
-          {/* Promise Statement (<= 20 words) */}
+          {/* Promise Statement */}
           <p className="font-hanken text-sm sm:text-base md:text-lg text-hh-text-muted max-w-xl leading-relaxed">
             พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา เพื่อยกระดับสุขภาพประชาชนไทย
           </p>
 
-          {/* Countdown Timer Module - 100% Borderless Minimalist Divider Style */}
+          {/* 3. Event Date & Info Badges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-hanken text-xs sm:text-sm text-white/90">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md">
+              <span className="material-symbols-outlined text-hh-cyan text-base">calendar_month</span>
+              <span className="font-semibold">15 สิงหาคม – 20 กันยายน 2569</span>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md">
+              <span className="material-symbols-outlined text-hh-cyan text-base">verified</span>
+              <span className="font-semibold">สภาเภสัชกรรม ร่วมกับ 20 มหาวิทยาลัย</span>
+            </div>
+          </div>
+
+          {/* 4. Premium Action Conversion Buttons (Reference Image Style) */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+            {/* Primary Orange Button */}
+            <button
+              onClick={onOpenEligibility}
+              className="relative flex items-center justify-between w-full sm:w-auto min-w-[260px] sm:min-w-[280px] px-5 py-3.5 rounded-full bg-gradient-to-r from-[#FF5500] via-[#FF6A00] to-[#FF8800] text-white font-sora font-extrabold text-base shadow-[0_0_30px_rgba(255,106,0,0.6)] hover:brightness-110 active:scale-95 transition-all cursor-pointer group"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_8px_#fff]" />
+              <span className="px-3">สมัครแข่งขันตอนนี้</span>
+              <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#FF6A00] shadow-md group-hover:translate-x-0.5 transition-transform">
+                <span className="material-symbols-outlined text-lg font-bold">arrow_forward</span>
+              </span>
+            </button>
+
+            {/* Secondary Glossy White Button */}
+            <Link
+              href="/schedule"
+              className="relative flex items-center justify-between w-full sm:w-auto min-w-[260px] sm:min-w-[280px] px-5 py-3.5 rounded-full bg-gradient-to-r from-white via-cyan-50 to-cyan-100 text-slate-900 font-sora font-extrabold text-base shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:bg-white active:scale-95 transition-all group"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-[#00A8CC] shadow-[0_0_8px_#00A8CC]" />
+              <span className="px-3">ดูกำหนดการ</span>
+              <span className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center text-white shadow-md group-hover:translate-x-0.5 transition-transform">
+                <span className="material-symbols-outlined text-lg font-bold">arrow_forward</span>
+              </span>
+            </Link>
+          </div>
+
+          {/* 5. Countdown Section Header Label */}
+          <div className="pt-2">
+            <p className="font-mono text-xs text-white/70 uppercase tracking-[0.25em] font-bold">
+              นับถอยหลังสู่ PSAT HealthHack 2026
+            </p>
+          </div>
+
+          {/* 6. Countdown Timer Module at the Bottom */}
           <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-8 py-1">
             {/* Days */}
             <div className="flex flex-col items-center min-w-[45px] sm:min-w-[60px]">
@@ -140,35 +186,6 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
                 วินาที
               </span>
             </div>
-          </div>
-
-          {/* Registration Date Pill Badge directly under Countdown Timer */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md">
-            <span className="font-mono text-[11px] sm:text-xs text-hh-cyan tracking-wider uppercase font-semibold">
-              PSAT HealthHack 2026 • Registration Open (15 Aug – 20 Sep 2026)
-            </span>
-          </div>
-
-          {/* Action Conversion Buttons */}
-          <div className="pt-2 flex flex-wrap gap-3.5 justify-center">
-            <button
-              onClick={onOpenEligibility}
-              className="bg-hh-action text-black font-sora text-sm sm:text-base px-7 py-3.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-95 flex items-center gap-2 cursor-pointer"
-            >
-              สมัครแข่งขันตอนนี้
-              <span className="material-symbols-outlined text-lg sm:text-xl">
-                arrow_forward
-              </span>
-            </button>
-            <Link
-              href="/schedule"
-              className="bg-hh-surface-raised border border-hh-cyan/40 text-hh-cyan font-sora text-sm sm:text-base px-7 py-3.5 rounded-full font-bold hover:bg-hh-cyan/15 transition-all backdrop-blur-md flex items-center gap-2"
-            >
-              ดูกำหนดการ
-              <span className="material-symbols-outlined text-lg sm:text-xl">
-                calendar_month
-              </span>
-            </Link>
           </div>
         </div>
       </div>
