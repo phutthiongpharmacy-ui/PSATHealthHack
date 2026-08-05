@@ -221,13 +221,12 @@ export default function RegisterPage() {
         <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center">
           {/* Step 1 */}
           <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${
-              step === 1
+            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 1
                 ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
                 : step > 1
-                ? "bg-hh-emerald text-black"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
-            }`}>
+                  ? "bg-hh-emerald text-black"
+                  : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              }`}>
               {step > 1 ? <span className="material-symbols-outlined text-lg">check</span> : "1"}
             </div>
             <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 1 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
@@ -237,13 +236,12 @@ export default function RegisterPage() {
 
           {/* Step 2 */}
           <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${
-              step === 2
+            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 2
                 ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
                 : step > 2
-                ? "bg-hh-emerald text-black"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
-            }`}>
+                  ? "bg-hh-emerald text-black"
+                  : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              }`}>
               {step > 2 ? <span className="material-symbols-outlined text-lg">check</span> : "2"}
             </div>
             <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 2 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
@@ -253,13 +251,12 @@ export default function RegisterPage() {
 
           {/* Step 3 */}
           <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${
-              step === 3
+            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 3
                 ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
                 : step > 3
-                ? "bg-hh-emerald text-black"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
-            }`}>
+                  ? "bg-hh-emerald text-black"
+                  : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              }`}>
               {step > 3 ? <span className="material-symbols-outlined text-lg">check</span> : "3"}
             </div>
             <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 3 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
@@ -269,11 +266,10 @@ export default function RegisterPage() {
 
           {/* Step 4 */}
           <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${
-              step === 4
+            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 4
                 ? "bg-hh-emerald text-black shadow-[0_0_15px_rgba(42,194,152,0.6)]"
                 : "bg-hh-surface border border-hh-border text-hh-text-muted"
-            }`}>
+              }`}>
               4
             </div>
             <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 4 ? "text-hh-emerald font-bold" : "text-hh-text-muted"}`}>
@@ -287,9 +283,12 @@ export default function RegisterPage() {
       {step === 1 && (
         <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center justify-center w-13 h-13 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan mx-auto">
-                <span className="material-symbols-outlined text-2xl">mail</span>
+            <div className="text-center space-y-4">
+              <div className="relative inline-flex items-center justify-center mx-auto">
+                <div className="absolute -inset-1 bg-gradient-to-br from-hh-cyan/40 to-hh-mint/30 rounded-2xl blur-md opacity-70"></div>
+                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/50 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,210,229,0.25)]">
+                  <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_6px_rgba(99,210,229,0.7)]">forward_to_inbox</span>
+                </div>
               </div>
               <h1 className="font-sora text-xl sm:text-2xl font-extrabold text-white">
                 ยืนยันตัวตนด้วยอีเมล
@@ -336,12 +335,10 @@ export default function RegisterPage() {
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="text-center space-y-4">
               {/* Cyber OTP Icon Badge */}
-              <div className="relative inline-flex items-center justify-center mx-auto group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-hh-cyan/50 to-hh-mint/40 rounded-2xl blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/60 rounded-2xl flex items-center justify-center text-hh-cyan shadow-[0_0_20px_rgba(99,210,229,0.3)]">
-                  <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_8px_rgba(99,210,229,0.8)]">
-                    mark_email_read
-                  </span>
+              <div className="relative inline-flex items-center justify-center mx-auto">
+                <div className="absolute -inset-1 bg-gradient-to-br from-hh-cyan/40 to-hh-mint/30 rounded-2xl blur-md opacity-70"></div>
+                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/50 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,210,229,0.25)]">
+                  <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_6px_rgba(99,210,229,0.7)]">enhanced_encryption</span>
                 </div>
               </div>
 
@@ -355,7 +352,7 @@ export default function RegisterPage() {
             </div>
 
             <form onSubmit={handleVerifyOtp} className="space-y-6">
-              <div className="flex justify-center gap-2 sm:gap-3">
+              <div className="flex justify-center gap-2.5 sm:gap-3">
                 {otp.map((digit, idx) => (
                   <input
                     key={idx}
@@ -365,7 +362,7 @@ export default function RegisterPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-10 sm:w-12 h-12 sm:h-14 bg-hh-bg border-2 border-hh-cyan/60 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:bg-hh-cyan/10 focus:outline-none transition-all shadow-[0_0_12px_rgba(99,210,229,0.2)]"
+                    className="w-10 sm:w-12 h-12 sm:h-14 bg-hh-bg border-2 border-hh-cyan/50 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:bg-hh-cyan/5 focus:outline-none transition-all shadow-[0_0_8px_rgba(99,210,229,0.15)]"
                   />
                 ))}
               </div>
@@ -415,7 +412,7 @@ export default function RegisterPage() {
       {step === 3 && (
         <div className="z-10 w-full max-w-3xl my-4">
           <form onSubmit={handleSubmitRegistration} className="bg-hh-surface/90 backdrop-blur-2xl border border-hh-border/60 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-8">
-            
+
             {/* Header Title */}
             <div className="border-b border-hh-border/40 pb-4 space-y-1 text-center sm:text-left">
               <span className="font-mono text-xs text-hh-cyan uppercase tracking-wider font-bold bg-hh-cyan/10 px-3 py-1 rounded-full border border-hh-cyan/30 inline-block">
@@ -463,11 +460,10 @@ export default function RegisterPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div
                       onClick={() => setEducationLevel("university")}
-                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
-                        educationLevel === "university"
+                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${educationLevel === "university"
                           ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
                           : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
-                      }`}
+                        }`}
                     >
                       <input
                         type="radio"
@@ -484,11 +480,10 @@ export default function RegisterPage() {
 
                     <div
                       onClick={() => setEducationLevel("highschool")}
-                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
-                        educationLevel === "highschool"
+                      className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${educationLevel === "highschool"
                           ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
                           : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
-                      }`}
+                        }`}
                     >
                       <input
                         type="radio"
@@ -516,11 +511,10 @@ export default function RegisterPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div
                         onClick={() => setTeamType("pharmacy")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
-                          teamType === "pharmacy"
+                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${teamType === "pharmacy"
                             ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
                             : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
-                        }`}
+                          }`}
                       >
                         <input
                           type="radio"
@@ -537,11 +531,10 @@ export default function RegisterPage() {
 
                       <div
                         onClick={() => setTeamType("non-pharmacy")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${
-                          teamType === "non-pharmacy"
+                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${teamType === "non-pharmacy"
                             ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
                             : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
-                        }`}
+                          }`}
                       >
                         <input
                           type="radio"
@@ -592,13 +585,12 @@ export default function RegisterPage() {
                       key={idx}
                       type="button"
                       onClick={() => setActiveMemberTab(idx)}
-                      className={`px-4 py-2.5 rounded-xl font-sora text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
-                        activeMemberTab === idx
+                      className={`px-4 py-2.5 rounded-xl font-sora text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${activeMemberTab === idx
                           ? "bg-hh-cyan text-black shadow-[0_0_15px_rgba(99,210,229,0.5)] scale-105"
                           : complete
-                          ? "bg-hh-emerald/20 border border-hh-emerald/40 text-hh-emerald hover:bg-hh-emerald/30"
-                          : "bg-hh-surface border border-hh-border text-hh-text-muted hover:text-white"
-                      }`}
+                            ? "bg-hh-emerald/20 border border-hh-emerald/40 text-hh-emerald hover:bg-hh-emerald/30"
+                            : "bg-hh-surface border border-hh-border text-hh-text-muted hover:text-white"
+                        }`}
                     >
                       <span className="flex items-center gap-1">
                         <span className="material-symbols-outlined text-sm">
@@ -647,11 +639,10 @@ export default function RegisterPage() {
                             key={t}
                             type="button"
                             onClick={() => updateMember(activeMemberTab, "title", t)}
-                            className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${
-                              members[activeMemberTab].title === t
+                            className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${members[activeMemberTab].title === t
                                 ? "bg-hh-cyan text-black shadow-[0_0_10px_rgba(99,210,229,0.4)]"
                                 : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
-                            }`}
+                              }`}
                           >
                             {t}
                           </button>
@@ -782,11 +773,10 @@ export default function RegisterPage() {
                                 key={g}
                                 type="button"
                                 onClick={() => updateMember(activeMemberTab, "gradeLevel", g)}
-                                className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${
-                                  members[activeMemberTab].gradeLevel === g
+                                className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${members[activeMemberTab].gradeLevel === g
                                     ? "bg-hh-cyan text-black shadow-[0_0_10px_rgba(99,210,229,0.4)]"
                                     : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
-                                }`}
+                                  }`}
                               >
                                 {g}
                               </button>
