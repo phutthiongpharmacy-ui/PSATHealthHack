@@ -51,16 +51,22 @@
     outline: 2px solid #63d2e5;
     outline-offset: 2px;
   }
+}
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+/* Global Link & Button Underline Reset (Overrides Bootstrap defaults) */
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited,
+.nav-link,
+button {
+  text-decoration: none !important;
+}
 
-  body {
-    background-color: var(--hh-bg) !important;
-    color: var(--hh-text) !important;
-  }
+body {
+  background-color: var(--hh-bg) !important;
+  color: var(--hh-text) !important;
 }
 
 @layer utilities {
