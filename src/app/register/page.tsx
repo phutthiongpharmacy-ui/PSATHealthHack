@@ -23,13 +23,20 @@ export default function RegisterPage() {
   const [teamName, setTeamName] = useState("");
   const [educationLevel, setEducationLevel] = useState<"university" | "highschool">("university");
   const [teamType, setTeamType] = useState<"pharmacy" | "non-pharmacy">("pharmacy");
+  const [isTeamTypeOpen, setIsTeamTypeOpen] = useState(false);
+  const [isMemberCountOpen, setIsMemberCountOpen] = useState(false);
+  const [isGradeLevelOpen, setIsGradeLevelOpen] = useState(false);
+  const [isAllergyOpen, setIsAllergyOpen] = useState(false);
 
   interface Member {
     title: string;
+    firstName: string;
+    lastName: string;
     fullName: string;
     nickname: string;
     age: string;
     institution: string;
+    faculty: string;
     gradeLevel: string;
     allergies: string;
     email: string;
@@ -41,12 +48,15 @@ export default function RegisterPage() {
 
   const createEmptyMember = (): Member => ({
     title: "",
+    firstName: "",
+    lastName: "",
     fullName: "",
     nickname: "",
     age: "",
     institution: "",
+    faculty: "",
     gradeLevel: "",
-    allergies: "",
+    allergies: "ไม่มี",
     email: "",
     lineId: "",
     phone: "",
@@ -149,6 +159,27 @@ export default function RegisterPage() {
     setActiveMemberTab(members.length);
   };
 
+  const setMemberCount = (targetCount: number) => {
+    if (targetCount < 3 || targetCount > 5) return;
+    setMembers((prev) => {
+      if (prev.length === targetCount) return prev;
+      if (prev.length < targetCount) {
+        const leaderInst = prev[0]?.institution || "";
+        const addedCount = targetCount - prev.length;
+        const newItems = Array.from({ length: addedCount }, () => ({
+          ...createEmptyMember(),
+          institution: leaderInst,
+        }));
+        return [...prev, ...newItems];
+      } else {
+        return prev.slice(0, targetCount);
+      }
+    });
+    if (activeMemberTab >= targetCount) {
+      setActiveMemberTab(targetCount - 1);
+    }
+  };
+
   const removeMember = (index: number) => {
     if (members.length <= 3) {
       alert("ทีมต้องมีสมาชิกอย่างน้อย 3 คนขึ้นไป (จำกัด 3 - 5 คนต่อทีม)");
@@ -159,8 +190,16 @@ export default function RegisterPage() {
   };
 
   const copyInstitutionFromLeader = (index: number) => {
-    if (members[0]?.institution) {
-      updateMember(index, "institution", members[0].institution);
+    if (members[0]?.institution || members[0]?.faculty) {
+      setMembers((prev) => {
+        const updated = [...prev];
+        updated[index] = {
+          ...updated[index],
+          institution: prev[0].institution || updated[index].institution,
+          faculty: prev[0].faculty || updated[index].faculty,
+        };
+        return updated;
+      });
     }
   };
 
@@ -174,19 +213,73 @@ export default function RegisterPage() {
       alert("ทีมต้องมีสมาชิกอย่างน้อย 3 คนขึ้นไป (3 - 5 คน)");
       return;
     }
+    const noTitleIndex = members.findIndex((m) => !m.title);
+    if (noTitleIndex !== -1) {
+      setActiveMemberTab(noTitleIndex);
+      alert(`กรุณาเลือกคำนำหน้าชื่อของ ${noTitleIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${noTitleIndex + 1}`}`);
+      return;
+    }
+
+    const noAgeIndex = members.findIndex((m) => !m.age || !m.age.trim());
+    if (noAgeIndex !== -1) {
+      setActiveMemberTab(noAgeIndex);
+      alert(`กรุณากรอกอายุของ ${noAgeIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${noAgeIndex + 1}`} (ระหว่าง 15 - 30 ปี)`);
+      return;
+    }
+
+    const invalidAgeIndex = members.findIndex((m) => {
+      const ageNum = parseInt(m.age, 10);
+      return isNaN(ageNum) || ageNum < 15 || ageNum > 30;
+    });
+    if (invalidAgeIndex !== -1) {
+      setActiveMemberTab(invalidAgeIndex);
+      alert(`อายุของ ${invalidAgeIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${invalidAgeIndex + 1}`} ต้องอยู่ระหว่าง 15 - 30 ปี`);
+      return;
+    }
+
     const emptyMemberIndex = members.findIndex(
-      (m) => !m.fullName.trim() || !m.title || !m.institution.trim() || !m.phone.trim() || !m.email.trim()
+      (m) =>
+        (!m.firstName.trim() && !m.fullName.trim()) ||
+        !m.title ||
+        !m.institution.trim() ||
+        !m.phone.trim() ||
+        !m.email.trim() ||
+        !m.age.trim()
     );
     if (emptyMemberIndex !== -1) {
       setActiveMemberTab(emptyMemberIndex);
       alert(`กรุณากรอกข้อมูลจำเป็นของ ${emptyMemberIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${emptyMemberIndex + 1}`} ให้ครบถ้วน`);
       return;
     }
+
+    const invalidPhoneIndex = members.findIndex((m) => m.phone.length !== 10);
+    if (invalidPhoneIndex !== -1) {
+      setActiveMemberTab(invalidPhoneIndex);
+      alert(`กรุณากรอกเบอร์โทรศัพท์ของ ${invalidPhoneIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${invalidPhoneIndex + 1}`} ให้ครบ 10 หลัก (เช่น 08XXXXXXXX)`);
+      return;
+    }
+
+    const invalidEmergencyPhoneIndex = members.findIndex((m) => m.emergencyPhone && m.emergencyPhone.length !== 10);
+    if (invalidEmergencyPhoneIndex !== -1) {
+      setActiveMemberTab(invalidEmergencyPhoneIndex);
+      alert(`กรุณากรอกเบอร์ผู้ติดต่อฉุกเฉินของ ${invalidEmergencyPhoneIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${invalidEmergencyPhoneIndex + 1}`} ให้ครบ 10 หลัก`);
+      return;
+    }
+
     setStep(4);
   };
 
   const isMemberComplete = (m: Member) => {
-    return Boolean(m.fullName.trim() && m.title && m.institution.trim() && m.phone.trim() && m.email.trim());
+    const ageNum = parseInt(m.age, 10);
+    const isAgeValid = !isNaN(ageNum) && ageNum >= 15 && ageNum <= 30;
+    return Boolean(
+      (m.firstName.trim() || m.fullName.trim()) &&
+      m.title &&
+      m.institution.trim() &&
+      m.phone.trim().length === 10 &&
+      m.email.trim() &&
+      isAgeValid
+    );
   };
 
   const formatTimer = (seconds: number) => {
@@ -222,10 +315,10 @@ export default function RegisterPage() {
           {/* Step 1 */}
           <div className="flex flex-col items-center">
             <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 1
-                ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
-                : step > 1
-                  ? "bg-hh-emerald text-black"
-                  : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
+              : step > 1
+                ? "bg-hh-emerald text-black"
+                : "bg-hh-surface border border-hh-border text-hh-text-muted"
               }`}>
               {step > 1 ? <span className="material-symbols-outlined text-lg">check</span> : "1"}
             </div>
@@ -237,10 +330,10 @@ export default function RegisterPage() {
           {/* Step 2 */}
           <div className="flex flex-col items-center">
             <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 2
-                ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
-                : step > 2
-                  ? "bg-hh-emerald text-black"
-                  : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
+              : step > 2
+                ? "bg-hh-emerald text-black"
+                : "bg-hh-surface border border-hh-border text-hh-text-muted"
               }`}>
               {step > 2 ? <span className="material-symbols-outlined text-lg">check</span> : "2"}
             </div>
@@ -252,10 +345,10 @@ export default function RegisterPage() {
           {/* Step 3 */}
           <div className="flex flex-col items-center">
             <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 3
-                ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
-                : step > 3
-                  ? "bg-hh-emerald text-black"
-                  : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
+              : step > 3
+                ? "bg-hh-emerald text-black"
+                : "bg-hh-surface border border-hh-border text-hh-text-muted"
               }`}>
               {step > 3 ? <span className="material-symbols-outlined text-lg">check</span> : "3"}
             </div>
@@ -267,8 +360,8 @@ export default function RegisterPage() {
           {/* Step 4 */}
           <div className="flex flex-col items-center">
             <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 4
-                ? "bg-hh-emerald text-black shadow-[0_0_15px_rgba(42,194,152,0.6)]"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
+              ? "bg-hh-emerald text-black shadow-[0_0_15px_rgba(42,194,152,0.6)]"
+              : "bg-hh-surface border border-hh-border text-hh-text-muted"
               }`}>
               4
             </div>
@@ -284,10 +377,9 @@ export default function RegisterPage() {
         <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="text-center space-y-4">
-              <div className="relative inline-flex items-center justify-center mx-auto">
-                <div className="absolute -inset-1 bg-gradient-to-br from-hh-cyan/40 to-hh-mint/30 rounded-2xl blur-md opacity-70"></div>
-                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/50 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,210,229,0.25)]">
-                  <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_6px_rgba(99,210,229,0.7)]">forward_to_inbox</span>
+              <div className="inline-flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 bg-hh-surface border border-hh-border/80 rounded-2xl flex items-center justify-center">
+                  <span className="material-symbols-outlined text-3xl text-hh-cyan">forward_to_inbox</span>
                 </div>
               </div>
               <h1 className="font-sora text-xl sm:text-2xl font-extrabold text-white">
@@ -302,7 +394,7 @@ export default function RegisterPage() {
               <div className="space-y-2">
                 <label className="text-xs font-bold text-hh-cyan tracking-wider flex items-center gap-1.5 font-mono">
                   <span className="material-symbols-outlined text-sm">alternate_email</span>
-                  อีเมลของคุณ (EMAIL) *
+                  อีเมลของคุณ (EMAIL)
                 </label>
                 <input
                   type="email"
@@ -334,11 +426,10 @@ export default function RegisterPage() {
         <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="text-center space-y-4">
-              {/* Cyber OTP Icon Badge */}
-              <div className="relative inline-flex items-center justify-center mx-auto">
-                <div className="absolute -inset-1 bg-gradient-to-br from-hh-cyan/40 to-hh-mint/30 rounded-2xl blur-md opacity-70"></div>
-                <div className="relative w-16 h-16 bg-hh-surface border border-hh-cyan/50 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,210,229,0.25)]">
-                  <span className="material-symbols-outlined text-3xl text-hh-cyan drop-shadow-[0_0_6px_rgba(99,210,229,0.7)]">enhanced_encryption</span>
+              {/* OTP Icon Badge */}
+              <div className="inline-flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 bg-hh-surface border border-hh-border/80 rounded-2xl flex items-center justify-center">
+                  <span className="material-symbols-outlined text-3xl text-hh-cyan">enhanced_encryption</span>
                 </div>
               </div>
 
@@ -362,7 +453,7 @@ export default function RegisterPage() {
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-10 sm:w-12 h-12 sm:h-14 bg-hh-bg border-2 border-hh-cyan/50 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:bg-hh-cyan/5 focus:outline-none transition-all shadow-[0_0_8px_rgba(99,210,229,0.15)]"
+                    className="w-10 sm:w-12 h-12 sm:h-14 bg-hh-bg border-2 border-hh-cyan/50 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:bg-hh-cyan/5 focus:outline-none transition-all"
                   />
                 ))}
               </div>
@@ -397,7 +488,7 @@ export default function RegisterPage() {
                 </button>
                 <button
                   type="submit"
-                  className="w-2/3 py-3.5 bg-hh-action text-black font-sora text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 hover:bg-orange-400 transition-all shadow-[0_0_20px_rgba(255,106,0,0.5)] active:scale-98 cursor-pointer"
+                  className="w-2/3 py-3.5 bg-hh-action text-black font-sora text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 hover:bg-orange-400 transition-all active:scale-98 cursor-pointer"
                 >
                   ยืนยัน OTP
                   <span className="material-symbols-outlined text-lg">arrow_forward</span>
@@ -436,9 +527,8 @@ export default function RegisterPage() {
               <div className="space-y-4">
                 {/* Team Name */}
                 <div className="space-y-1.5">
-                  <label className="text-xs text-white font-bold flex items-center justify-between">
-                    <span>ชื่อทีม (Team Name) <span className="text-hh-action">*</span></span>
-                    <span className="text-[11px] text-hh-text-muted font-normal font-mono">จำเป็น</span>
+                  <label className="text-xs text-white font-bold block">
+                    <span>ชื่อทีม (Team Name)</span>
                   </label>
                   <input
                     type="text"
@@ -452,17 +542,16 @@ export default function RegisterPage() {
 
                 {/* Education Level Selection */}
                 <div className="space-y-2">
-                  <label className="text-xs text-white font-bold flex items-center justify-between">
-                    <span>ระดับการศึกษา <span className="text-hh-action">*</span></span>
-                    <span className="text-[11px] text-hh-text-muted font-normal font-mono">จำเป็น</span>
+                  <label className="text-xs text-white font-bold block">
+                    <span>ระดับการศึกษา</span>
                   </label>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div
                       onClick={() => setEducationLevel("university")}
                       className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${educationLevel === "university"
-                          ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
-                          : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
+                        ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
+                        : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
                         }`}
                     >
                       <input
@@ -481,8 +570,8 @@ export default function RegisterPage() {
                     <div
                       onClick={() => setEducationLevel("highschool")}
                       className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${educationLevel === "highschool"
-                          ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
-                          : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
+                        ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
+                        : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
                         }`}
                     >
                       <input
@@ -500,54 +589,75 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Team Type Sub-Option (University Only) */}
+                {/* Team Type Sub-Option (University Only) - Custom Cyber Dropdown */}
                 {educationLevel === "university" && (
-                  <div className="space-y-2">
-                    <label className="text-xs text-white font-bold flex items-center justify-between">
-                      <span>ประเภททีม (Team Type) <span className="text-hh-action">*</span></span>
-                      <span className="text-[11px] text-hh-text-muted font-normal font-mono">จำเป็น</span>
+                  <div className="space-y-1.5 pt-1 relative">
+                    <label className="text-xs text-white font-bold block">
+                      ประเภททีม (Team Type)
                     </label>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div
-                        onClick={() => setTeamType("pharmacy")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${teamType === "pharmacy"
-                            ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
-                            : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
+                    <div className="relative">
+                      {/* Trigger button */}
+                      <button
+                        type="button"
+                        onClick={() => setIsTeamTypeOpen(!isTeamTypeOpen)}
+                        className={`bg-hh-bg border border-hh-border rounded-xl px-3.5 py-3 text-white text-xs sm:text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan focus:outline-none transition-all flex items-center justify-between cursor-pointer hover:border-hh-cyan/50 gap-3 ${teamType === "non-pharmacy" ? "w-full max-w-[340px]" : "w-full"
                           }`}
                       >
-                        <input
-                          type="radio"
-                          name="teamTypeRadio"
-                          checked={teamType === "pharmacy"}
-                          onChange={() => setTeamType("pharmacy")}
-                          className="accent-hh-cyan w-4 h-4"
-                        />
-                        <div>
-                          <div className="font-sora text-xs sm:text-sm font-bold text-white">ทีมที่มีนิสิต/นักศึกษาเภสัชศาสตร์</div>
-                          <div className="text-[11px] text-hh-text-muted">มีสมาชิกอย่างน้อย 1 คนเรียนคณะเภสัชฯ</div>
-                        </div>
-                      </div>
+                        <span className="truncate text-left">
+                          {teamType === "pharmacy"
+                            ? "ทีมที่มีนิสิต/นักศึกษาเภสัชศาสตร์ (มีสมาชิกอย่างน้อย 1 คนเรียนคณะเภสัชศาสตร์)"
+                            : "ทีมทั่วไป (ไม่มีนิสิตเภสัชศาสตร์ในทีม)"}
+                        </span>
+                        <span className={`material-symbols-outlined text-xl text-hh-cyan transition-transform duration-200 shrink-0 ${isTeamTypeOpen ? "rotate-180" : ""}`}>
+                          expand_more
+                        </span>
+                      </button>
 
-                      <div
-                        onClick={() => setTeamType("non-pharmacy")}
-                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-center gap-3 ${teamType === "non-pharmacy"
-                            ? "bg-hh-cyan/15 border-hh-cyan text-white shadow-[0_0_15px_rgba(99,210,229,0.2)]"
-                            : "bg-hh-bg/40 border-hh-border/60 text-hh-text-muted hover:bg-white/5"
-                          }`}
-                      >
-                        <input
-                          type="radio"
-                          name="teamTypeRadio"
-                          checked={teamType === "non-pharmacy"}
-                          onChange={() => setTeamType("non-pharmacy")}
-                          className="accent-hh-cyan w-4 h-4"
-                        />
-                        <div>
-                          <div className="font-sora text-xs sm:text-sm font-bold text-white">ทีมทั่วไป (ไม่มีนิสิตเภสัชศาสตร์)</div>
-                          <div className="text-[11px] text-hh-text-muted">ไม่มีนิสิตเภสัชศาสตร์ในทีม</div>
-                        </div>
-                      </div>
+                      {/* Custom Dropdown Popup Menu */}
+                      {isTeamTypeOpen && (
+                        <>
+                          {/* Backdrop to close when clicking outside */}
+                          <div
+                            className="fixed inset-0 z-20"
+                            onClick={() => setIsTeamTypeOpen(false)}
+                          />
+                          <div className="absolute left-0 top-full mt-1.5 z-30 min-w-full w-max max-w-[90vw] md:max-w-[650px] bg-[#041a1d] border border-hh-cyan/50 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-hidden backdrop-blur-2xl divide-y divide-hh-border/40">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setTeamType("pharmacy");
+                                setIsTeamTypeOpen(false);
+                              }}
+                              className={`w-full text-left px-4 py-3 text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer ${teamType === "pharmacy"
+                                ? "bg-hh-cyan/20 text-hh-cyan font-bold"
+                                : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                                }`}
+                            >
+                              <span>ทีมที่มีนิสิต/นักศึกษาเภสัชศาสตร์ (มีสมาชิกอย่างน้อย 1 คนเรียนคณะเภสัชศาสตร์)</span>
+                              {teamType === "pharmacy" && (
+                                <span className="material-symbols-outlined text-base text-hh-cyan ml-2 shrink-0">check</span>
+                              )}
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setTeamType("non-pharmacy");
+                                setIsTeamTypeOpen(false);
+                              }}
+                              className={`w-full text-left px-4 py-3 text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer ${teamType === "non-pharmacy"
+                                ? "bg-hh-cyan/20 text-hh-cyan font-bold"
+                                : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                                }`}
+                            >
+                              <span>ทีมทั่วไป (ไม่มีนิสิตเภสัชศาสตร์ในทีม)</span>
+                              {teamType === "non-pharmacy" && (
+                                <span className="material-symbols-outlined text-base text-hh-cyan ml-2 shrink-0">check</span>
+                              )}
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 )}
@@ -555,48 +665,96 @@ export default function RegisterPage() {
             </div>
 
             {/* SECTION 2: TEAM MEMBERS INFO (MIN 3 MEMBERS, MAX 5 MEMBERS) */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-hh-bg/60 border border-hh-border/60 space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hh-border/30 pb-3 gap-2">
+            <div id="member-section-2" className="p-5 sm:p-6 rounded-2xl bg-hh-bg/60 border border-hh-border/60 space-y-5 scroll-mt-24">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-hh-border/30 pb-3 gap-3">
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-hh-cyan text-xl">badge</span>
                   <h2 className="font-sora text-lg font-bold text-white">
-                    ส่วนที่ 2: ข้อมูลสมาชิกในทีม ({members.length}/5 คน • ขั้นต่ำ 3 คน)
+                    ส่วนที่ 2: ข้อมูลสมาชิกในทีม
                   </h2>
                 </div>
 
-                {members.length < 5 && (
-                  <button
-                    type="button"
-                    onClick={addMember}
-                    className="px-3.5 py-1.5 bg-hh-cyan/15 text-hh-cyan border border-hh-cyan/40 rounded-xl font-sora text-xs font-bold hover:bg-hh-cyan/25 transition-all flex items-center gap-1 cursor-pointer self-start sm:self-auto"
-                  >
-                    <span className="material-symbols-outlined text-base">add</span>
-                    + เพิ่มสมาชิก
-                  </button>
-                )}
+                {/* Member Count Dropdown Selection (3-5 คน) */}
+                <div className="relative self-start sm:self-auto min-w-[210px]">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-hh-text-muted font-sora font-semibold whitespace-nowrap">
+                      จำนวนสมาชิก:
+                    </span>
+                    <div className="relative flex-1">
+                      <button
+                        type="button"
+                        onClick={() => setIsMemberCountOpen(!isMemberCountOpen)}
+                        className="w-full bg-hh-bg border border-hh-cyan/50 rounded-xl px-3.5 py-2 text-white text-xs font-sora font-bold flex items-center justify-between gap-2 cursor-pointer hover:border-hh-cyan transition-all shadow-[0_0_10px_rgba(99,210,229,0.15)]"
+                      >
+                        <span className="flex items-center gap-1.5 text-hh-cyan">
+                          <span className="material-symbols-outlined text-base">groups</span>
+                          <span>{members.length} คน</span>
+                        </span>
+                        <span className={`material-symbols-outlined text-lg text-hh-cyan transition-transform duration-200 ${isMemberCountOpen ? "rotate-180" : ""}`}>
+                          expand_more
+                        </span>
+                      </button>
+
+                      {isMemberCountOpen && (
+                        <>
+                          <div
+                            className="fixed inset-0 z-20"
+                            onClick={() => setIsMemberCountOpen(false)}
+                          />
+                          <div className="absolute right-0 top-full mt-1.5 z-30 w-36 bg-[#041a1d] border border-hh-cyan/50 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-hidden backdrop-blur-2xl divide-y divide-hh-border/40">
+                            {[3, 4, 5].map((count) => (
+                              <button
+                                key={count}
+                                type="button"
+                                onClick={() => {
+                                  setMemberCount(count);
+                                  setIsMemberCountOpen(false);
+                                }}
+                                className={`w-full text-left px-4 py-2.5 text-xs font-sora font-bold transition-all flex items-center justify-between cursor-pointer ${members.length === count
+                                  ? "bg-hh-cyan/20 text-hh-cyan"
+                                  : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                                  }`}
+                              >
+                                <span>{count} คน</span>
+                                {members.length === count && (
+                                  <span className="material-symbols-outlined text-sm text-hh-cyan ml-2 shrink-0">check</span>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Member Selection Tabs */}
-              <div className="flex flex-wrap gap-2">
+              {/* Member Selection Tabs - Compact when inactive */}
+              <div className="flex flex-wrap items-center gap-2">
                 {members.map((m, idx) => {
                   const complete = isMemberComplete(m);
+                  const isActive = activeMemberTab === idx;
                   return (
                     <button
                       key={idx}
                       type="button"
                       onClick={() => setActiveMemberTab(idx)}
-                      className={`px-4 py-2.5 rounded-xl font-sora text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${activeMemberTab === idx
-                          ? "bg-hh-cyan text-black shadow-[0_0_15px_rgba(99,210,229,0.5)] scale-105"
+                      className={`rounded-full font-sora text-xs font-bold transition-colors duration-150 flex items-center gap-1.5 cursor-pointer ${isActive
+                          ? "bg-hh-cyan text-black px-4 py-2"
                           : complete
-                            ? "bg-hh-emerald/20 border border-hh-emerald/40 text-hh-emerald hover:bg-hh-emerald/30"
-                            : "bg-hh-surface border border-hh-border text-hh-text-muted hover:text-white"
+                            ? "bg-hh-emerald/20 border border-hh-emerald/40 text-hh-emerald hover:bg-hh-emerald/30 px-3 py-1.5"
+                            : "bg-hh-surface border border-hh-border text-hh-text-muted hover:text-white px-3 py-1.5"
                         }`}
                     >
-                      <span className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-sm">
-                          {idx === 0 ? "stars" : "person"}
-                        </span>
-                        <span>{idx === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${idx + 1}`}</span>
+                      <span className="material-symbols-outlined text-sm">
+                        {idx === 0 ? "stars" : "person"}
+                      </span>
+                      <span>
+                        {isActive
+                          ? idx === 0
+                            ? "หัวหน้าทีม"
+                            : `สมาชิกคนที่ ${idx + 1}`
+                          : `${idx + 1}`}
                       </span>
                       {complete && <span className="font-extrabold text-xs">✓</span>}
                       {members.length > 3 && idx >= 3 && (
@@ -605,7 +763,7 @@ export default function RegisterPage() {
                             e.stopPropagation();
                             removeMember(idx);
                           }}
-                          className="hover:text-red-500 ml-1 text-xs font-extrabold"
+                          className="hover:text-red-400 ml-0.5 text-xs font-extrabold"
                           title="ลบสมาชิกคนนี้"
                         >
                           ✕
@@ -628,20 +786,20 @@ export default function RegisterPage() {
                       <span className="flex-1 border-b border-hh-border/30" />
                     </div>
 
-                    {/* คำนำหน้า */}
+                    {/* 1. คำนำหน้า */}
                     <div className="space-y-1.5">
-                      <label className="text-xs text-white font-bold block">
+                      <label className="text-xs text-white font-bold block flex items-center gap-1">
                         คำนำหน้า <span className="text-hh-action">*</span>
                       </label>
-                      <div className="flex gap-2 h-11 items-center max-w-sm">
-                        {["นาย", "นางสาว", "นาง"].map((t) => (
+                      <div className="flex gap-2 h-9 items-center max-w-[180px]">
+                        {["นาย", "นางสาว"].map((t) => (
                           <button
                             key={t}
                             type="button"
                             onClick={() => updateMember(activeMemberTab, "title", t)}
-                            className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${members[activeMemberTab].title === t
-                                ? "bg-hh-cyan text-black shadow-[0_0_10px_rgba(99,210,229,0.4)]"
-                                : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
+                            className={`flex-1 h-full rounded-lg text-xs font-sora font-bold transition-colors duration-150 cursor-pointer ${members[activeMemberTab].title === t
+                              ? "bg-hh-cyan text-black"
+                              : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
                               }`}
                           >
                             {t}
@@ -650,141 +808,260 @@ export default function RegisterPage() {
                       </div>
                     </div>
 
-                    {/* ชื่อจริง + ชื่อเล่น */}
+                    {/* 2. ชื่อจริง + นามสกุล (บรรทัดเดียวกัน) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                       <div className="space-y-1.5">
                         <label className="text-xs text-white font-bold block">
-                          ชื่อจริง - นามสกุล <span className="text-hh-action">*</span>
+                          ชื่อจริง
                         </label>
                         <input
                           type="text"
                           required
-                          value={members[activeMemberTab].fullName}
-                          onChange={(e) => updateMember(activeMemberTab, "fullName", e.target.value)}
-                          placeholder="เช่น สมชาย ใจดี"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          value={members[activeMemberTab].firstName || members[activeMemberTab].fullName}
+                          onChange={(e) => {
+                            const val = e.target.value.replace(/[0-9]/g, "");
+                            updateMember(activeMemberTab, "firstName", val);
+                            updateMember(activeMemberTab, "fullName", val);
+                          }}
+                          placeholder="เช่น สมชาย"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs text-hh-text-muted font-bold block">
-                          ชื่อเล่น (ถ้ามี)
+                        <label className="text-xs text-white font-bold block">
+                          นามสกุล
                         </label>
                         <input
                           type="text"
-                          value={members[activeMemberTab].nickname}
-                          onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value)}
-                          placeholder="เช่น กอล์ฟ"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          required
+                          value={members[activeMemberTab].lastName}
+                          onChange={(e) => updateMember(activeMemberTab, "lastName", e.target.value.replace(/[0-9]/g, ""))}
+                          placeholder="เช่น ใจดี"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
                     </div>
 
-                    {/* อายุ + สถาบัน/โรงเรียน (conditional on educationLevel) */}
+                    {/* 3. ชื่อเล่น + อายุ (บรรทัดเดียวกัน) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-hh-text-muted font-bold block">
+                          ชื่อเล่น
+                        </label>
+                        <input
+                          type="text"
+                          value={members[activeMemberTab].nickname}
+                          onChange={(e) => updateMember(activeMemberTab, "nickname", e.target.value.replace(/[0-9]/g, ""))}
+                          placeholder="เช่น กอล์ฟ"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="text-xs text-white font-bold block flex items-center gap-1">
+                          อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
+                        </label>
+                        <input
+                          type="number"
+                          min="15"
+                          max="30"
+                          required
+                          value={members[activeMemberTab].age}
+                          onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
+                          placeholder="20"
+                          className="w-full max-w-[75px] h-10 px-2.5 text-center bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
+                        />
+                      </div>
+                    </div>
+
+                    {/* 4. สถาบัน / คณะ (บรรทัดเดียวกัน) */}
                     {educationLevel === "university" ? (
-                      /* ── อุดมศึกษา: อายุ + คณะ/สถาบัน ── */
+                      /* ── อุดมศึกษา: ชื่อมหาวิทยาลัย + คณะ ── */
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                         <div className="space-y-1.5">
                           <label className="text-xs text-white font-bold block">
-                            อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
-                          </label>
-                          <input
-                            type="number"
-                            min="15"
-                            max="30"
-                            required
-                            value={members[activeMemberTab].age}
-                            onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
-                            placeholder="20"
-                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs text-white font-bold flex items-center justify-between">
-                            <span>คณะ / สถาบัน <span className="text-hh-action">*</span></span>
-                            {activeMemberTab > 0 && members[0]?.institution && (
-                              <button
-                                type="button"
-                                onClick={() => copyInstitutionFromLeader(activeMemberTab)}
-                                className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
-                              >
-                                <span className="material-symbols-outlined text-xs">content_copy</span>
-                                คัดลอกจากหัวหน้าทีม
-                              </button>
-                            )}
+                            ชื่อมหาวิทยาลัย / สถาบัน
                           </label>
                           <input
                             type="text"
                             required
                             value={members[activeMemberTab].institution}
-                            onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
-                            placeholder="เช่น คณะเภสัชศาสตร์ มหาวิทยาลัยศิลปากร"
-                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                            onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value.replace(/[0-9]/g, ""))}
+                            placeholder="เช่น มหาวิทยาลัยศิลปากร"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <label className="text-xs text-white font-bold block">
+                            คณะ / สาขาวิชา
+                          </label>
+                          <input
+                            type="text"
+                            value={members[activeMemberTab].faculty}
+                            onChange={(e) => updateMember(activeMemberTab, "faculty", e.target.value.replace(/[0-9]/g, ""))}
+                            placeholder="เช่น คณะเภสัชศาสตร์"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                           />
                         </div>
                       </div>
                     ) : (
-                      /* ── มัธยมปลาย: อายุ + ชื่อโรงเรียน + ระดับชั้น ── */
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-4">
+                      /* ── มัธยมปลาย: โรงเรียน + ระดับชั้น ── */
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                         <div className="space-y-1.5">
                           <label className="text-xs text-white font-bold block">
-                            อายุ (15 - 30 ปี) <span className="text-hh-action">*</span>
-                          </label>
-                          <input
-                            type="number"
-                            min="15"
-                            max="30"
-                            required
-                            value={members[activeMemberTab].age}
-                            onChange={(e) => updateMember(activeMemberTab, "age", e.target.value)}
-                            placeholder="17"
-                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <label className="text-xs text-white font-bold flex items-center justify-between">
-                            <span>ชื่อโรงเรียน <span className="text-hh-action">*</span></span>
-                            {activeMemberTab > 0 && members[0]?.institution && (
-                              <button
-                                type="button"
-                                onClick={() => copyInstitutionFromLeader(activeMemberTab)}
-                                className="text-[11px] text-hh-cyan hover:underline font-mono flex items-center gap-1 cursor-pointer font-normal"
-                              >
-                                <span className="material-symbols-outlined text-xs">content_copy</span>
-                                คัดลอกจากหัวหน้าทีม
-                              </button>
-                            )}
+                            ชื่อโรงเรียน
                           </label>
                           <input
                             type="text"
                             required
                             value={members[activeMemberTab].institution}
-                            onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value)}
+                            onChange={(e) => updateMember(activeMemberTab, "institution", e.target.value.replace(/[0-9]/g, ""))}
                             placeholder="เช่น โรงเรียนเตรียมอุดมศึกษา"
-                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                           />
                         </div>
-                        <div className="space-y-1.5">
+
+                        <div className="space-y-1.5 relative">
                           <label className="text-xs text-white font-bold block">
-                            ระดับชั้น <span className="text-hh-action">*</span>
+                            ระดับชั้น
                           </label>
-                          <div className="flex gap-2 h-11 items-center">
-                            {["ม.4", "ม.5", "ม.6"].map((g) => (
-                              <button
-                                key={g}
-                                type="button"
-                                onClick={() => updateMember(activeMemberTab, "gradeLevel", g)}
-                                className={`flex-1 h-full rounded-xl text-xs font-sora font-bold transition-all cursor-pointer ${members[activeMemberTab].gradeLevel === g
-                                    ? "bg-hh-cyan text-black shadow-[0_0_10px_rgba(99,210,229,0.4)]"
-                                    : "bg-hh-bg border border-hh-border text-hh-text-muted hover:text-white"
-                                  }`}
-                              >
-                                {g}
-                              </button>
-                            ))}
+                          <div className="relative max-w-[75px]">
+                            <button
+                              type="button"
+                              onClick={() => setIsGradeLevelOpen(!isGradeLevelOpen)}
+                              className="w-full bg-hh-bg border border-hh-border rounded-xl px-2.5 py-2.5 text-white text-xs sm:text-sm font-sora font-bold flex items-center justify-between cursor-pointer hover:border-hh-cyan/50 focus:border-hh-cyan transition-all"
+                            >
+                              <span>{members[activeMemberTab].gradeLevel || "ม.4"}</span>
+                              <span className={`material-symbols-outlined text-base text-hh-cyan transition-transform duration-200 ${isGradeLevelOpen ? "rotate-180" : ""}`}>
+                                expand_more
+                              </span>
+                            </button>
+
+                            {isGradeLevelOpen && (
+                              <>
+                                <div
+                                  className="fixed inset-0 z-20"
+                                  onClick={() => setIsGradeLevelOpen(false)}
+                                />
+                                <div className="absolute left-0 right-0 top-full mt-1.5 z-30 bg-[#041a1d] border border-hh-cyan/50 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-hidden backdrop-blur-2xl divide-y divide-hh-border/40">
+                                  {["ม.4", "ม.5", "ม.6"].map((g) => (
+                                    <button
+                                      key={g}
+                                      type="button"
+                                      onClick={() => {
+                                        updateMember(activeMemberTab, "gradeLevel", g);
+                                        setIsGradeLevelOpen(false);
+                                      }}
+                                      className={`w-full text-left px-4 py-2.5 text-xs font-sora font-bold transition-all flex items-center justify-between cursor-pointer ${(members[activeMemberTab].gradeLevel || "ม.4") === g
+                                        ? "bg-hh-cyan/20 text-hh-cyan"
+                                        : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                                        }`}
+                                    >
+                                      <span>{g}</span>
+                                      {(members[activeMemberTab].gradeLevel || "ม.4") === g && (
+                                        <span className="material-symbols-outlined text-sm text-hh-cyan shrink-0">check</span>
+                                      )}
+                                    </button>
+                                  ))}
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
                     )}
+
+                    {/* 5. แพ้อาหาร / ยา (Dropdown + Conditional Text Box) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                      <div className="space-y-1.5 relative">
+                        <label className="text-xs text-hh-text-muted font-bold block">
+                          แพ้อาหาร / ยา
+                        </label>
+                        <div className="relative max-w-[140px]">
+                          {(() => {
+                            const curAllergy = members[activeMemberTab]?.allergies ?? "ไม่มี";
+                            const hasAllergy = curAllergy !== "ไม่มี" && curAllergy !== "";
+                            return (
+                              <>
+                                <button
+                                  type="button"
+                                  onClick={() => setIsAllergyOpen(!isAllergyOpen)}
+                                  className="w-full bg-hh-bg border border-hh-border rounded-xl px-3 py-2.5 text-white text-xs sm:text-sm font-sora font-bold flex items-center justify-between cursor-pointer hover:border-hh-cyan/50 focus:border-hh-cyan transition-colors duration-150"
+                                >
+                                  <span>{hasAllergy ? "มี" : "ไม่มี"}</span>
+                                  <span className={`material-symbols-outlined text-base text-hh-cyan transition-transform duration-200 ${isAllergyOpen ? "rotate-180" : ""}`}>
+                                    expand_more
+                                  </span>
+                                </button>
+
+                                {isAllergyOpen && (
+                                  <>
+                                    <div
+                                      className="fixed inset-0 z-20"
+                                      onClick={() => setIsAllergyOpen(false)}
+                                    />
+                                    <div className="absolute left-0 right-0 top-full mt-1.5 z-30 bg-[#041a1d] border border-hh-cyan/50 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.9)] overflow-hidden backdrop-blur-2xl divide-y divide-hh-border/40">
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          updateMember(activeMemberTab, "allergies", "ไม่มี");
+                                          setIsAllergyOpen(false);
+                                        }}
+                                        className={`w-full text-left px-4 py-2.5 text-xs font-sora font-bold transition-colors duration-150 flex items-center justify-between cursor-pointer ${!hasAllergy
+                                          ? "bg-hh-cyan/20 text-hh-cyan"
+                                          : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                                        }`}
+                                      >
+                                        <span>ไม่มี</span>
+                                        {!hasAllergy && (
+                                          <span className="material-symbols-outlined text-sm text-hh-cyan shrink-0">check</span>
+                                        )}
+                                      </button>
+
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          if (!hasAllergy) {
+                                            updateMember(activeMemberTab, "allergies", "มี");
+                                          }
+                                          setIsAllergyOpen(false);
+                                        }}
+                                        className={`w-full text-left px-4 py-2.5 text-xs font-sora font-bold transition-colors duration-150 flex items-center justify-between cursor-pointer ${hasAllergy
+                                          ? "bg-hh-cyan/20 text-hh-cyan"
+                                          : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                                        }`}
+                                      >
+                                        <span>มี</span>
+                                        {hasAllergy && (
+                                          <span className="material-symbols-outlined text-sm text-hh-cyan shrink-0">check</span>
+                                        )}
+                                      </button>
+                                    </div>
+                                  </>
+                                )}
+                              </>
+                            );
+                          })()}
+                        </div>
+                      </div>
+
+                      {/* Show text input ONLY if hasAllergy is TRUE */}
+                      {members[activeMemberTab]?.allergies !== "ไม่มี" && members[activeMemberTab]?.allergies !== "" && (
+                        <div className="space-y-1.5 animate-fadeIn">
+                          <label className="text-xs text-white font-bold block">
+                            ระบุอาการ / สิ่งที่แพ้
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={members[activeMemberTab]?.allergies === "มี" ? "" : members[activeMemberTab]?.allergies}
+                            onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value || "มี")}
+                            placeholder="ระบุสิ่งที่แพ้ (เช่น กุ้ง, เพนิซิลลิน)"
+                            className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* ─── SECTION B: ข้อมูลการติดต่อ ─── */}
@@ -799,7 +1076,7 @@ export default function RegisterPage() {
                       {/* อีเมล + เบอร์โทร */}
                       <div className="space-y-1.5">
                         <label className="text-xs text-white font-bold block">
-                          อีเมล (EMAIL) <span className="text-hh-action">*</span>
+                          อีเมล (EMAIL)
                         </label>
                         <input
                           type="email"
@@ -807,27 +1084,29 @@ export default function RegisterPage() {
                           value={members[activeMemberTab].email}
                           onChange={(e) => updateMember(activeMemberTab, "email", e.target.value)}
                           placeholder="example@domain.com"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
                       <div className="space-y-1.5">
                         <label className="text-xs text-white font-bold block">
-                          เบอร์โทรศัพท์ <span className="text-hh-action">*</span>
+                          เบอร์โทรศัพท์
                         </label>
                         <input
                           type="tel"
                           required
+                          maxLength={10}
+                          pattern="[0-9]{10}"
                           value={members[activeMemberTab].phone}
-                          onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value)}
-                          placeholder="08X-XXX-XXXX"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          onChange={(e) => updateMember(activeMemberTab, "phone", e.target.value.replace(/\D/g, "").slice(0, 10))}
+                          placeholder="08XXXXXXXX"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm font-mono focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
 
-                      {/* LINE ID + แพ้อาหาร */}
+                      {/* LINE ID */}
                       <div className="space-y-1.5">
                         <label className="text-xs text-white font-bold block">
-                          LINE ID <span className="text-hh-action">*</span>
+                          LINE ID
                         </label>
                         <input
                           type="text"
@@ -835,19 +1114,7 @@ export default function RegisterPage() {
                           value={members[activeMemberTab].lineId}
                           onChange={(e) => updateMember(activeMemberTab, "lineId", e.target.value)}
                           placeholder="line_id_123"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
-                        />
-                      </div>
-                      <div className="space-y-1.5">
-                        <label className="text-xs text-hh-text-muted font-bold block">
-                          แพ้อาหาร / ยา (ถ้ามี)
-                        </label>
-                        <input
-                          type="text"
-                          value={members[activeMemberTab].allergies}
-                          onChange={(e) => updateMember(activeMemberTab, "allergies", e.target.value)}
-                          placeholder="ระบุสิ่งที่แพ้ (หรือ 'ไม่มี')"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
                     </div>
@@ -864,26 +1131,28 @@ export default function RegisterPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
                       <div className="space-y-1.5">
                         <label className="text-xs text-hh-text-muted font-bold block">
-                          ชื่อผู้ติดต่อฉุกเฉิน (ถ้ามี)
+                          ชื่อผู้ติดต่อฉุกเฉิน
                         </label>
                         <input
                           type="text"
                           value={members[activeMemberTab].emergencyName}
-                          onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value)}
+                          onChange={(e) => updateMember(activeMemberTab, "emergencyName", e.target.value.replace(/[0-9]/g, ""))}
                           placeholder="ชื่อ-นามสกุล ผู้ติดต่อฉุกเฉิน"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
                       <div className="space-y-1.5">
                         <label className="text-xs text-hh-text-muted font-bold block">
-                          เบอร์ผู้ติดต่อฉุกเฉิน (ถ้ามี)
+                          เบอร์ผู้ติดต่อฉุกเฉิน
                         </label>
                         <input
                           type="tel"
+                          maxLength={10}
+                          pattern="[0-9]{10}"
                           value={members[activeMemberTab].emergencyPhone}
-                          onChange={(e) => updateMember(activeMemberTab, "emergencyPhone", e.target.value)}
-                          placeholder="08X-XXX-XXXX"
-                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-all"
+                          onChange={(e) => updateMember(activeMemberTab, "emergencyPhone", e.target.value.replace(/\D/g, "").slice(0, 10))}
+                          placeholder="08XXXXXXXX"
+                          className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm font-mono focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
                       </div>
                     </div>
@@ -895,85 +1164,183 @@ export default function RegisterPage() {
 
             {/* ACTION SUBMIT BUTTON BAR */}
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-hh-border/40">
-              {members.length < 5 ? (
-                <button
-                  type="button"
-                  onClick={addMember}
-                  className="w-full sm:w-auto px-5 py-3 border border-hh-border rounded-xl font-sora text-xs font-bold text-white hover:bg-white/10 transition-colors uppercase cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span className="material-symbols-outlined text-base">person_add</span>
-                  + เพิ่มสมาชิกคนที่ {members.length + 1} (สูงสุด 5 คน)
-                </button>
-              ) : (
-                <div className="text-xs text-hh-emerald font-mono font-bold">✓ สมาชิกครบตามโควตาสูงสุดแล้ว (5/5 คน)</div>
-              )}
+              <div className="flex items-center gap-2 text-xs font-sora text-hh-text-muted">
+                <span className="material-symbols-outlined text-hh-cyan text-base">groups</span>
+                <span>จำนวนสมาชิกในทีม: <strong className="text-hh-cyan font-bold">{members.length} คน</strong> (เลือกได้ 3 - 5 คน)</span>
+              </div>
 
               <button
-                type="submit"
-                className="w-full sm:w-auto px-8 py-4 bg-hh-action text-black font-sora text-sm font-extrabold uppercase rounded-xl hover:bg-orange-400 transition-all shadow-[0_0_25px_rgba(255,106,0,0.5)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                type="button"
+                onClick={(e) => {
+                  if (activeMemberTab < members.length - 1) {
+                    setActiveMemberTab((prev) => prev + 1);
+                    document.getElementById("member-section-2")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  } else {
+                    const form = e.currentTarget.closest("form");
+                    if (form) form.requestSubmit();
+                  }
+                }}
+                className={`w-full sm:w-auto px-8 py-4 text-black font-sora text-sm font-extrabold uppercase rounded-xl transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer ${activeMemberTab < members.length - 1
+                    ? "bg-hh-cyan hover:bg-cyan-300"
+                    : "bg-hh-action hover:bg-orange-400"
+                  }`}
               >
-                ยืนยันการลงทะเบียนทั้งหมด
-                <span className="material-symbols-outlined text-lg">check_circle</span>
+                <span>
+                  {activeMemberTab < members.length - 1 ? "คนถัดไป" : "ยืนยันการลงทะเบียนทั้งหมด"}
+                </span>
+                <span className="material-symbols-outlined text-lg">
+                  {activeMemberTab < members.length - 1 ? "arrow_forward" : "check_circle"}
+                </span>
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* STEP 4: SUCCESS CONFIRMATION */}
+      {/* STEP 4: REVIEW MEMBER DETAILS & PAYMENT */}
       {step === 4 && (
-        <div className="z-10 w-full max-w-lg text-center my-auto">
-          <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-cyan/50 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_rgba(99,210,229,0.3)] space-y-6">
-            <div className="w-20 h-20 rounded-full bg-hh-cyan/20 border-2 border-hh-cyan flex items-center justify-center mx-auto text-hh-cyan shadow-[0_0_25px_rgba(99,210,229,0.6)]">
-              <span className="material-symbols-outlined text-4xl">task_alt</span>
+        <div className="z-10 w-full max-w-3xl my-auto">
+          <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-cyan/50 rounded-3xl p-6 md:p-8 space-y-6">
+
+            {/* Header Title */}
+            <div className="text-center space-y-3">
+              <div className="w-16 h-16 rounded-full bg-hh-cyan/20 border-2 border-hh-cyan flex items-center justify-center mx-auto text-hh-cyan">
+                <span className="material-symbols-outlined text-3xl">assignment_turned_in</span>
+              </div>
+
+              <span className="font-mono text-xs text-hh-cyan tracking-widest uppercase block">
+                Summary & Confirmation
+              </span>
+
+              <h1 className="font-sora text-2xl sm:text-3xl font-extrabold text-white">
+                ตรวจรายละเอียดข้อมูลสมาชิก
+              </h1>
+
+              <p className="text-hh-text-muted text-xs sm:text-sm max-w-lg mx-auto">
+                กรุณาตรวจสอบข้อมูลทั้งหมดของทีมและสมาชิกทุกคนให้ถูกต้องก่อนดำเนินการชำระเงินค่าสมัคร
+              </p>
             </div>
 
-            <span className="font-mono text-xs text-hh-cyan tracking-widest uppercase bg-hh-cyan/10 px-4 py-1.5 rounded-full border border-hh-cyan/30 inline-block">
-              Registration Complete
-            </span>
-
-            <h1 className="font-sora text-3xl font-extrabold text-white">
-              ลงทะเบียนสำเร็จแล้ว!
-            </h1>
-
-            <p className="text-hh-text-muted text-sm leading-relaxed">
-              ขอแสดงความยินดี ทีม{" "}
-              <span className="text-hh-cyan font-bold font-sora">
-                &quot;{teamName}&quot;
-              </span>{" "}
-              ได้ลงทะเบียนเข้าร่วมการแข่งขัน HealthHack 2026 เรียบร้อยแล้ว
-            </p>
-
-            <div className="p-4 rounded-2xl bg-hh-bg/80 border border-hh-border/60 font-mono text-xs text-left space-y-2.5">
-              <div className="flex justify-between border-b border-hh-border/40 pb-2">
-                <span className="text-hh-text-muted">REGISTRATION ID:</span>
-                <span className="text-hh-cyan font-bold">
-                  HH2026-REG-{Math.floor(100000 + Math.random() * 900000)}
-                </span>
+            {/* TEAM OVERVIEW CARD */}
+            <div className="p-4 rounded-2xl bg-[#021316] border border-hh-cyan/30 space-y-3 text-left">
+              <div className="flex items-center gap-2 text-xs text-hh-cyan font-mono font-bold uppercase tracking-wider border-b border-hh-border/40 pb-2">
+                <span className="material-symbols-outlined text-base">groups</span>
+                <span>ข้อมูลทีม (Team Summary)</span>
               </div>
-              <div className="flex justify-between border-b border-hh-border/40 pb-2">
-                <span className="text-hh-text-muted">จำนวนสมาชิกทีม:</span>
-                <span className="text-white font-bold">{members.length} คน</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-hh-text-muted">อีเมลยืนยัน:</span>
-                <span className="text-white font-bold">{email}</span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <span className="text-hh-text-muted block text-[11px]">ชื่อทีม</span>
+                  <strong className="text-white font-sora text-sm">{teamName || "ไม่ระบุ"}</strong>
+                </div>
+                <div>
+                  <span className="text-hh-text-muted block text-[11px]">ระดับการศึกษา</span>
+                  <strong className="text-white">
+                    {educationLevel === "highschool" ? "มัธยมศึกษาตอนปลาย" : "อุดมศึกษา"}
+                  </strong>
+                </div>
+                <div>
+                  <span className="text-hh-text-muted block text-[11px]">ประเภททีม</span>
+                  <strong className="text-hh-cyan">
+                    {educationLevel === "highschool" ? "ทีมมัธยมปลาย" : teamType === "pharmacy" ? "ทีมที่มีนิสิต/นักศึกษาเภสัชฯ" : "ทีมทั่วไป"}
+                  </strong>
+                </div>
+                <div>
+                  <span className="text-hh-text-muted block text-[11px]">จำนวนสมาชิก</span>
+                  <strong className="text-white font-sora">{members.length} คน</strong>
+                </div>
               </div>
             </div>
 
-            <div className="pt-2 flex flex-col gap-3">
-              <Link
-                href="/schedule"
-                className="w-full py-3.5 bg-hh-action text-black font-sora text-sm font-bold rounded-xl hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)]"
+            {/* MEMBERS DETAILED CARDS LIST */}
+            <div className="space-y-4 max-h-[420px] overflow-y-auto pr-1 custom-scrollbar">
+              {members.map((m, idx) => (
+                <div key={idx} className="p-4 rounded-2xl bg-hh-bg/90 border border-hh-border/60 text-left space-y-3">
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between border-b border-hh-border/40 pb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-hh-cyan text-sm">
+                        {idx === 0 ? "stars" : "person"}
+                      </span>
+                      <h3 className="font-sora text-xs font-bold text-hh-cyan">
+                        {idx === 0 ? "หัวหน้าทีม (Leader)" : `สมาชิกคนที่ ${idx + 1}`}
+                      </h3>
+                    </div>
+                    <span className="text-xs font-bold text-white">
+                      {m.title} {m.firstName || m.fullName || "ไม่ระบุ"} {m.lastName}
+                    </span>
+                  </div>
+
+                  {/* Details Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2 text-xs">
+                    <div>
+                      <span className="text-hh-text-muted text-[11px] block">ชื่อเล่น / อายุ</span>
+                      <span className="text-white">{m.nickname || "-"} (อายุ {m.age || "-"} ปี)</span>
+                    </div>
+
+                    <div>
+                      <span className="text-hh-text-muted text-[11px] block">
+                        {educationLevel === "university" ? "มหาวิทยาลัย / คณะ" : "โรงเรียน / ชั้นปี"}
+                      </span>
+                      <span className="text-white">
+                        {m.institution || "-"} {m.faculty ? `- ${m.faculty}` : m.gradeLevel ? `(${m.gradeLevel})` : ""}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="text-hh-text-muted text-[11px] block">อีเมล (Email)</span>
+                      <span className="text-white font-mono text-[11px] truncate block">{m.email || "-"}</span>
+                    </div>
+
+                    <div>
+                      <span className="text-hh-text-muted text-[11px] block">เบอร์โทรศัพท์</span>
+                      <span className="text-white font-mono text-[11px]">{m.phone || "-"}</span>
+                    </div>
+
+                    <div>
+                      <span className="text-hh-text-muted text-[11px] block">LINE ID</span>
+                      <span className="text-white font-mono text-[11px]">{m.lineId || "-"}</span>
+                    </div>
+
+                    <div>
+                      <span className="text-hh-text-muted text-[11px] block">แพ้อาหาร / ยา</span>
+                      <span className="text-white">{m.allergies || "ไม่มี"}</span>
+                    </div>
+
+                    <div className="sm:col-span-2 md:col-span-3 border-t border-hh-border/30 pt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
+                      <div>
+                        <span className="text-hh-text-muted text-[11px] block">ชื่อผู้ติดต่อฉุกเฉิน</span>
+                        <span className="text-white font-bold text-xs">{m.emergencyName || "-"}</span>
+                      </div>
+                      <div>
+                        <span className="text-hh-text-muted text-[11px] block">เบอร์ผู้ติดต่อฉุกเฉิน</span>
+                        <span className="text-white font-mono text-xs">{m.emergencyPhone || "-"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* ACTION BUTTONS */}
+            <div className="pt-2 flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => setStep(3)}
+                className="w-full sm:w-1/3 py-3.5 border border-hh-cyan/60 text-hh-cyan font-sora text-xs sm:text-sm font-bold uppercase rounded-xl hover:bg-hh-cyan/10 transition-colors duration-150 cursor-pointer flex items-center justify-center gap-1.5"
               >
-                ดูรายละเอียดกำหนดการ
-              </Link>
-              <Link
-                href="/"
-                className="w-full py-3 border border-hh-border text-white font-sora text-xs uppercase rounded-xl hover:bg-white/10 transition-colors"
+                <span className="material-symbols-outlined text-base">edit</span>
+                <span>แก้ไขข้อมูล</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => alert("กำลังเข้าสู่ระบบชำระเงินค่าสมัคร...")}
+                className="w-full sm:w-2/3 py-3.5 bg-hh-action text-black font-sora text-sm sm:text-base font-extrabold uppercase rounded-xl hover:bg-orange-400 transition-colors duration-150 cursor-pointer flex items-center justify-center gap-2"
               >
-                กลับสู่หน้าแรก
-              </Link>
+                <span>ชำระเงินค่าสมัคร</span>
+                <span className="material-symbols-outlined text-lg">payments</span>
+              </button>
             </div>
           </div>
         </div>

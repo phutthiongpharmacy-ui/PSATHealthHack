@@ -6,7 +6,7 @@ import Image from "next/image";
 import HeroVideoBackground from "./HeroVideoBackground";
 
 interface HeroSectionProps {
-  onOpenEligibility?: () => void;
+  onOpenEligibility?: (showNextButton?: boolean) => void;
 }
 
 export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
@@ -52,7 +52,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
         <div className="space-y-4 sm:space-y-5 md:space-y-6 flex flex-col items-center w-full max-w-4xl">
           
           {/* 1. Top Organization Logos Container */}
-          <div className="flex items-center justify-center gap-5 sm:gap-7 pt-1 pb-1">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 pt-1 pb-1">
             {/* PSAT Logo */}
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 bg-white rounded-2xl p-2 border border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.35)] flex items-center justify-center transition-all hover:scale-105">
               <Image
@@ -109,7 +109,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             {/* Primary Orange Button */}
             <button
-              onClick={onOpenEligibility}
+              onClick={() => onOpenEligibility?.(true)}
               className="relative flex items-center justify-between w-full sm:w-auto min-w-[260px] sm:min-w-[280px] px-5 py-3.5 rounded-full bg-gradient-to-r from-[#FF5500] via-[#FF6A00] to-[#FF8800] text-white font-sora font-extrabold text-base shadow-[0_0_30px_rgba(255,106,0,0.6)] hover:brightness-110 active:scale-95 transition-all cursor-pointer group"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_8px_#fff]" />

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface NavbarProps {
-  onOpenEligibility?: () => void;
+  onOpenEligibility?: (showNextButton?: boolean) => void;
 }
 
 export default function Navbar({ onOpenEligibility }: NavbarProps) {
@@ -29,22 +29,30 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 py-3.5 ${scrolled
-        ? "bg-hh-bg/90 backdrop-blur-xl border-b border-hh-border/40 shadow-[0_4px_30px_rgba(4,26,29,0.8)]"
-        : "bg-hh-bg/40 backdrop-blur-md border-b border-white/5"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "bg-hh-bg/85 backdrop-blur-xl border-b border-hh-border/60 py-3 shadow-lg"
+        : "bg-transparent py-4 sm:py-5"
         }`}
     >
-      <div className="flex justify-between items-center px-4 sm:px-8 md:px-12 lg:px-16 w-full max-w-[1700px] mx-auto">
-        <Link href="/" className="flex items-center gap-3 group">
-          <span className="font-sora text-xl md:text-2xl font-extrabold text-white tracking-tighter flex items-center">
-            <span className="text-hh-cyan mr-1.5 font-bold">PSAT</span>
-            HealthHack 2026
-          </span>
+      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto flex items-center justify-between">
+        {/* Brand Logo & Event Header */}
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-hh-cyan to-hh-mint flex items-center justify-center text-black font-sora font-extrabold text-lg shadow-[0_0_15px_rgba(99,210,229,0.5)] group-hover:scale-105 transition-transform">
+            HH
+          </div>
+          <div className="flex flex-col">
+            <span className="font-sora font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-hh-cyan transition-colors">
+              HealthHack 2026
+            </span>
+            <span className="font-mono text-[10px] sm:text-[11px] text-hh-cyan/80 tracking-widest uppercase font-semibold">
+              PSAT Cyber-Healthcare
+            </span>
+          </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8 lg:gap-12">
-          <nav className="flex gap-6 items-center font-sora">
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex items-center gap-8 font-sora">
+          <nav className="flex items-center gap-2">
             <Link
               href="/"
               className={`text-sm transition-colors py-1 px-3.5 ${isActive("/")
@@ -83,7 +91,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             </Link>
             {onOpenEligibility && (
               <button
-                onClick={onOpenEligibility}
+                onClick={() => onOpenEligibility(false)}
                 className="text-sm text-hh-text-muted hover:text-white transition-colors px-3.5 py-1 cursor-pointer"
               >
                 คุณสมบัติ
@@ -94,7 +102,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
           {/* PRIS Orange Primary Conversion Button */}
           {onOpenEligibility ? (
             <button
-              onClick={onOpenEligibility}
+              onClick={() => onOpenEligibility(true)}
               className="bg-hh-action text-black font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2 cursor-pointer"
             >
               สมัครแข่งขัน
@@ -164,7 +172,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenEligibility();
+                  onOpenEligibility(false);
                 }}
                 className="text-left text-white hover:text-hh-cyan transition-colors py-2 flex items-center justify-between w-full"
               >
@@ -178,11 +186,12 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenEligibility();
+                  onOpenEligibility(true);
                 }}
-                className="w-full text-center block bg-hh-action text-black font-sora text-sm uppercase tracking-wider py-3.5 rounded-full font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)] cursor-pointer"
+                className="w-full bg-hh-action text-black font-sora text-xs uppercase tracking-wider py-3 rounded-xl font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] flex items-center justify-center gap-2 cursor-pointer"
               >
-                สมัครแข่งขันตอนนี้
+                <span>สมัครแข่งขัน</span>
+                <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </button>
             ) : (
               <Link

@@ -4,9 +4,17 @@ import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EligibilityModal from "@/components/EligibilityModal";
+import PdpaModal from "@/components/PdpaModal";
 
 export default function SchedulePage() {
   const [isEligibilityOpen, setIsEligibilityOpen] = useState(false);
+  const [isPdpaOpen, setIsPdpaOpen] = useState(false);
+  const [showNextButton, setShowNextButton] = useState(false);
+
+  const handleOpenEligibility = (showNext: boolean = false) => {
+    setShowNextButton(showNext);
+    setIsEligibilityOpen(true);
+  };
 
   const scheduleItems = [
     {
@@ -66,7 +74,7 @@ export default function SchedulePage() {
 
   return (
     <main className="min-h-screen bg-hh-bg text-hh-text overflow-x-hidden pt-24">
-      <Navbar onOpenEligibility={() => setIsEligibilityOpen(true)} />
+      <Navbar onOpenEligibility={handleOpenEligibility} />
 
       {/* Header */}
       <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
@@ -162,6 +170,15 @@ export default function SchedulePage() {
       <EligibilityModal
         isOpen={isEligibilityOpen}
         onClose={() => setIsEligibilityOpen(false)}
+        onNext={() => {
+          setIsEligibilityOpen(false);
+          setIsPdpaOpen(true);
+        }}
+        showNextButton={showNextButton}
+      />
+      <PdpaModal
+        isOpen={isPdpaOpen}
+        onClose={() => setIsPdpaOpen(false)}
       />
     </main>
   );
