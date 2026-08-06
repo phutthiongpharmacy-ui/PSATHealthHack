@@ -29,9 +29,9 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-        ? "bg-hh-bg/85 backdrop-blur-xl border-b border-hh-border/60 py-3 shadow-lg"
-        : "bg-transparent py-4 sm:py-5"
+      className={`fixed top-0 left-0 right-0 z-50 py-3.5 sm:py-4 transition-colors duration-300 ${scrolled
+        ? "bg-hh-bg/85 backdrop-blur-xl border-b border-hh-border/60 shadow-lg"
+        : "bg-transparent border-b border-transparent"
         }`}
     >
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto flex items-center justify-between">
