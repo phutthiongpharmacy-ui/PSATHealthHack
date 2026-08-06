@@ -93,15 +93,11 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา เพื่อยกระดับสุขภาพประชาชนไทย
           </p>
 
-          {/* 3. Event Date & Info Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 font-hanken text-xs sm:text-sm text-white/90">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md">
+          {/* 3. Event Date Badge (Centered) */}
+          <div className="flex items-center justify-center font-hanken text-xs sm:text-sm text-white/90">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md shadow-[0_0_15px_rgba(99,210,229,0.2)]">
               <span className="material-symbols-outlined text-hh-cyan text-base">calendar_month</span>
               <span className="font-semibold">15 สิงหาคม – 20 กันยายน 2569</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md">
-              <span className="material-symbols-outlined text-hh-cyan text-base">verified</span>
-              <span className="font-semibold">สนภท. ร่วมกับ 20 มหาวิทยาลัย</span>
             </div>
           </div>
 

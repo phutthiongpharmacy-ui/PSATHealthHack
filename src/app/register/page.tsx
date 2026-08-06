@@ -84,28 +84,57 @@ export default function RegisterPage() {
     return () => clearInterval(interval);
   }, [step, timerSeconds]);
 
+  const isValidEmail = (emailStr: string) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailStr.trim());
+  };
+
   // Step 1 handler
   const handleRequestOtp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) {
-      setEmailError("กรุณากรอกอีเมลที่ถูกต้อง");
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail || !isValidEmail(cleanEmail)) {
+      setEmailError("กรุณากรอกรูปแบบอีเมลให้ถูกต้อง (เช่น name@example.com)");
       return;
     }
+    setEmail(cleanEmail);
     setEmailError("");
     setTimerSeconds(90);
     setStep(2);
   };
 
-  // OTP input handlers
-  const handleOtpChange = (index: number, value: string) => {
-    if (value.length > 1) value = value[value.length - 1];
+  // OTP input handlers (Numbers ONLY: 0-9)
+  const handleOtpChange = (index: number, rawValue: string) => {
+    // Filter out non-numeric characters
+    const digitsOnly = rawValue.replace(/\D/g, "");
+    if (!digitsOnly && rawValue !== "") return;
+
+    let nextChar = digitsOnly;
+    if (nextChar.length > 1) {
+      nextChar = nextChar[nextChar.length - 1];
+    }
+
     const newOtp = [...otp];
-    newOtp[index] = value;
+    newOtp[index] = nextChar;
     setOtp(newOtp);
 
     // Auto-focus next input
-    if (value && index < 5) {
+    if (nextChar && index < 5) {
       const nextInput = document.getElementById(`otp-${index + 1}`);
+      if (nextInput) nextInput.focus();
+    }
+  };
+
+  const handleOtpPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
+    if (pastedData.length > 0) {
+      const newOtp = ["", "", "", "", "", ""];
+      for (let i = 0; i < pastedData.length; i++) {
+        newOtp[i] = pastedData[i];
+      }
+      setOtp(newOtp);
+      const targetIdx = Math.min(pastedData.length, 5);
+      const nextInput = document.getElementById(`otp-${targetIdx}`);
       if (nextInput) nextInput.focus();
     }
   };
@@ -259,6 +288,13 @@ export default function RegisterPage() {
       return;
     }
 
+    const invalidEmailIndex = members.findIndex((m) => !isValidEmail(m.email));
+    if (invalidEmailIndex !== -1) {
+      setActiveMemberTab(invalidEmailIndex);
+      alert(`กรุณากรอกอีเมลของ ${invalidEmailIndex === 0 ? "หัวหน้าทีม" : `สมาชิกคนที่ ${invalidEmailIndex + 1}`} ให้ถูกต้องตามรูปแบบ (เช่น name@example.com)`);
+      return;
+    }
+
     const invalidEmergencyPhoneIndex = members.findIndex((m) => m.emergencyPhone && m.emergencyPhone.length !== 10);
     if (invalidEmergencyPhoneIndex !== -1) {
       setActiveMemberTab(invalidEmergencyPhoneIndex);
@@ -277,7 +313,7 @@ export default function RegisterPage() {
       m.title &&
       m.institution.trim() &&
       m.phone.trim().length === 10 &&
-      m.email.trim() &&
+      isValidEmail(m.email) &&
       isAgeValid
     );
   };
@@ -294,12 +330,12 @@ export default function RegisterPage() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
 
       {/* Top Navigation Bar */}
-      <div className="w-full max-w-3xl flex items-center justify-between z-20 pb-4 pt-2 border-b border-hh-border/30">
+      <div className="w-full max-w-7xl flex items-center justify-between z-20 pb-4 pt-2 border-b border-hh-border/30">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-hh-text-muted hover:text-white transition-colors font-mono text-xs uppercase group"
+          className="inline-flex items-center gap-2 text-hh-text-muted hover:text-white transition-colors font-sora text-xs sm:text-sm font-bold group"
         >
-          <span className="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">
+          <span className="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform text-hh-cyan">
             arrow_back
           </span>
           กลับหน้าหลัก
@@ -309,72 +345,71 @@ export default function RegisterPage() {
         </span>
       </div>
 
-      {/* Stepper Progress Bar */}
-      <div className="z-10 w-full max-w-3xl my-6">
-        <div className="grid grid-cols-4 gap-2 sm:gap-4 text-center">
-          {/* Step 1 */}
-          <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 1
-              ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
-              : step > 1
-                ? "bg-hh-emerald text-black"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
-              }`}>
-              {step > 1 ? <span className="material-symbols-outlined text-lg">check</span> : "1"}
-            </div>
-            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 1 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
-              ยืนยันอีเมล
-            </span>
-          </div>
+      {/* Stepper Progress Bar with Precise Green Connecting Lines */}
+      <div className="z-10 w-full max-w-3xl sm:max-w-4xl my-6 px-4">
+        <div className="flex items-start justify-between">
+          {[
+            { num: 1, label: "ยืนยันอีเมล" },
+            { num: 2, label: "กรอก OTP" },
+            { num: 3, label: "ข้อมูลทีม & สมาชิก" },
+            { num: 4, label: "เสร็จสิ้น" },
+          ].map((item, index, array) => {
+            const isActive = step === item.num;
+            const isCompleted = step > item.num;
 
-          {/* Step 2 */}
-          <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 2
-              ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
-              : step > 2
-                ? "bg-hh-emerald text-black"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
-              }`}>
-              {step > 2 ? <span className="material-symbols-outlined text-lg">check</span> : "2"}
-            </div>
-            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 2 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
-              กรอก OTP
-            </span>
-          </div>
+            return (
+              <React.Fragment key={item.num}>
+                {/* Step Circle & Label Container */}
+                <div className="flex flex-col items-center shrink-0 z-10">
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-sora font-extrabold text-xs sm:text-sm transition-all duration-300 ${
+                      isActive
+                        ? "bg-hh-action text-black ring-4 ring-hh-action/30 shadow-[0_0_20px_rgba(255,106,0,0.6)] scale-110"
+                        : isCompleted
+                        ? "bg-hh-emerald text-black ring-2 ring-hh-emerald/40"
+                        : "bg-hh-surface border-2 border-hh-border text-hh-text-muted"
+                    }`}
+                  >
+                    {isCompleted ? (
+                      <span className="material-symbols-outlined text-base sm:text-lg font-bold">check</span>
+                    ) : (
+                      item.num
+                    )}
+                  </div>
+                  <span
+                    className={`text-[11px] sm:text-xs font-sora mt-2 text-center transition-colors whitespace-nowrap ${
+                      isActive
+                        ? "text-hh-action font-bold [text-shadow:0_0_10px_rgba(255,106,0,0.4)]"
+                        : isCompleted
+                        ? "text-hh-emerald font-bold"
+                        : "text-hh-text-muted"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                </div>
 
-          {/* Step 3 */}
-          <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 3
-              ? "bg-hh-action text-black shadow-[0_0_15px_rgba(255,106,0,0.6)]"
-              : step > 3
-                ? "bg-hh-emerald text-black"
-                : "bg-hh-surface border border-hh-border text-hh-text-muted"
-              }`}>
-              {step > 3 ? <span className="material-symbols-outlined text-lg">check</span> : "3"}
-            </div>
-            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 3 ? "text-hh-action font-bold" : "text-hh-text-muted"}`}>
-              ข้อมูลทีม & สมาชิก
-            </span>
-          </div>
-
-          {/* Step 4 */}
-          <div className="flex flex-col items-center">
-            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm transition-all ${step === 4
-              ? "bg-hh-emerald text-black shadow-[0_0_15px_rgba(42,194,152,0.6)]"
-              : "bg-hh-surface border border-hh-border text-hh-text-muted"
-              }`}>
-              4
-            </div>
-            <span className={`text-[11px] sm:text-xs mt-1.5 ${step === 4 ? "text-hh-emerald font-bold" : "text-hh-text-muted"}`}>
-              เสร็จสิ้น
-            </span>
-          </div>
+                {/* Green Connecting Line Segment between adjacent steps */}
+                {index < array.length - 1 && (
+                  <div className="flex-1 mx-2 sm:mx-4 h-0.5 mt-4 sm:mt-5 z-0">
+                    <div
+                      className={`h-full w-full transition-all duration-500 rounded-full ${
+                        step > item.num
+                          ? "bg-hh-emerald shadow-[0_0_10px_rgba(42,194,152,0.8)]"
+                          : "bg-hh-border/40"
+                      }`}
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
 
       {/* STEP 1: EMAIL ENTRY */}
       {step === 1 && (
-        <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
+        <div className="z-10 w-full max-w-md sm:max-w-lg mt-6 sm:mt-10 mb-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="text-center space-y-4">
               <div className="inline-flex items-center justify-center mx-auto">
@@ -423,7 +458,7 @@ export default function RegisterPage() {
 
       {/* STEP 2: OTP VERIFICATION */}
       {step === 2 && (
-        <div className="z-10 w-full max-w-md sm:max-w-lg my-auto">
+        <div className="z-10 w-full max-w-md sm:max-w-lg mt-6 sm:mt-10 mb-auto">
           <div className="bg-hh-surface/95 backdrop-blur-2xl border border-hh-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
             <div className="text-center space-y-4">
               {/* OTP Icon Badge */}
@@ -449,10 +484,13 @@ export default function RegisterPage() {
                     key={idx}
                     id={`otp-${idx}`}
                     type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     maxLength={1}
                     value={digit}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
+                    onPaste={handleOtpPaste}
                     className="w-10 sm:w-12 h-12 sm:h-14 bg-hh-bg border-2 border-hh-cyan/50 text-center font-sora text-xl sm:text-2xl text-hh-cyan font-extrabold rounded-xl focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/40 focus:bg-hh-cyan/5 focus:outline-none transition-all"
                   />
                 ))}
@@ -1081,11 +1119,18 @@ export default function RegisterPage() {
                         <input
                           type="email"
                           required
+                          autoComplete="email"
                           value={members[activeMemberTab].email}
-                          onChange={(e) => updateMember(activeMemberTab, "email", e.target.value)}
+                          onChange={(e) => updateMember(activeMemberTab, "email", e.target.value.toLowerCase().replace(/\s/g, ""))}
                           placeholder="example@domain.com"
                           className="w-full h-11 px-3.5 bg-hh-bg border border-hh-border rounded-xl text-white text-sm focus:border-hh-cyan focus:ring-1 focus:ring-hh-cyan/40 focus:outline-none transition-colors duration-150"
                         />
+                        {members[activeMemberTab].email.length > 0 && !isValidEmail(members[activeMemberTab].email) && (
+                          <p className="text-[11px] text-amber-400 font-mono mt-1 flex items-center gap-1">
+                            <span className="material-symbols-outlined text-xs">warning</span>
+                            รูปแบบอีเมลไม่ถูกต้อง (เช่น name@example.com)
+                          </p>
+                        )}
                       </div>
                       <div className="space-y-1.5">
                         <label className="text-xs text-white font-bold block">

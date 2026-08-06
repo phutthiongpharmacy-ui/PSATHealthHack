@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="w-full py-16 border-t border-hh-border/40 bg-hh-bg bg-gradient-to-t from-black/90 via-hh-bg to-transparent">
-      <div className="px-margin-mobile md:px-margin-desktop w-full max-w-container-max mx-auto space-y-12">
+      <div className="w-full max-w-[1800px] mx-auto px-6 sm:px-10 md:px-16 lg:px-24 space-y-12">
         {/* Main Footer Layout (Left: Address / Right: Contact List) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start justify-between">
           

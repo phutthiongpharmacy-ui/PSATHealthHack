@@ -92,7 +92,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
             {onOpenEligibility && (
               <button
                 onClick={() => onOpenEligibility(false)}
-                className="text-sm text-hh-text-muted hover:text-white transition-colors px-3.5 py-1 cursor-pointer"
+                className="text-sm text-white hover:text-hh-cyan transition-colors px-3.5 py-1 cursor-pointer font-bold"
               >
                 คุณสมบัติ
               </button>
@@ -103,7 +103,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
           {onOpenEligibility ? (
             <button
               onClick={() => onOpenEligibility(true)}
-              className="bg-hh-action text-black font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2 cursor-pointer"
+              className="bg-hh-action text-white font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-extrabold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2 cursor-pointer"
             >
               สมัครแข่งขัน
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -111,7 +111,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
           ) : (
             <Link
               href="/register"
-              className="bg-hh-action text-black font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2"
+              className="bg-hh-action text-white font-sora text-xs uppercase tracking-wider px-6 py-2.5 rounded-full font-extrabold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] active:scale-95 flex items-center gap-2"
             >
               สมัครแข่งขัน
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -188,7 +188,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
                   setMobileMenuOpen(false);
                   onOpenEligibility(true);
                 }}
-                className="w-full bg-hh-action text-black font-sora text-xs uppercase tracking-wider py-3 rounded-xl font-bold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full bg-hh-action text-white font-sora text-xs uppercase tracking-wider py-3 rounded-xl font-extrabold hover:bg-orange-400 transition-all shadow-[0_0_15px_rgba(255,106,0,0.4)] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>สมัครแข่งขัน</span>
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -197,7 +197,7 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
               <Link
                 href="/register"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center block bg-hh-action text-black font-sora text-sm uppercase tracking-wider py-3.5 rounded-full font-bold shadow-[0_0_15px_rgba(255,106,0,0.5)]"
+                className="w-full text-center block bg-hh-action text-white font-sora text-sm uppercase tracking-wider py-3.5 rounded-full font-extrabold shadow-[0_0_15px_rgba(255,106,0,0.5)]"
               >
                 สมัครแข่งขันตอนนี้
               </Link>
