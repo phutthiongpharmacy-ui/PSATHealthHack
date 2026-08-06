@@ -2,11 +2,13 @@
   "name": "health-hack-2026",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test src/features/team-registration/*.test.ts"
   },
   "dependencies": {
     "lucide-react": "^0.474.0",
