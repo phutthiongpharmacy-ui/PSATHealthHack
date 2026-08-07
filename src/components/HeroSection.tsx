@@ -54,7 +54,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
           {/* 1. Top Organization Logos Container */}
           <div className="flex items-center justify-center gap-4 sm:gap-6 pt-1 pb-1">
             {/* PSAT Logo */}
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 bg-white rounded-2xl p-2 border border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.35)] flex items-center justify-center transition-all hover:scale-105">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center transition-all hover:scale-105 filter drop-shadow-[0_0_15px_rgba(99,210,229,0.4)]">
               <Image
                 src="/images/psat-logo.png"
                 alt="PSAT Logo"
@@ -68,7 +68,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
             <div className="w-px h-10 bg-hh-cyan/30" />
 
             {/* Pharmacy Council Logo */}
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 bg-white rounded-2xl p-2 border border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.35)] flex items-center justify-center transition-all hover:scale-105">
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex items-center justify-center transition-all hover:scale-105 filter drop-shadow-[0_0_15px_rgba(99,210,229,0.4)]">
               <Image
                 src="/images/pharmacy-council-logo.png"
                 alt="The Pharmacy Council Logo"
@@ -82,22 +82,23 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
 
           {/* 2. Main Headline Banner */}
           <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl lg:text-[56px] leading-tight text-white font-extrabold tracking-tight">
-            PSAT HealthHack 2026 <br />
+            PSAT HealthHacks 2026 <br />
             <span className="text-hh-cyan [text-shadow:0_0_25px_rgba(99,210,229,0.5)] text-xl sm:text-2xl md:text-3xl block mt-1.5 font-bold">
-              นวัตกรรมเพื่อสุขภาพแห่งอนาคต
+              นวัตกรรมสุขภาพเพื่ออนาคต
             </span>
           </h1>
 
           {/* Promise Statement */}
           <p className="font-hanken text-sm sm:text-base md:text-lg text-hh-text-muted max-w-xl leading-relaxed">
-            พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา เพื่อยกระดับสุขภาพประชาชนไทย
+            พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา <br className="hidden sm:inline" />
+            เพื่อยกระดับสุขภาพประชาชนไทย
           </p>
 
           {/* 3. Event Date Badge (Centered) */}
           <div className="flex items-center justify-center font-hanken text-xs sm:text-sm text-white/90">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md shadow-[0_0_15px_rgba(99,210,229,0.2)]">
               <span className="material-symbols-outlined text-hh-cyan text-base">calendar_month</span>
-              <span className="font-semibold">15 สิงหาคม – 20 กันยายน 2569</span>
+              <span className="font-semibold">เปิดรับสมัคร ตั้งแต่ 15 สิงหาคม – 20 กันยายน 2569</span>
             </div>
           </div>
 
@@ -131,7 +132,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
           {/* 5. Countdown Section Header Label */}
           <div className="pt-2">
             <p className="font-mono text-xs text-white/70 uppercase tracking-[0.25em] font-bold">
-              นับถอยหลังสู่ PSAT HealthHack 2026
+              นับถอยหลังสู่ PSAT HealthHacks 2026
             </p>
           </div>
 

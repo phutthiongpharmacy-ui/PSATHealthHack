@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -11,13 +12,24 @@ export default function Footer() {
           {/* Left Column: Organization & Detailed Address */}
           <div className="lg:col-span-7 space-y-6">
             {/* Title / Brand */}
-            <div className="space-y-2">
-              <div className="font-sora text-2xl md:text-3xl font-extrabold text-white tracking-wider [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">
-                PSAT <span className="text-hh-cyan">HealthHack 2026</span>
+            <div className="flex items-center gap-4">
+              <div className="relative w-18 h-18 sm:w-20 sm:h-20 shrink-0">
+                <Image
+                  src="/images/psat-healthhacks-logo.png"
+                  alt="PSAT HealthHacks Logo"
+                  width={90}
+                  height={90}
+                  className="object-contain w-full h-full filter drop-shadow-[0_0_10px_rgba(99,210,229,0.5)]"
+                />
               </div>
-              <p className="font-hanken text-xs text-hh-cyan uppercase tracking-widest font-mono">
-                The Pharmaceutical Students&apos; Union of Chulalongkorn University
-              </p>
+              <div className="space-y-0.5">
+                <div className="font-sora text-2xl md:text-3xl font-extrabold text-white tracking-wider [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">
+                  PSAT <span className="text-hh-cyan">HealthHacks 2026</span>
+                </div>
+                <p className="font-hanken text-xs text-hh-cyan uppercase tracking-widest font-mono">
+                  The Pharmaceutical Students&apos; Association of Thailand
+                </p>
+              </div>
             </div>
 
             {/* Address Block with Location Icon */}
@@ -28,10 +40,10 @@ export default function Footer() {
               <div className="space-y-3 font-hanken text-sm text-on-surface-variant leading-relaxed">
                 <div>
                   <h4 className="font-bold text-white text-base">
-                    สโมสรนิสิตเภสัชศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย
+                    สหพันธ์นิสิตนักศึกษาเภสัชศาสตร์แห่งประเทศไทย (สนภท.)
                   </h4>
                   <p className="text-xs text-hh-text-muted">
-                    The Pharmaceutical Students&apos; Union of Chulalongkorn University
+                    The Pharmaceutical Students&apos; Association of Thailand
                   </p>
                 </div>
                 
@@ -53,23 +65,25 @@ export default function Footer() {
 
             {/* Contact List with Circular Icon Buttons */}
             <div className="space-y-4 font-mono text-sm">
-              {/* Phone Item */}
+              {/* Instagram Item */}
               <a
-                href="tel:022188418"
+                href="https://instagram.com/psathealthhacks.2026"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-4 text-white hover:text-hh-cyan transition-colors group"
               >
                 <div className="w-11 h-11 rounded-full border border-white/15 bg-hh-surface/50 group-hover:border-hh-cyan/50 group-hover:bg-hh-cyan/10 transition-all flex items-center justify-center shrink-0 shadow-lg">
-                  <span className="material-symbols-outlined text-hh-cyan text-lg">call</span>
+                  <span className="material-symbols-outlined text-hh-cyan text-lg">photo_camera</span>
                 </div>
                 <div>
-                  <div className="text-xs text-hh-text-muted font-hanken">เบอร์โทรศัพท์ / Phone</div>
-                  <div className="font-bold tracking-wide">02-2188418 <span className="text-xs text-hh-text-muted font-normal">(66-22-188418)</span></div>
+                  <div className="text-xs text-hh-text-muted font-hanken">Instagram</div>
+                  <div className="font-bold tracking-wide">psathealthhacks.2026</div>
                 </div>
               </a>
 
               {/* Email Item */}
               <a
-                href="mailto:contact@psathealthhack.org"
+                href="mailto:psathealthhacks2026@gmail.com"
                 className="flex items-center gap-4 text-white hover:text-hh-cyan transition-colors group"
               >
                 <div className="w-11 h-11 rounded-full border border-white/15 bg-hh-surface/50 group-hover:border-hh-cyan/50 group-hover:bg-hh-cyan/10 transition-all flex items-center justify-center shrink-0 shadow-lg">
@@ -77,13 +91,13 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-hh-text-muted font-hanken">อีเมล / Email</div>
-                  <div className="font-bold tracking-wide">contact@psathealthhack.org</div>
+                  <div className="font-bold tracking-wide">psathealthhacks2026@gmail.com</div>
                 </div>
               </a>
 
               {/* Website Item */}
               <a
-                href="https://psathealthhack.org"
+                href="https://www.psat-th.org/en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 text-white hover:text-hh-cyan transition-colors group"
@@ -93,7 +107,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="text-xs text-hh-text-muted font-hanken">เว็บไซต์ / Website</div>
-                  <div className="font-bold tracking-wide">www.psathealthhack.org</div>
+                  <div className="font-bold tracking-wide">www.psat-th.org</div>
                 </div>
               </a>
             </div>
@@ -104,7 +118,7 @@ export default function Footer() {
         {/* Bottom Bar: Copyright & Quick Links */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-hanken text-hh-text-muted">
           <div>
-            © 2026 HealthHack. นวัตกรรมเพื่อสุขภาพแห่งอนาคต
+            © 2026 HealthHacks. นวัตกรรมสุขภาพเพื่ออนาคต
           </div>
           <nav className="flex gap-6">
             <Link href="#" className="hover:text-hh-cyan transition-colors">

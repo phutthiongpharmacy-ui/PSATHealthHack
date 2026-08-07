@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 interface NavbarProps {
@@ -37,17 +38,19 @@ export default function Navbar({ onOpenEligibility }: NavbarProps) {
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mx-auto flex items-center justify-between">
         {/* Brand Logo & Event Header */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-hh-cyan to-hh-mint flex items-center justify-center text-black font-sora font-extrabold text-lg shadow-[0_0_15px_rgba(99,210,229,0.5)] group-hover:scale-105 transition-transform">
-            HH
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center group-hover:scale-105 transition-transform">
+            <Image
+              src="/images/psat-healthhacks-logo.png"
+              alt="PSAT HealthHacks Logo"
+              width={75}
+              height={75}
+              className="object-contain w-full h-full filter drop-shadow-[0_0_8px_rgba(99,210,229,0.5)]"
+              priority
+            />
           </div>
-          <div className="flex flex-col">
-            <span className="font-sora font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-hh-cyan transition-colors">
-              HealthHack 2026
-            </span>
-            <span className="font-mono text-[10px] sm:text-[11px] text-hh-cyan/80 tracking-widest uppercase font-semibold">
-              PSAT Cyber-Healthcare
-            </span>
-          </div>
+          <span className="font-sora font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-hh-cyan transition-colors">
+            PSAT HealthHacks 2026
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}

@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 
 interface AtmosphereItem {
@@ -9,39 +11,45 @@ interface AtmosphereItem {
 }
 
 export default function PastAtmosphereSection() {
+  const [selectedImage, setSelectedImage] = useState<AtmosphereItem | null>(null);
+
   const col1Items: AtmosphereItem[] = [
-    { badge: "01", title: "Ideation & Team Formation", desc: "การร่วมกลุ่มระดมความคิดข้ามสายงาน เภสัชกร แพทย์ และนักพัฒนา", imageUrl: "" },
-    { badge: "02", title: "48-Hour Prototype Build", desc: "การพัฒนาต้นแบบซอฟต์แวร์และนวัตกรรมด้านสุขภาพแบบเข้มข้น", imageUrl: "" },
-    { badge: "03", title: "Pitch Practice & Feedback", desc: "การซ้อมนำเสนอผลงานและรับคำแนะนำเพื่อปรับปรุงโมเดลธุรกิจ", imageUrl: "" },
-    { badge: "04", title: "Keynote & Tech Workshops", desc: "การบรรยายเชิงปฏิบัติการ AI & Health-Tech โดยวิทยากรชั้นนำ", imageUrl: "" },
+    { badge: "01", title: "Award Ceremony & Team Photo", desc: "ภาพถ่ายรวมผู้เข้าแข่งขันและผู้ได้รับรางวัลบนเวที", imageUrl: "/images/past-atmosphere/past-1.jpg" },
+    { badge: "02", title: "Team Presentation & Pitching", desc: "การนำเสนอสไลด์ข้อมูลนวัตกรรมบนเวทีต่อหน้าคณะกรรมการ", imageUrl: "/images/past-atmosphere/past-2.jpg" },
+    { badge: "03", title: "Mentorship & Group Discussion", desc: "การร่วมแลกเปลี่ยนและรับคำแนะนำอย่างใกล้ชิดในกลุ่ม", imageUrl: "/images/past-atmosphere/past-3.jpg" },
+    { badge: "04", title: "Final Stage Pitching & Judge Panel", desc: "บรรยากาศการนำเสนอผลงานรอบตัดสินและคณะกรรมการประเมิน", imageUrl: "/images/past-atmosphere/past-4.jpg" },
+    { badge: "05", title: "Live Demo & Pitching Round", desc: "การสาธิตผลงานนวัตกรรมสดพร้อมการจับเวลาบนเวทีใหญ่", imageUrl: "/images/past-atmosphere/past-5.jpg" },
   ];
 
   const col2Items: AtmosphereItem[] = [
-    { badge: "05", title: "Mentorship Sessions", desc: "รับคำปรึกษาเจาะลึกจากผู้เชี่ยวชาญทางการแพทย์และเภสัชกรรม", imageUrl: "" },
-    { badge: "06", title: "Final Pitching & Judging", desc: "นำเสนอผลงานต่อหน้าคณะกรรมการระดับประเทศและนักลงทุน", imageUrl: "" },
-    { badge: "07", title: "Design Sprint & UI/UX", desc: "การออกแบบอินเทอร์เฟซนวัตกรรมสุขภาพให้ตอบโจทย์ผู้ใช้งานจริง", imageUrl: "" },
-    { badge: "08", title: "Award Ceremony & Networking", desc: "พิธีมอบรางวัลและสร้างเครือข่ายความร่วมมือในอุตสาหกรรมสุขภาพ", imageUrl: "" },
-  ];
-
-  const col3Items: AtmosphereItem[] = [
-    { badge: "09", title: "Keynote & Tech Workshops", desc: "เทคโนโลยี AI เภสัชกรรมและโซลูชันดูแลสุขภาพดิจิทัลแห่งอนาคต", imageUrl: "" },
-    { badge: "10", title: "Award Ceremony & Networking", desc: "เวทีแลกเปลี่ยนประสบการณ์และโอกาสต่อยอดเชิงพาณิชย์", imageUrl: "" },
-    { badge: "11", title: "Expert Panel Q&A", desc: "กิจกรรมถาม-ตอบกับผู้นำด้านสุขภาพดิจิทัลและนวัตกรรมทางการแพทย์", imageUrl: "" },
-    { badge: "12", title: "Ideation & Team Formation", desc: "การผนึกกำลังเยาวชนรุ่นใหม่สร้างสรรค์สิ่งใหม่ให้ระบบสาธารณสุข", imageUrl: "" },
+    { badge: "06", title: "Team Backdrop Photo", desc: "ภาพถ่ายทีมผู้เข้าแข่งขันคู่กับฉากหลังแบรนด์ PSAT HealthHacks", imageUrl: "/images/past-atmosphere/past-6.jpg" },
+    { badge: "07", title: "Benefits Presentation", desc: "การนำเสนอสไลด์คุณประโยชน์และจุดเด่นของโซลูชันนวัตกรรม", imageUrl: "/images/past-atmosphere/past-7.jpg" },
+    { badge: "08", title: "Background & Rationale Pitch", desc: "การนำเสนอที่มาและหลักการเหตุผลของการพัฒนานวัตกรรม", imageUrl: "/images/past-atmosphere/past-8.jpg" },
+    { badge: "09", title: "Problem Statement Pitching", desc: "การนำเสนอโจทย์ปัญหาและข้อมูลสถิติสาธารณสุขบนเวที", imageUrl: "/images/past-atmosphere/past-9.jpg" },
+    { badge: "10", title: "Team Collaboration & Workshop", desc: "บรรยากาศการทำงานกลุ่มและพัฒนาซอฟต์แวร์ต้นแบบด้วยคอมพิวเตอร์", imageUrl: "/images/past-atmosphere/past-10.jpg" },
   ];
 
   const renderCard = (item: AtmosphereItem, keyIdx: string | number) => (
     <div
       key={keyIdx}
-      className="w-[306px] sm:w-[378px] md:w-[450px] lg:w-[504px] aspect-video flex-shrink-0 relative rounded-2xl border border-hh-border/40 bg-hh-surface/60 backdrop-blur-xl shadow-[0_0_25px_rgba(4,26,29,0.7)] hover:border-hh-cyan/60 hover:shadow-[0_0_30px_rgba(99,210,229,0.3)] transition-all duration-300 group overflow-hidden flex items-center justify-center"
+      onClick={() => setSelectedImage(item)}
+      className="w-[275px] sm:w-[340px] md:w-[405px] lg:w-[454px] aspect-video flex-shrink-0 relative rounded-2xl border border-hh-border/40 bg-hh-surface/60 backdrop-blur-xl shadow-[0_0_25px_rgba(4,26,29,0.7)] hover:border-hh-cyan/60 hover:shadow-[0_0_30px_rgba(99,210,229,0.3)] transition-all duration-300 group overflow-hidden flex items-center justify-center cursor-pointer"
     >
       {item.imageUrl ? (
-        <Image
-          src={item.imageUrl}
-          alt={`ภาพบรรยากาศ ${item.badge || ""}`}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+        <>
+          <Image
+            src={item.imageUrl}
+            alt={item.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          {/* Subtle Hover Zoom Overlay Icon */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-hh-cyan/20 border border-hh-cyan text-hh-cyan flex items-center justify-center shadow-[0_0_15px_rgba(99,210,229,0.5)]">
+              <span className="material-symbols-outlined text-2xl">zoom_in</span>
+            </div>
+          </div>
+        </>
       ) : (
         <div className="flex flex-col items-center justify-center space-y-2 text-center p-4">
           <div className="w-12 h-12 rounded-2xl bg-hh-surface/90 border border-hh-cyan/30 group-hover:border-hh-cyan flex items-center justify-center text-hh-cyan/70 group-hover:text-hh-cyan transition-colors shadow-inner">
@@ -54,11 +62,6 @@ export default function PastAtmosphereSection() {
           </span>
         </div>
       )}
-
-      {/* Index Badge Overlay */}
-      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur border border-white/10 font-mono text-xs font-bold text-hh-cyan">
-        {item.badge}
-      </div>
     </div>
   );
 
@@ -70,7 +73,7 @@ export default function PastAtmosphereSection() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-hh-cyan/25 to-transparent pointer-events-none" />
 
       {/* Centered Heading */}
-      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center space-y-2 mb-6 md:mb-8 relative z-10">
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center space-y-2 mb-2 sm:mb-3 relative z-10">
         <h2 className="font-sora text-3xl md:text-[40px] text-white uppercase tracking-wider font-bold [text-shadow:0_0_15px_rgba(99,210,229,0.5)]">
           ภาพบรรยากาศปีที่ผ่านมา
         </h2>
@@ -101,6 +104,36 @@ export default function PastAtmosphereSection() {
           </div>
         </div>
       </div>
+
+      {/* Fullscreen Photo Lightbox Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-fadeIn"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="relative max-w-5xl max-h-[85vh] inline-block overflow-hidden rounded-2xl shadow-2xl border border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button Inside Image Frame (Top-Right) */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/70 backdrop-blur border border-white/20 text-white hover:bg-black hover:text-hh-cyan hover:border-hh-cyan flex items-center justify-center transition-all z-20 cursor-pointer shadow-lg"
+            >
+              <span className="material-symbols-outlined text-xl">close</span>
+            </button>
+
+            {/* Pure Modal Image */}
+            {selectedImage.imageUrl && (
+              <img
+                src={selectedImage.imageUrl}
+                alt={selectedImage.title}
+                className="max-w-full max-h-[85vh] object-contain block"
+              />
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
