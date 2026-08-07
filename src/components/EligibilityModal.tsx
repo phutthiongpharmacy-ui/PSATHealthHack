@@ -145,7 +145,7 @@ export default function EligibilityModal({
 
         {/* Footer Action - ONLY shown when opened via Register button */}
         {showNextButton && (
-          <div className="px-4 py-2.5 sm:px-5 sm:py-2.5 shrink-0 bg-hh-surface/95 flex items-center justify-center">
+          <div className="px-4 pt-0 pb-3 sm:px-5 sm:pt-0 sm:pb-3.5 -mt-1 shrink-0 bg-hh-surface/95 flex items-center justify-center">
             <button
               type="button"
               onClick={() => {
