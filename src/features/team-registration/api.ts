@@ -1,6 +1,10 @@
 import type {
-  PaymentAttemptResponse, PaymentStatusResponse, TeamApiErrorShape, TeamEventConfig,
-  TeamRegistrationPayload, TeamRegistrationRecord,
+  PaymentAttemptResponse,
+  PaymentStatusResponse,
+  TeamApiErrorShape,
+  TeamEventConfig,
+  TeamRegistrationPayload,
+  TeamRegistrationRecord,
 } from "./types";
 
 export class TeamApiError extends Error {
@@ -8,7 +12,12 @@ export class TeamApiError extends Error {
   status: number;
   fields: TeamApiErrorShape["fields"];
 
-  constructor(code: string, message: string, status: number, fields: TeamApiErrorShape["fields"] = []) {
+  constructor(
+    code: string,
+    message: string,
+    status: number,
+    fields: TeamApiErrorShape["fields"] = [],
+  ) {
     super(message);
     this.name = "TeamApiError";
     this.code = code;
@@ -67,56 +76,118 @@ export const DEFAULT_FALLBACK_CONFIG: TeamEventConfig = {
   serverTime: new Date().toISOString(),
 };
 
-interface ClientOptions { baseUrl: string; eventCode: string; fetchImpl?: typeof fetch }
-interface ApiEnvelope<T> { success: boolean; data: T; error?: TeamApiErrorShape }
+interface ClientOptions {
+  baseUrl: string;
+  eventCode: string;
+  fetchImpl?: typeof fetch;
+}
+interface ApiEnvelope<T> {
+  success: boolean;
+  data: T;
+  error?: TeamApiErrorShape;
+}
+
+const MOCK_LEADER_EMAIL = "leader@example.com";
+
+function isMockLeaderEmail(email: string): boolean {
+  return email.trim().toLowerCase() === MOCK_LEADER_EMAIL;
+}
+
+function getBearerToken(init: RequestInit): string | null {
+  const authorization = new Headers(init.headers).get("authorization");
+  return authorization?.startsWith("Bearer ")
+    ? authorization.slice("Bearer ".length)
+    : null;
+}
+
+function isMockAccessToken(
+  init: RequestInit,
+  mockAccessTokens: Set<string>,
+): boolean {
+  const token = getBearerToken(init);
+  return Boolean(
+    token &&
+    (mockAccessTokens.has(token) || token.startsWith("mock-access-token-")),
+  );
+}
+
+function getVerifyChallengeId(path: string): string | null {
+  const match = path.match(/^\/otp-challenges\/([^/]+)\/verify$/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
 
 function isNgrokUrl(baseUrl: string): boolean {
   try {
     const hostname = new URL(baseUrl).hostname.toLowerCase();
-    return hostname.endsWith(".ngrok-free.dev") || hostname.endsWith(".ngrok.app") || hostname.endsWith(".ngrok.io");
+    return (
+      hostname.endsWith(".ngrok-free.dev") ||
+      hostname.endsWith(".ngrok.app") ||
+      hostname.endsWith(".ngrok.io")
+    );
   } catch {
     return false;
   }
 }
 
-function handleOfflineFallback<T>(path: string, init: RequestInit = {}): T | undefined {
+function handleOfflineFallback<T>(
+  path: string,
+  init: RequestInit = {},
+  mockChallengeIds: Set<string> = new Set(),
+  mockAccessTokens: Set<string> = new Set(),
+): T | undefined {
   if (path === "/config") {
     return DEFAULT_FALLBACK_CONFIG as unknown as T;
   }
   if (path === "/otp-challenges") {
+    let email = "";
+    try {
+      const parsed = JSON.parse(String(init.body ?? "{}")) as {
+        email?: string;
+      };
+      email = parsed.email ?? "";
+    } catch {}
+    if (!isMockLeaderEmail(email)) return undefined;
+    const challengeId = "challenge-local-" + Date.now();
+    mockChallengeIds.add(challengeId);
     return {
-      challengeId: "challenge-local-" + Date.now(),
+      challengeId,
       referenceCode: "HH2026",
       expiresAt: new Date(Date.now() + 600000).toISOString(),
       resendAvailableAt: new Date(Date.now() + 90000).toISOString(),
     } as unknown as T;
   }
   if (path.includes("/verify")) {
-    let email = "leader@example.com";
-    try {
-      const parsed = JSON.parse(String(init.body ?? "{}"));
-      if (parsed.email) email = parsed.email;
-    } catch {}
+    const challengeId = getVerifyChallengeId(path);
+    if (!challengeId || !mockChallengeIds.has(challengeId)) return undefined;
+    const accessToken = "mock-access-token-" + Date.now();
+    mockAccessTokens.add(accessToken);
     return {
-      accessToken: "mock-access-token-" + Date.now(),
+      accessToken,
       expiresAt: new Date(Date.now() + 86400000).toISOString(),
-      leaderEmail: email,
+      leaderEmail: MOCK_LEADER_EMAIL,
     } as unknown as T;
   }
   if (path === "/registrations/current") {
+    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
     return { registration: null } as unknown as T;
   }
   if (path.includes("/payment-attempts")) {
+    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
     return {
       paymentAttemptId: "pay-attempt-123",
       referenceNo: "HH26-REF-999",
       amount: "500.00",
       currency: "THB",
       expiresAt: new Date(Date.now() + 3600000).toISOString(),
-      redirectForm: { actionUrl: "/register/payment-result", method: "POST", fields: {} },
+      redirectForm: {
+        actionUrl: "/register/payment-result",
+        method: "POST",
+        fields: {},
+      },
     } as unknown as T;
   }
   if (path.includes("/payment-status")) {
+    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
     return {
       registrationId: "reg-123",
       registrationStatus: "ready_for_payment",
@@ -128,6 +199,7 @@ function handleOfflineFallback<T>(path: string, init: RequestInit = {}): T | und
     } as unknown as T;
   }
   if (path === "/registrations" || path.includes("/registrations/")) {
+    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
     let payload: Partial<TeamRegistrationPayload> = {};
     try {
       if (init.body) payload = JSON.parse(String(init.body));
@@ -173,13 +245,21 @@ function handleOfflineFallback<T>(path: string, init: RequestInit = {}): T | und
 export function createTeamRegistrationApi(options: ClientOptions) {
   const fetchImpl = options.fetchImpl ?? fetch;
   const root = `${options.baseUrl.replace(/\/$/, "")}/api/v1/team-registrations/events/${encodeURIComponent(options.eventCode)}`;
-  const ngrokHeaders = isNgrokUrl(options.baseUrl) ? { "ngrok-skip-browser-warning": "true" } : {};
+  const ngrokHeaders = isNgrokUrl(options.baseUrl)
+    ? { "ngrok-skip-browser-warning": "true" }
+    : {};
+  const mockChallengeIds = new Set<string>();
+  const mockAccessTokens = new Set<string>();
 
   async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     const requestHeaders = new Headers();
-    Object.entries(ngrokHeaders).forEach(([name, value]) => requestHeaders.set(name, value));
+    Object.entries(ngrokHeaders).forEach(([name, value]) =>
+      requestHeaders.set(name, value),
+    );
     if (init.body) requestHeaders.set("content-type", "application/json");
-    new Headers(init.headers).forEach((value, name) => requestHeaders.set(name, value));
+    new Headers(init.headers).forEach((value, name) =>
+      requestHeaders.set(name, value),
+    );
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 3000);
@@ -191,38 +271,142 @@ export function createTeamRegistrationApi(options: ClientOptions) {
         signal: controller.signal,
       });
       clearTimeout(timeoutId);
-      const payload = await response.json().catch(() => null) as ApiEnvelope<T> | null;
+      const payload = (await response
+        .json()
+        .catch(() => null)) as ApiEnvelope<T> | null;
       if (!response.ok || !payload?.success) {
         const error = payload?.error;
-        throw new TeamApiError(error?.code ?? "NETWORK_ERROR", error?.message ?? "ไม่สามารถเชื่อมต่อระบบลงทะเบียนได้", response.status, error?.fields);
+        throw new TeamApiError(
+          error?.code ?? "NETWORK_ERROR",
+          error?.message ?? "ไม่สามารถเชื่อมต่อระบบลงทะเบียนได้",
+          response.status,
+          error?.fields,
+        );
       }
       return payload.data;
     } catch (err) {
       clearTimeout(timeoutId);
-      const fallback = handleOfflineFallback<T>(path, init);
+      const fallback = handleOfflineFallback<T>(
+        path,
+        init,
+        mockChallengeIds,
+        mockAccessTokens,
+      );
       if (fallback !== undefined) return fallback;
       if (err instanceof TeamApiError) throw err;
-      throw new TeamApiError("NETWORK_ERROR", "ไม่สามารถเชื่อมต่อระบบลงทะเบียนได้", 500);
+      throw new TeamApiError(
+        "NETWORK_ERROR",
+        "ไม่สามารถเชื่อมต่อระบบลงทะเบียนได้",
+        500,
+      );
     }
   }
 
-  const withAccess = (accessToken: string, headers: Record<string, string> = {}) => ({ authorization: `Bearer ${accessToken}`, ...headers });
+  const withAccess = (
+    accessToken: string,
+    headers: Record<string, string> = {},
+  ) => ({ authorization: `Bearer ${accessToken}`, ...headers });
 
   return {
     getConfig: () => request<TeamEventConfig>("/config"),
-    requestOtp: (email: string) => request<{ challengeId: string; referenceCode: string; expiresAt: string; resendAvailableAt: string }>("/otp-challenges", { method: "POST", body: JSON.stringify({ email }) }),
-    verifyOtp: (challengeId: string, otp: string, referenceCode: string) => request<{ accessToken: string; expiresAt: string; leaderEmail: string }>(`/otp-challenges/${encodeURIComponent(challengeId)}/verify`, { method: "POST", body: JSON.stringify({ otp, referenceCode }) }),
-    getCurrentRegistration: (accessToken: string) => request<{ registration: TeamRegistrationRecord | null }>("/registrations/current", { headers: withAccess(accessToken) }),
-    getRegistration: (registrationId: string, accessToken: string) => request<{ registration: TeamRegistrationRecord }>(`/registrations/${encodeURIComponent(registrationId)}`, { headers: withAccess(accessToken) }),
-    createRegistration: (data: TeamRegistrationPayload, accessToken: string) => request<{ registration: TeamRegistrationRecord }>("/registrations", { method: "POST", headers: withAccess(accessToken), body: JSON.stringify(data) }),
-    updateRegistration: (registrationId: string, data: TeamRegistrationPayload, accessToken: string) => request<{ registration: TeamRegistrationRecord }>(`/registrations/${encodeURIComponent(registrationId)}`, { method: "PUT", headers: withAccess(accessToken), body: JSON.stringify(data) }),
-    validateRegistration: (registrationId: string, accessToken: string) => request<{ valid: true; status: TeamRegistrationRecord["status"] }>(`/registrations/${encodeURIComponent(registrationId)}/validate`, { method: "POST", headers: withAccess(accessToken) }),
-    createPaymentAttempt: (registrationId: string, accessToken: string, idempotencyKey: string) => request<PaymentAttemptResponse>(`/registrations/${encodeURIComponent(registrationId)}/payment-attempts`, { method: "POST", headers: withAccess(accessToken, { "idempotency-key": idempotencyKey }) }),
-    getPaymentStatus: (registrationId: string, accessToken: string) => request<PaymentStatusResponse>(`/registrations/${encodeURIComponent(registrationId)}/payment-status`, { headers: withAccess(accessToken) }),
+    requestOtp: (email: string) => {
+      if (isMockLeaderEmail(email)) {
+        const challengeId = "challenge-local-" + Date.now();
+        mockChallengeIds.add(challengeId);
+        return Promise.resolve({
+          challengeId,
+          referenceCode: "HH2026",
+          expiresAt: new Date(Date.now() + 600000).toISOString(),
+          resendAvailableAt: new Date(Date.now() + 90000).toISOString(),
+        });
+      }
+      return request<{
+        challengeId: string;
+        referenceCode: string;
+        expiresAt: string;
+        resendAvailableAt: string;
+      }>("/otp-challenges", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      });
+    },
+    verifyOtp: (challengeId: string, otp: string, referenceCode: string) => {
+      if (mockChallengeIds.has(challengeId)) {
+        const accessToken = "mock-access-token-" + Date.now();
+        mockAccessTokens.add(accessToken);
+        return Promise.resolve({
+          accessToken,
+          expiresAt: new Date(Date.now() + 86400000).toISOString(),
+          leaderEmail: MOCK_LEADER_EMAIL,
+        });
+      }
+      return request<{
+        accessToken: string;
+        expiresAt: string;
+        leaderEmail: string;
+      }>(`/otp-challenges/${encodeURIComponent(challengeId)}/verify`, {
+        method: "POST",
+        body: JSON.stringify({ otp, referenceCode }),
+      });
+    },
+    getCurrentRegistration: (accessToken: string) =>
+      request<{ registration: TeamRegistrationRecord | null }>(
+        "/registrations/current",
+        { headers: withAccess(accessToken) },
+      ),
+    getRegistration: (registrationId: string, accessToken: string) =>
+      request<{ registration: TeamRegistrationRecord }>(
+        `/registrations/${encodeURIComponent(registrationId)}`,
+        { headers: withAccess(accessToken) },
+      ),
+    createRegistration: (data: TeamRegistrationPayload, accessToken: string) =>
+      request<{ registration: TeamRegistrationRecord }>("/registrations", {
+        method: "POST",
+        headers: withAccess(accessToken),
+        body: JSON.stringify(data),
+      }),
+    updateRegistration: (
+      registrationId: string,
+      data: TeamRegistrationPayload,
+      accessToken: string,
+    ) =>
+      request<{ registration: TeamRegistrationRecord }>(
+        `/registrations/${encodeURIComponent(registrationId)}`,
+        {
+          method: "PUT",
+          headers: withAccess(accessToken),
+          body: JSON.stringify(data),
+        },
+      ),
+    validateRegistration: (registrationId: string, accessToken: string) =>
+      request<{ valid: true; status: TeamRegistrationRecord["status"] }>(
+        `/registrations/${encodeURIComponent(registrationId)}/validate`,
+        { method: "POST", headers: withAccess(accessToken) },
+      ),
+    createPaymentAttempt: (
+      registrationId: string,
+      accessToken: string,
+      idempotencyKey: string,
+    ) =>
+      request<PaymentAttemptResponse>(
+        `/registrations/${encodeURIComponent(registrationId)}/payment-attempts`,
+        {
+          method: "POST",
+          headers: withAccess(accessToken, {
+            "idempotency-key": idempotencyKey,
+          }),
+        },
+      ),
+    getPaymentStatus: (registrationId: string, accessToken: string) =>
+      request<PaymentStatusResponse>(
+        `/registrations/${encodeURIComponent(registrationId)}/payment-status`,
+        { headers: withAccess(accessToken) },
+      ),
   };
 }
 
 export const teamRegistrationApi = createTeamRegistrationApi({
   baseUrl: process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3002",
-  eventCode: process.env.NEXT_PUBLIC_TEAM_REGISTRATION_EVENT_CODE ?? "health-hack-2026",
+  eventCode:
+    process.env.NEXT_PUBLIC_TEAM_REGISTRATION_EVENT_CODE ?? "health-hack-2026",
 });
