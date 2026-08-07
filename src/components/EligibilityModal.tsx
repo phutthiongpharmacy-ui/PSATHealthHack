@@ -44,7 +44,7 @@ export default function EligibilityModal({
       {/* Compact Modal Container */}
       <div className="relative w-full max-w-xl flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-hh-border bg-hh-surface/95 shadow-[0_0_50px_rgba(4,26,29,0.8)] backdrop-blur-2xl">
         {/* Header */}
-        <div className="pl-4 pr-3 py-2 sm:py-2.5 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
+        <div className="pl-4 pr-3 py-2.5 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
           <h2
             id="eligibility-title"
             className="font-sora text-sm sm:text-base font-bold text-white flex items-center gap-2"
@@ -57,7 +57,7 @@ export default function EligibilityModal({
           <button
             type="button"
             aria-label="ปิดหน้าต่างคุณสมบัติ"
-            className="text-hh-text-muted hover:text-white p-1 transition-colors rounded-lg hover:bg-white/10 focus:outline-none cursor-pointer"
+            className="text-hh-text-muted hover:text-white p-1 flex items-center justify-center transition-colors rounded-lg hover:bg-white/10 focus:outline-none cursor-pointer"
             onClick={onClose}
           >
             <span className="material-symbols-outlined text-lg sm:text-xl">close</span>
@@ -145,7 +145,7 @@ export default function EligibilityModal({
 
         {/* Footer Action - ONLY shown when opened via Register button */}
         {showNextButton && (
-          <div className="px-4 py-2 sm:px-5 sm:py-2 shrink-0 bg-hh-surface/95 flex justify-end">
+          <div className="px-4 py-2.5 sm:px-5 sm:py-2.5 shrink-0 bg-hh-surface/95 flex items-center justify-center">
             <button
               type="button"
               onClick={() => {
@@ -155,7 +155,7 @@ export default function EligibilityModal({
                   onClose();
                 }
               }}
-              className="w-full sm:w-auto px-5 bg-hh-action text-black font-sora text-xs sm:text-sm py-1.5 rounded-xl hover:bg-orange-400 transition-all font-extrabold text-center flex items-center justify-center gap-2 cursor-pointer uppercase shadow-[0_0_20px_rgba(255,106,0,0.3)]"
+              className="w-full sm:w-auto min-w-[160px] px-6 bg-hh-action text-black font-sora text-xs sm:text-sm py-2 rounded-xl hover:bg-orange-400 transition-all font-extrabold text-center flex items-center justify-center gap-2 cursor-pointer uppercase shadow-[0_0_20px_rgba(255,106,0,0.3)]"
             >
               <span>ถัดไป</span>
               <span className="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
