@@ -65,77 +65,80 @@ export default function EligibilityModal({
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="p-3 sm:p-4 overflow-y-auto space-y-2.5 custom-scrollbar max-h-[75vh]">
-          {/* Criteria 1 */}
-          <div className="flex gap-3 items-start p-3 sm:p-3.5 rounded-xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
-            <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
-              <span className="material-symbols-outlined text-base sm:text-lg">school</span>
+        <div className="p-3 sm:p-4 overflow-y-auto custom-scrollbar max-h-[75vh]">
+          {/* Single Unified Container Card */}
+          <div className="rounded-2xl bg-hh-bg/60 border border-hh-border/40 divide-y divide-hh-border/30 p-3.5 sm:p-4">
+            {/* Criteria 1 */}
+            <div className="flex gap-3 items-start pb-3.5 sm:pb-4">
+              <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
+                <span className="material-symbols-outlined text-base sm:text-lg">school</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
+                  1. สถานะการศึกษาและอายุ
+                </h3>
+                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">เป็นนักเรียนหรือนิสิตนักศึกษาที่มีอายุระหว่าง 15 – 30 ปี</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">กำลังศึกษาอยู่ในระดับ มัธยมศึกษาตอนปลาย, อาชีวศึกษา (ปวช., ปวส.) หรือ อุดมศึกษา (ระดับปริญญาตรี ทุกชั้นปี ทุกคณะ หลักสูตรนานาชาติในไทย)</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">หรือมีวุฒิการสอบเทียบเท่ามัธยมศึกษาตอนปลาย ที่หน่วยงานรัฐไทยรับรอง</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
-                1. สถานะการศึกษาและอายุ
-              </h3>
-              <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">เป็นนักเรียนหรือนิสิตนักศึกษาที่มีอายุระหว่าง 15 – 30 ปี</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">กำลังศึกษาอยู่ในระดับ มัธยมศึกษาตอนปลาย, อาชีวศึกษา (ปวช., ปวส.) หรือ อุดมศึกษา (ระดับปริญญาตรี ทุกชั้นปี ทุกคณะ หลักสูตรนานาชาติในไทย)</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">หรือมีวุฒิการสอบเทียบเท่ามัธยมศึกษาตอนปลาย ที่หน่วยงานรัฐไทยรับรอง</span>
-                </li>
-              </ul>
-            </div>
-          </div>
 
-          {/* Criteria 2 */}
-          <div className="flex gap-3 items-start p-3 sm:p-3.5 rounded-xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
-            <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
-              <span className="material-symbols-outlined text-base sm:text-lg">groups</span>
+            {/* Criteria 2 */}
+            <div className="flex gap-3 items-start pt-3.5 sm:pt-4 pb-3.5 sm:pb-4">
+              <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
+                <span className="material-symbols-outlined text-base sm:text-lg">groups</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
+                  2. รูปแบบการสมัครเป็นทีม
+                </h3>
+                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">สมัครเป็นทีม ทีมละ 3 – 5 คน</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">สมาชิกในทีม ไม่จำเป็นต้องมาจากสถาบันเดียวกัน สามารถรวมทีมข้ามคณะหรือข้ามสถาบันได้</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
-                2. รูปแบบการสมัครเป็นทีม
-              </h3>
-              <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">สมัครเป็นทีม ทีมละ 3 – 5 คน</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">สมาชิกในทีม ไม่จำเป็นต้องมาจากสถาบันเดียวกัน สามารถรวมทีมข้ามคณะหรือข้ามสถาบันได้</span>
-                </li>
-              </ul>
-            </div>
-          </div>
 
-          {/* Criteria 3 */}
-          <div className="flex gap-3 items-start p-3 sm:p-3.5 rounded-xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
-            <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
-              <span className="material-symbols-outlined text-base sm:text-lg">location_on</span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
-                3. ภูมิลำเนาและระยะเวลาสมัคร
-              </h3>
-              <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">ผู้สมัครทุกคนต้องมีภูมิลำเนาหรือกำลังศึกษาอยู่ในประเทศไทย</span>
-                </li>
-                <li className="flex items-start gap-1.5">
-                  <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
-                  <span className="flex-1">
-                    เปิดรับสมัครตั้งแต่วันที่{" "}
-                    <span className="text-white font-bold">15 สิงหาคม – 20 กันยายน 2569</span>
-                  </span>
-                </li>
-              </ul>
+            {/* Criteria 3 */}
+            <div className="flex gap-3 items-start pt-3.5 sm:pt-4">
+              <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
+                <span className="material-symbols-outlined text-base sm:text-lg">location_on</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
+                  3. ภูมิลำเนาและระยะเวลาสมัคร
+                </h3>
+                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">ผู้สมัครทุกคนต้องมีภูมิลำเนาหรือกำลังศึกษาอยู่ในประเทศไทย</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
+                    <span className="flex-1">
+                      เปิดรับสมัครตั้งแต่วันที่{" "}
+                      <span className="text-white font-bold">15 สิงหาคม – 20 กันยายน 2569</span>
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
