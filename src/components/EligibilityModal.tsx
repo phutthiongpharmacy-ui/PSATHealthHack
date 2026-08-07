@@ -67,9 +67,9 @@ export default function EligibilityModal({
         {/* Scrollable Content Body */}
         <div className="p-3 sm:p-4 overflow-y-auto custom-scrollbar max-h-[75vh]">
           {/* Single Unified Container Card */}
-          <div className="rounded-2xl bg-hh-bg/60 border border-hh-border/40 divide-y divide-hh-border/30 p-3.5 sm:p-4">
+          <div className="rounded-2xl bg-hh-bg/60 border border-hh-border/40 p-3.5 sm:p-4 space-y-3.5">
             {/* Criteria 1 */}
-            <div className="flex gap-2.5 items-start pb-3.5 sm:pb-4">
+            <div className="flex gap-2.5 items-start">
               <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
                 <span className="material-symbols-outlined text-base sm:text-lg">school</span>
               </div>
@@ -95,7 +95,7 @@ export default function EligibilityModal({
             </div>
 
             {/* Criteria 2 */}
-            <div className="flex gap-2.5 items-start pt-3.5 sm:pt-4 pb-3.5 sm:pb-4">
+            <div className="flex gap-2.5 items-start">
               <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
                 <span className="material-symbols-outlined text-base sm:text-lg">groups</span>
               </div>
@@ -117,7 +117,7 @@ export default function EligibilityModal({
             </div>
 
             {/* Criteria 3 */}
-            <div className="flex gap-2.5 items-start pt-3.5 sm:pt-4">
+            <div className="flex gap-2.5 items-start">
               <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
                 <span className="material-symbols-outlined text-base sm:text-lg">location_on</span>
               </div>
@@ -145,7 +145,7 @@ export default function EligibilityModal({
 
         {/* Footer Action - ONLY shown when opened via Register button */}
         {showNextButton && (
-          <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-t border-hh-border/40 shrink-0 bg-hh-surface/95 flex justify-end">
+          <div className="px-4 py-2.5 sm:px-5 sm:py-3 shrink-0 bg-hh-surface/95 flex justify-end">
             <button
               type="button"
               onClick={() => {
