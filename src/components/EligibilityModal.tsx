@@ -77,7 +77,7 @@ export default function EligibilityModal({
                 <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
                   1. สถานะการศึกษาและอายุ
                 </h3>
-                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed -ml-1">
+                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed -ml-2.5">
                   <li className="flex items-start gap-1">
                     <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                     <span className="flex-1">เป็นนักเรียนหรือนิสิตนักศึกษาที่มีอายุระหว่าง 15 – 30 ปี</span>
@@ -103,7 +103,7 @@ export default function EligibilityModal({
                 <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
                   2. รูปแบบการสมัครเป็นทีม
                 </h3>
-                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed -ml-1">
+                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed -ml-2.5">
                   <li className="flex items-start gap-1">
                     <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                     <span className="flex-1">สมัครเป็นทีม ทีมละ 3 – 5 คน</span>
@@ -125,7 +125,7 @@ export default function EligibilityModal({
                 <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
                   3. ภูมิลำเนาและระยะเวลาสมัคร
                 </h3>
-                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed -ml-1">
+                <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed -ml-2.5">
                   <li className="flex items-start gap-1">
                     <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                     <span className="flex-1">ผู้สมัครทุกคนต้องมีภูมิลำเนาหรือกำลังศึกษาอยู่ในประเทศไทย</span>
