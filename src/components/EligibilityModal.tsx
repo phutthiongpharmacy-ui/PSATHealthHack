@@ -41,15 +41,15 @@ export default function EligibilityModal({
         onClick={onClose}
       />
 
-      {/* Expanded Modal Container */}
-      <div className="relative w-full max-w-2xl flex flex-col overflow-hidden rounded-3xl border border-hh-border bg-hh-surface/95 shadow-[0_0_50px_rgba(4,26,29,0.8)] backdrop-blur-2xl">
+      {/* Compact Modal Container */}
+      <div className="relative w-full max-w-xl flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-hh-border bg-hh-surface/95 shadow-[0_0_50px_rgba(4,26,29,0.8)] backdrop-blur-2xl">
         {/* Header */}
-        <div className="pl-4 sm:pl-5 pr-4 sm:pr-5 py-3.5 sm:py-4 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
+        <div className="pl-4 pr-3 py-3 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
           <h2
             id="eligibility-title"
-            className="font-sora text-base sm:text-lg font-bold text-white flex items-center gap-2"
+            className="font-sora text-sm sm:text-base font-bold text-white flex items-center gap-2"
           >
-            <span className="material-symbols-outlined text-hh-cyan text-xl sm:text-2xl">
+            <span className="material-symbols-outlined text-hh-cyan text-lg sm:text-xl">
               verified
             </span>
             คุณสมบัติของผู้เข้าแข่งขัน
@@ -57,34 +57,34 @@ export default function EligibilityModal({
           <button
             type="button"
             aria-label="ปิดหน้าต่างคุณสมบัติ"
-            className="text-hh-text-muted hover:text-white p-1.5 transition-colors rounded-xl hover:bg-white/10 focus:outline-none"
+            className="text-hh-text-muted hover:text-white p-1 transition-colors rounded-lg hover:bg-white/10 focus:outline-none cursor-pointer"
             onClick={onClose}
           >
-            <span className="material-symbols-outlined text-xl sm:text-2xl">close</span>
+            <span className="material-symbols-outlined text-lg sm:text-xl">close</span>
           </button>
         </div>
 
         {/* Scrollable Content Body */}
-        <div className="p-4 sm:p-5 overflow-y-auto space-y-3.5 custom-scrollbar max-h-[75vh]">
+        <div className="p-3 sm:p-4 overflow-y-auto space-y-2.5 custom-scrollbar max-h-[75vh]">
           {/* Criteria 1 */}
-          <div className="flex gap-3.5 items-start p-3.5 sm:p-4 rounded-2xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
-            <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
-              <span className="material-symbols-outlined text-lg sm:text-xl">school</span>
+          <div className="flex gap-3 items-start p-3 sm:p-3.5 rounded-xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
+            <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
+              <span className="material-symbols-outlined text-base sm:text-lg">school</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-2">
+              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
                 1. สถานะการศึกษาและอายุ
               </h3>
-              <ul className="space-y-1.5 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
-                <li className="flex items-start gap-2">
+              <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">เป็นนักเรียนหรือนิสิตนักศึกษาที่มีอายุระหว่าง 15 – 30 ปี</span>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">กำลังศึกษาอยู่ในระดับ มัธยมศึกษาตอนปลาย, อาชีวศึกษา (ปวช., ปวส.) หรือ อุดมศึกษา (ระดับปริญญาตรี ทุกชั้นปี ทุกคณะ หลักสูตรนานาชาติในไทย)</span>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">หรือมีวุฒิการสอบเทียบเท่ามัธยมศึกษาตอนปลาย ที่หน่วยงานรัฐไทยรับรอง</span>
                 </li>
@@ -93,20 +93,20 @@ export default function EligibilityModal({
           </div>
 
           {/* Criteria 2 */}
-          <div className="flex gap-3.5 items-start p-3.5 sm:p-4 rounded-2xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
-            <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
-              <span className="material-symbols-outlined text-lg sm:text-xl">groups</span>
+          <div className="flex gap-3 items-start p-3 sm:p-3.5 rounded-xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
+            <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
+              <span className="material-symbols-outlined text-base sm:text-lg">groups</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-2">
+              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
                 2. รูปแบบการสมัครเป็นทีม
               </h3>
-              <ul className="space-y-1.5 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
-                <li className="flex items-start gap-2">
+              <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">สมัครเป็นทีม ทีมละ 3 – 5 คน</span>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">สมาชิกในทีม ไม่จำเป็นต้องมาจากสถาบันเดียวกัน สามารถรวมทีมข้ามคณะหรือข้ามสถาบันได้</span>
                 </li>
@@ -115,20 +115,20 @@ export default function EligibilityModal({
           </div>
 
           {/* Criteria 3 */}
-          <div className="flex gap-3.5 items-start p-3.5 sm:p-4 rounded-2xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
-            <div className="shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
-              <span className="material-symbols-outlined text-lg sm:text-xl">location_on</span>
+          <div className="flex gap-3 items-start p-3 sm:p-3.5 rounded-xl bg-hh-bg/60 border border-hh-border/40 hover:border-hh-cyan/40 transition-colors">
+            <div className="shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-hh-cyan/15 border border-hh-cyan/30 flex items-center justify-center text-hh-cyan mt-0.5">
+              <span className="material-symbols-outlined text-base sm:text-lg">location_on</span>
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-2">
+              <h3 className="font-sora text-xs sm:text-sm font-bold text-white mb-1.5">
                 3. ภูมิลำเนาและระยะเวลาสมัคร
               </h3>
-              <ul className="space-y-1.5 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
-                <li className="flex items-start gap-2">
+              <ul className="space-y-1 text-hh-text-muted text-xs sm:text-sm font-hanken leading-relaxed">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">ผู้สมัครทุกคนต้องมีภูมิลำเนาหรือกำลังศึกษาอยู่ในประเทศไทย</span>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className="flex items-start gap-1.5">
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">
                     เปิดรับสมัครตั้งแต่วันที่{" "}
@@ -142,7 +142,7 @@ export default function EligibilityModal({
 
         {/* Footer Action - ONLY shown when opened via Register button */}
         {showNextButton && (
-          <div className="px-5 py-3 sm:px-6 sm:py-3.5 border-t border-hh-border/40 shrink-0 bg-hh-surface/95 flex justify-end">
+          <div className="px-4 py-2.5 sm:px-5 sm:py-3 border-t border-hh-border/40 shrink-0 bg-hh-surface/95 flex justify-end">
             <button
               type="button"
               onClick={() => {
@@ -152,7 +152,7 @@ export default function EligibilityModal({
                   onClose();
                 }
               }}
-              className="w-full sm:w-auto px-7 bg-hh-action text-black font-sora text-xs sm:text-sm py-2.5 rounded-xl hover:bg-orange-400 transition-all font-extrabold text-center flex items-center justify-center gap-2 cursor-pointer uppercase shadow-[0_0_20px_rgba(255,106,0,0.3)]"
+              className="w-full sm:w-auto px-6 bg-hh-action text-black font-sora text-xs sm:text-sm py-2 rounded-xl hover:bg-orange-400 transition-all font-extrabold text-center flex items-center justify-center gap-2 cursor-pointer uppercase shadow-[0_0_20px_rgba(255,106,0,0.3)]"
             >
               <span>ถัดไป</span>
               <span className="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
