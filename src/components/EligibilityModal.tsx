@@ -44,7 +44,7 @@ export default function EligibilityModal({
       {/* Compact Modal Container */}
       <div className="relative w-full max-w-xl flex flex-col overflow-hidden rounded-2xl sm:rounded-3xl border border-hh-border bg-hh-surface/95 shadow-[0_0_50px_rgba(4,26,29,0.8)] backdrop-blur-2xl">
         {/* Header */}
-        <div className="pl-4 pr-3 py-2.5 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
+        <div className="pl-4 pr-3 pt-3.5 pb-2.5 sm:pt-4 sm:pb-3 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
           <h2
             id="eligibility-title"
             className="font-sora text-sm sm:text-base font-bold text-white flex items-center gap-2"
