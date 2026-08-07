@@ -89,6 +89,16 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
     return progress.completed === progress.total;
   };
 
+  const handleNextMember = (e?: React.MouseEvent | React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (activeIndex < form.members.length - 1) {
+      setActiveIndex(activeIndex + 1);
+    }
+  };
+
   return <div className="mx-auto my-4 w-full max-w-3xl">
     <form
       onSubmit={(event) => {
@@ -96,7 +106,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
         if (isLastMember) {
           onContinue();
         } else {
-          setActiveIndex(activeIndex + 1);
+          handleNextMember(event);
         }
       }}
       className="space-y-6 rounded-2xl border border-hh-border/60 bg-hh-surface/90 p-3 shadow-2xl backdrop-blur-2xl sm:space-y-8 sm:rounded-3xl sm:p-6 lg:p-8"
@@ -441,7 +451,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
         ) : (
           <button
             type="button"
-            onClick={() => setActiveIndex(activeIndex + 1)}
+            onClick={handleNextMember}
             className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-hh-cyan px-6 py-4 text-base font-extrabold text-black shadow-[0_0_20px_rgba(99,210,229,.35)] transition hover:bg-cyan-300 sm:w-auto sm:px-8 cursor-pointer"
           >
             <span>คนถัดไป</span>
