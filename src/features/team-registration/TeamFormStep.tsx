@@ -108,29 +108,253 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
       <section className="space-y-5 rounded-2xl border border-hh-border/60 bg-hh-bg/60 p-4 sm:p-6">
         <div className="flex flex-col justify-between gap-3 border-b border-hh-border/30 pb-3 sm:flex-row sm:items-center">
           <SectionTitle icon={<Badge size={20} />} title={`ส่วนที่ 2: ข้อมูลสมาชิกในทีม (${form.members.length}/${config.registration.maxMembers} คน)`} borderless />
-          {form.members.length < config.registration.maxMembers ? <button type="button" onClick={addMember} className="flex min-h-11 self-start items-center gap-1.5 rounded-xl border border-hh-cyan/40 bg-hh-cyan/15 px-4 py-2.5 text-sm font-bold text-hh-cyan transition hover:bg-hh-cyan/25 sm:self-auto"><Plus size={17} /> เพิ่มสมาชิก</button> : null}
+          {form.members.length < config.registration.maxMembers ? (
+            <button
+              type="button"
+              onClick={addMember}
+              className="flex items-center gap-1.5 rounded-full border border-hh-cyan/50 bg-hh-cyan/15 px-4 py-2 text-xs font-bold text-hh-cyan transition hover:bg-hh-cyan/25 self-start sm:self-auto"
+            >
+              <Plus size={15} /> เพิ่มสมาชิก
+            </button>
+          ) : null}
         </div>
 
-        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2">{form.members.map((item, index) => { const complete = isComplete(item); return <button key={index} type="button" onClick={() => setActiveIndex(index)} className={`flex min-h-11 shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition ${activeIndex === index ? "bg-hh-cyan text-black shadow-[0_0_15px_rgba(99,210,229,.45)] sm:scale-[1.02]" : complete ? "border border-hh-emerald/40 bg-hh-emerald/20 text-hh-emerald" : "border border-hh-border bg-hh-surface text-hh-text-muted hover:text-white"}`}><span>{index === 0 ? "★ หัวหน้าทีม" : `● สมาชิกคนที่ ${index + 1}`}</span>{complete ? <Check size={15} /> : null}{canRemoveMember(index, form.members.length, config.registration.minMembers) ? <span role="button" tabIndex={0} onClick={(event) => { event.stopPropagation(); removeMember(index); }} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); event.stopPropagation(); removeMember(index); } }} className="ml-1 rounded p-1 hover:bg-red-500/20 hover:text-red-400" aria-label={`ลบสมาชิกคนที่ ${index + 1}`}><Trash2 size={15} /></span> : null}</button>; })}</div>
+        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2">
+          {form.members.map((item, index) => {
+            const complete = isComplete(item);
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`flex shrink-0 items-center gap-2 rounded-full px-5 py-2 text-xs sm:text-sm font-bold transition ${
+                  activeIndex === index
+                    ? "bg-hh-cyan text-black shadow-[0_0_15px_rgba(99,210,229,.45)]"
+                    : complete
+                    ? "border border-hh-emerald/40 bg-hh-emerald/20 text-hh-emerald"
+                    : "border border-hh-cyan/40 bg-hh-surface/80 text-white hover:border-hh-cyan"
+                }`}
+              >
+                <span>{index === 0 ? "★ หัวหน้าทีม" : `● สมาชิกคนที่ ${index + 1}`}</span>
+                {complete ? <Check size={14} /> : null}
+                {canRemoveMember(index, form.members.length, config.registration.minMembers) ? (
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      removeMember(index);
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        removeMember(index);
+                      }
+                    }}
+                    className="ml-1 rounded-full p-1 hover:bg-red-500/20 hover:text-red-400"
+                    aria-label={`ลบสมาชิกคนที่ ${index + 1}`}
+                  >
+                    <Trash2 size={14} />
+                  </span>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
 
-        {member ? <div className="space-y-6 pt-2">
-          <MemberSectionTitle title="ข้อมูลส่วนตัว" />
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-[minmax(130px,0.5fr)_minmax(0,1fr)_minmax(0,1fr)]"><Field label="คำนำหน้า" required error={memberErrors.title}><CustomSelect value={member.title} options={[{ value: "mr", label: "นาย" }, { value: "miss", label: "นางสาว" }]} placeholder="เลือกคำนำหน้า" ariaLabel="คำนำหน้า" error={memberErrors.title} onChange={(title) => updateMember({ title })} /></Field><Field label="ชื่อ" required error={memberErrors.firstName}><input value={member.firstName} onChange={(event) => updateMember({ firstName: event.target.value })} className={inputClass(memberErrors.firstName)} placeholder="ชื่อจริง" /></Field><Field label="นามสกุล" required error={memberErrors.lastName}><input value={member.lastName} onChange={(event) => updateMember({ lastName: event.target.value })} className={inputClass(memberErrors.lastName)} placeholder="นามสกุล" /></Field></div>
-            <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2"><Field label="ชื่อเล่น"><input value={member.nickname} onChange={(event) => updateMember({ nickname: event.target.value })} className={inputClass()} placeholder="ไม่บังคับ" /></Field><Field label={`อายุ (${config.registration.minAge}–${config.registration.maxAge} ปี)`} required error={memberErrors.age}><input type="number" min={config.registration.minAge} max={config.registration.maxAge} value={member.age} onChange={(event) => updateMember({ age: event.target.value })} className={inputClass(memberErrors.age)} /></Field></div>
-            {educationLevel === "higher_education" ? <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2"><Field label="มหาวิทยาลัย" required error={memberErrors.university}><input value={member.university} onChange={(event) => updateMember({ university: event.target.value })} className={inputClass(memberErrors.university)} placeholder="ชื่อมหาวิทยาลัย" /></Field><Field label="คณะ" required error={memberErrors.faculty}><input value={member.faculty} onChange={(event) => updateMember({ faculty: event.target.value })} className={inputClass(memberErrors.faculty)} placeholder="ชื่อคณะ" /></Field>{category?.pharmacyRule === "required" ? <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-hh-cyan/30 bg-hh-cyan/5 p-4 text-sm leading-relaxed text-white md:col-span-2"><input type="checkbox" checked={member.isPharmacyStudent} onChange={(event) => updateMember({ isPharmacyStudent: event.target.checked })} className="mt-0.5 h-5 w-5 shrink-0 accent-cyan-400" /><span><strong>สมาชิกคนนี้เป็นนิสิต/นักศึกษาเภสัชศาสตร์</strong><span className="mt-1 block text-sm text-hh-text-muted">ทีมประเภทนี้ต้องเลือกอย่างน้อย 1 คน</span></span></label> : null}</div> : <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-[minmax(0,4fr)_minmax(130px,1fr)]"><Field label="ชื่อโรงเรียน" required error={memberErrors.school}><input value={member.school} onChange={(event) => updateMember({ school: event.target.value })} className={inputClass(memberErrors.school)} placeholder="ชื่อโรงเรียน" /></Field><Field label="ระดับชั้น" required error={memberErrors.schoolGrade}><CustomSelect value={member.schoolGrade} options={[{ value: "m4", label: "ม.4" }, { value: "m5", label: "ม.5" }, { value: "m6", label: "ม.6" }]} placeholder="เลือกระดับชั้น" ariaLabel="ระดับชั้น" error={memberErrors.schoolGrade} onChange={(schoolGrade) => updateMember({ schoolGrade })} /></Field></div>}
-            <Field label="แพ้อาหาร / ยา"><input value={member.foodDrugAllergies} onChange={(event) => updateMember({ foodDrugAllergies: event.target.value })} className={inputClass()} placeholder="ไม่บังคับ" /></Field>
+        {member ? (
+          <div className="space-y-6 pt-2">
+            <MemberSectionTitle title="ข้อมูลส่วนตัว" />
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-[minmax(130px,0.5fr)_minmax(0,1fr)_minmax(0,1fr)]">
+                <Field label="คำนำหน้า" required error={memberErrors.title}>
+                  <CustomSelect
+                    value={member.title}
+                    options={[
+                      { value: "mr", label: "นาย" },
+                      { value: "miss", label: "นางสาว" },
+                    ]}
+                    placeholder="เลือก..."
+                    ariaLabel="คำนำหน้า"
+                    error={memberErrors.title}
+                    onChange={(title) => updateMember({ title })}
+                  />
+                </Field>
+                <Field label="ชื่อ" required error={memberErrors.firstName}>
+                  <input
+                    value={member.firstName}
+                    onChange={(event) => updateMember({ firstName: event.target.value.replace(/[0-9]/g, "") })}
+                    className={inputClass(memberErrors.firstName)}
+                    placeholder="ชื่อจริง"
+                  />
+                </Field>
+                <Field label="นามสกุล" required error={memberErrors.lastName}>
+                  <input
+                    value={member.lastName}
+                    onChange={(event) => updateMember({ lastName: event.target.value.replace(/[0-9]/g, "") })}
+                    className={inputClass(memberErrors.lastName)}
+                    placeholder="นามสกุล"
+                  />
+                </Field>
+              </div>
+
+              <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
+                <Field label="ชื่อเล่น">
+                  <input
+                    value={member.nickname}
+                    onChange={(event) => updateMember({ nickname: event.target.value.replace(/[0-9]/g, "") })}
+                    className={inputClass()}
+                    placeholder="ไม่บังคับ"
+                  />
+                </Field>
+                <Field label={`อายุ (${config.registration.minAge}-30 ปี)`} required error={memberErrors.age}>
+                  <input
+                    type="number"
+                    min={config.registration.minAge}
+                    max={config.registration.maxAge}
+                    value={member.age}
+                    onChange={(event) => updateMember({ age: event.target.value })}
+                    className={inputClass(memberErrors.age)}
+                  />
+                </Field>
+              </div>
+
+              {educationLevel === "higher_education" ? (
+                <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
+                  <Field label="มหาวิทยาลัย" required error={memberErrors.university}>
+                    <input
+                      value={member.university}
+                      onChange={(event) => updateMember({ university: event.target.value.replace(/[0-9]/g, "") })}
+                      className={inputClass(memberErrors.university)}
+                      placeholder="ชื่อมหาวิทยาลัย"
+                    />
+                  </Field>
+                  <Field label="คณะ" required error={memberErrors.faculty}>
+                    <input
+                      value={member.faculty}
+                      onChange={(event) => updateMember({ faculty: event.target.value.replace(/[0-9]/g, "") })}
+                      className={inputClass(memberErrors.faculty)}
+                      placeholder="ชื่อคณะ"
+                    />
+                  </Field>
+                  {category?.pharmacyRule === "required" ? (
+                    <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-hh-cyan/30 bg-hh-cyan/5 p-4 text-sm leading-relaxed text-white md:col-span-2">
+                      <input
+                        type="checkbox"
+                        checked={member.isPharmacyStudent}
+                        onChange={(event) => updateMember({ isPharmacyStudent: event.target.checked })}
+                        className="mt-0.5 h-5 w-5 shrink-0 accent-cyan-400"
+                      />
+                      <span>
+                        <strong>สมาชิกคนนี้เป็นนิสิต/นักศึกษาเภสัชศาสตร์</strong>
+                        <span className="mt-1 block text-sm text-hh-text-muted">ทีมประเภทนี้ต้องเลือกอย่างน้อย 1 คน</span>
+                      </span>
+                    </label>
+                  ) : null}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-[minmax(0,4fr)_minmax(130px,1fr)]">
+                  <Field label="ชื่อโรงเรียน" required error={memberErrors.school}>
+                    <input
+                      value={member.school}
+                      onChange={(event) => updateMember({ school: event.target.value.replace(/[0-9]/g, "") })}
+                      className={inputClass(memberErrors.school)}
+                      placeholder="ชื่อโรงเรียน"
+                    />
+                  </Field>
+                  <Field label="ระดับชั้น" required error={memberErrors.schoolGrade}>
+                    <CustomSelect
+                      value={member.schoolGrade}
+                      options={[
+                        { value: "m4", label: "ม.4" },
+                        { value: "m5", label: "ม.5" },
+                        { value: "m6", label: "ม.6" },
+                      ]}
+                      placeholder="เลือกระดับชั้น"
+                      ariaLabel="ระดับชั้น"
+                      error={memberErrors.schoolGrade}
+                      onChange={(schoolGrade) => updateMember({ schoolGrade })}
+                    />
+                  </Field>
+                </div>
+              )}
+
+              <Field label="แพ้อาหาร / ยา">
+                <input
+                  value={member.foodDrugAllergies}
+                  onChange={(event) => updateMember({ foodDrugAllergies: event.target.value })}
+                  className={inputClass()}
+                  placeholder="ไม่บังคับ"
+                />
+              </Field>
+            </div>
+
+            <MemberSectionTitle title="ข้อมูลการติดต่อ" />
+            <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
+              <Field label="Email" required error={memberErrors.email}>
+                <input
+                  type="email"
+                  readOnly={activeIndex === 0}
+                  value={member.email}
+                  onChange={(event) => updateMember({ email: event.target.value })}
+                  className={`${inputClass(memberErrors.email)} ${activeIndex === 0 ? "cursor-not-allowed opacity-65" : ""}`}
+                  placeholder="leader@example.com"
+                />
+              </Field>
+              <Field label="เบอร์โทรศัพท์" required error={memberErrors.phoneNumber}>
+                <input
+                  type="tel"
+                  maxLength={10}
+                  value={member.phoneNumber}
+                  onChange={(event) => updateMember({ phoneNumber: event.target.value.replace(/\D/g, "").slice(0, 10) })}
+                  className={inputClass(memberErrors.phoneNumber)}
+                  placeholder="08X-XXX-XXXX"
+                />
+              </Field>
+              <Field label="Line ID" required error={memberErrors.lineId}>
+                <input
+                  value={member.lineId}
+                  onChange={(event) => updateMember({ lineId: event.target.value })}
+                  className={inputClass(memberErrors.lineId)}
+                />
+              </Field>
+            </div>
+
+            <MemberSectionTitle title="ผู้ติดต่อฉุกเฉิน" />
+            <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
+              <Field label="ชื่อผู้ติดต่อฉุกเฉิน" required error={memberErrors.emergencyContactName}>
+                <input
+                  value={member.emergencyContactName}
+                  onChange={(event) => updateMember({ emergencyContactName: event.target.value.replace(/[0-9]/g, "") })}
+                  className={inputClass(memberErrors.emergencyContactName)}
+                  placeholder="ชื่อ-นามสกุล"
+                />
+              </Field>
+              <Field label="เบอร์ผู้ติดต่อฉุกเฉิน" required error={memberErrors.emergencyContactPhone}>
+                <input
+                  type="tel"
+                  maxLength={10}
+                  value={member.emergencyContactPhone}
+                  onChange={(event) => updateMember({ emergencyContactPhone: event.target.value.replace(/\D/g, "").slice(0, 10) })}
+                  className={inputClass(memberErrors.emergencyContactPhone)}
+                  placeholder="08X-XXX-XXXX"
+                />
+              </Field>
+            </div>
           </div>
-
-          <MemberSectionTitle title="ข้อมูลการติดต่อ" />
-          <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2"><Field label="Email" required error={memberErrors.email}><input type="email" readOnly={activeIndex === 0} value={member.email} onChange={(event) => updateMember({ email: event.target.value })} className={`${inputClass(memberErrors.email)} ${activeIndex === 0 ? "cursor-not-allowed opacity-65" : ""}`} placeholder="example@domain.com" /></Field><Field label="เบอร์โทรศัพท์" required error={memberErrors.phoneNumber}><input type="tel" value={member.phoneNumber} onChange={(event) => updateMember({ phoneNumber: event.target.value })} className={inputClass(memberErrors.phoneNumber)} placeholder="08X-XXX-XXXX" /></Field><Field label="Line ID" required error={memberErrors.lineId}><input value={member.lineId} onChange={(event) => updateMember({ lineId: event.target.value })} className={inputClass(memberErrors.lineId)} /></Field></div>
-
-          <MemberSectionTitle title="ผู้ติดต่อฉุกเฉิน" />
-          <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2"><Field label="ชื่อผู้ติดต่อฉุกเฉิน" required error={memberErrors.emergencyContactName}><input value={member.emergencyContactName} onChange={(event) => updateMember({ emergencyContactName: event.target.value })} className={inputClass(memberErrors.emergencyContactName)} placeholder="ชื่อ-นามสกุล" /></Field><Field label="เบอร์ผู้ติดต่อฉุกเฉิน" required error={memberErrors.emergencyContactPhone}><input type="tel" value={member.emergencyContactPhone} onChange={(event) => updateMember({ emergencyContactPhone: event.target.value })} className={inputClass(memberErrors.emergencyContactPhone)} placeholder="08X-XXX-XXXX" /></Field></div>
-        </div> : null}
+        ) : null}
       </section>
 
-      <div className="flex justify-end border-t border-hh-border/40 pt-4"><button type="submit" disabled={loading || !category || category.price === null} className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-hh-action px-6 py-4 text-base font-extrabold text-black shadow-[0_0_25px_rgba(255,106,0,.45)] transition hover:bg-orange-400 disabled:opacity-50 sm:w-auto sm:px-8">{loading ? <LoaderCircle className="animate-spin" size={18} /> : <Check size={18} />} ยืนยันข้อมูลและตรวจสอบ</button></div>
+      <div className="flex justify-end border-t border-hh-border/40 pt-4">
+        <button
+          type="submit"
+          disabled={loading || !category || category.price === null}
+          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-hh-action px-6 py-4 text-base font-extrabold text-black shadow-[0_0_25px_rgba(255,106,0,.45)] transition hover:bg-orange-400 disabled:opacity-50 sm:w-auto sm:px-8"
+        >
+          {loading ? <LoaderCircle className="animate-spin" size={18} /> : <Check size={18} />} ยืนยันข้อมูลและตรวจสอบ
+        </button>
+      </div>
     </form>
   </div>;
 }
@@ -150,4 +374,5 @@ function SectionTitle({ icon, title, borderless = false }: { icon: ReactNode; ti
 function MemberSectionTitle({ title }: { title: string }) { return <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-hh-cyan/80"><span>{title}</span><span className="h-px flex-1 bg-hh-border/30" /></div>; }
 function Label({ children, required = false }: { children: ReactNode; required?: boolean }) { return <span className="text-sm font-bold text-white">{children}{required ? <span className="ml-1 text-hh-action">*</span> : null}</span>; }
 function Field({ label, required = false, error, children }: { label: string; required?: boolean; error?: string; children: ReactNode }) { return <label className="block space-y-2"><Label required={required}>{label}</Label>{children}{error ? <span className="block text-sm leading-relaxed text-red-300">{error}</span> : null}</label>; }
-function inputClass(error?: string) { return `h-12 w-full rounded-xl border bg-hh-bg px-4 text-base text-white outline-none transition placeholder:text-hh-text-muted/45 focus:ring-2 ${error ? "border-red-400/60 focus:border-red-400 focus:ring-red-400/20" : "border-hh-border focus:border-hh-cyan focus:ring-hh-cyan/30"}`; }
+function inputClass(error?: string) { return `h-12 w-full rounded-full border bg-hh-bg px-4 text-sm text-white outline-none transition placeholder:text-hh-text-muted/45 focus:ring-2 ${error ? "border-red-400/60 focus:border-red-400 focus:ring-red-400/20" : "border-hh-border focus:border-hh-cyan focus:ring-hh-cyan/30"}`; }
+
