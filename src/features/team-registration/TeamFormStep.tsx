@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, type ReactNode } from "react";
-import { Badge, Check, LoaderCircle, Plus, Trash2, UsersRound } from "lucide-react";
+import { useState, useMemo, type ReactNode } from "react";
+import { Badge, Check, ChevronDown, ChevronRight, LoaderCircle, Plus, Trash2, User, UsersRound } from "lucide-react";
 import { canRemoveMember, createEmptyMember, getMemberCompletion } from "./form";
 import { SystemError } from "./RegistrationFrame";
 import { CustomSelect } from "./CustomSelect";
@@ -19,12 +19,14 @@ interface TeamFormStepProps {
 }
 
 export function TeamFormStep({ config, form, setForm, errors, onContinue, loading, activeIndex, setActiveIndex }: TeamFormStepProps) {
+  const [isMemberCountOpen, setIsMemberCountOpen] = useState(false);
   const category = useMemo(() => config.categories.find((item) => item.id === form.categoryId) ?? null, [config.categories, form.categoryId]);
   const member = form.members[activeIndex] ?? form.members[0];
   const memberErrors = errors.members[activeIndex] ?? {};
   const educationLevel = category?.educationLevel ?? "higher_education";
   const higherCategories = config.categories.filter((item) => item.educationLevel === "higher_education");
   const secondaryCategory = config.categories.find((item) => item.educationLevel === "upper_secondary") ?? null;
+  const isLastMember = activeIndex === form.members.length - 1;
 
   const updateMember = (update: Partial<MemberForm>) => setForm({
     ...form,
@@ -49,6 +51,26 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
     if (next) chooseCategory(next);
   };
 
+  const setMemberCount = (targetCount: number) => {
+    if (targetCount === form.members.length) {
+      setIsMemberCountOpen(false);
+      return;
+    }
+    if (targetCount > form.members.length) {
+      const diff = targetCount - form.members.length;
+      const added = Array.from({ length: diff }, (_, i) => createEmptyMember(form.members.length + i));
+      const nextMembers = [...form.members, ...added];
+      setForm({ ...form, members: nextMembers });
+    } else {
+      const nextMembers = form.members.slice(0, targetCount);
+      setForm({ ...form, members: nextMembers });
+      if (activeIndex >= targetCount) {
+        setActiveIndex(targetCount - 1);
+      }
+    }
+    setIsMemberCountOpen(false);
+  };
+
   const addMember = () => {
     if (form.members.length >= config.registration.maxMembers) return;
     const next = [...form.members, createEmptyMember(form.members.length)];
@@ -68,7 +90,17 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
   };
 
   return <div className="mx-auto my-4 w-full max-w-3xl">
-    <form onSubmit={(event) => { event.preventDefault(); onContinue(); }} className="space-y-6 rounded-2xl border border-hh-border/60 bg-hh-surface/90 p-3 shadow-2xl backdrop-blur-2xl sm:space-y-8 sm:rounded-3xl sm:p-6 lg:p-8">
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (isLastMember) {
+          onContinue();
+        } else {
+          setActiveIndex(activeIndex + 1);
+        }
+      }}
+      className="space-y-6 rounded-2xl border border-hh-border/60 bg-hh-surface/90 p-3 shadow-2xl backdrop-blur-2xl sm:space-y-8 sm:rounded-3xl sm:p-6 lg:p-8"
+    >
       <header className="space-y-1 border-b border-hh-border/40 pb-4 text-center sm:text-left">
         <span className="inline-block rounded-full border border-hh-cyan/30 bg-hh-cyan/10 px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wide text-hh-cyan">Step 03 • Registration form</span>
         <h1 className="font-sora text-2xl font-extrabold text-white sm:text-3xl">ข้อมูลการสมัครสมาชิกและทีม</h1>
@@ -78,7 +110,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
       {errors.form ? <SystemError message={errors.form} /> : null}
 
       <section className="space-y-5 rounded-2xl border border-hh-border/60 bg-hh-bg/60 p-4 sm:p-6">
-        <SectionTitle icon={<UsersRound size={20} />} title="ส่วนที่ 1: ข้อมูลทั่วไปของทีม" />
+        <SectionTitle icon={<UsersRound size={18} />} title="ส่วนที่ 1: ข้อมูลทั่วไปของทีม" />
         <Field label="ชื่อทีม (Team Name)" required error={errors.teamName}><input value={form.teamName} onChange={(event) => setForm({ ...form, teamName: event.target.value })} className={inputClass(errors.teamName)} placeholder="ตั้งชื่อทีมของคุณ เช่น PharmaInnovators 2026" /></Field>
 
         <div className="space-y-4">
@@ -107,37 +139,83 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
 
       <section className="space-y-5 rounded-2xl border border-hh-border/60 bg-hh-bg/60 p-4 sm:p-6">
         <div className="flex flex-col justify-between gap-3 border-b border-hh-border/30 pb-3 sm:flex-row sm:items-center">
-          <SectionTitle icon={<Badge size={20} />} title={`ส่วนที่ 2: ข้อมูลสมาชิกในทีม (${form.members.length}/${config.registration.maxMembers} คน)`} borderless />
-          {form.members.length < config.registration.maxMembers ? (
+          <SectionTitle icon={<Badge size={18} />} title={`ส่วนที่ 2: ข้อมูลสมาชิกในทีม (${form.members.length}/${config.registration.maxMembers} คน)`} borderless />
+
+          {/* Member Count Dropdown Selection (3 - 5 คน) */}
+          <div className="relative self-start sm:self-auto">
             <button
               type="button"
-              onClick={addMember}
-              className="flex items-center gap-1.5 rounded-full border border-hh-cyan/50 bg-hh-cyan/15 px-4 py-2 text-xs font-bold text-hh-cyan transition hover:bg-hh-cyan/25 self-start sm:self-auto"
+              onClick={() => setIsMemberCountOpen(!isMemberCountOpen)}
+              className="flex items-center gap-2 rounded-full border border-hh-cyan/50 bg-hh-cyan/15 px-4 py-2 text-xs font-bold text-hh-cyan transition hover:bg-hh-cyan/25 cursor-pointer"
             >
-              <Plus size={15} /> เพิ่มสมาชิก
+              <UsersRound size={16} className="text-hh-cyan shrink-0" />
+              <span>{form.members.length} คน</span>
+              <ChevronDown size={16} className={`text-hh-cyan transition-transform duration-200 shrink-0 ${isMemberCountOpen ? "rotate-180" : ""}`} />
             </button>
-          ) : null}
+
+            {isMemberCountOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-20"
+                  onClick={() => setIsMemberCountOpen(false)}
+                />
+                <div className="absolute right-0 top-full mt-1.5 z-30 w-36 overflow-hidden rounded-xl border border-hh-cyan/50 bg-[#041a1d] shadow-[0_10px_30px_rgba(0,0,0,0.9)] backdrop-blur-2xl divide-y divide-hh-border/40">
+                  {[3, 4, 5].map((count) => (
+                    <button
+                      key={count}
+                      type="button"
+                      onClick={() => setMemberCount(count)}
+                      className={`flex w-full items-center justify-between px-4 py-2.5 text-xs font-bold font-sora transition cursor-pointer ${
+                        form.members.length === count
+                          ? "bg-hh-cyan/20 text-hh-cyan"
+                          : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                      }`}
+                    >
+                      <span>{count} คน</span>
+                      {form.members.length === count && <Check size={14} className="text-hh-cyan" />}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2">
           {form.members.map((item, index) => {
             const complete = isComplete(item);
+            const isActive = activeIndex === index;
             return (
               <button
                 key={index}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                className={`flex shrink-0 items-center gap-2 rounded-full px-5 py-2 text-xs sm:text-sm font-bold transition ${
-                  activeIndex === index
-                    ? "bg-hh-cyan text-black shadow-[0_0_15px_rgba(99,210,229,.45)]"
+                className={`flex shrink-0 items-center gap-1.5 rounded-full py-1.5 text-xs sm:text-sm font-bold transition-all ${
+                  isActive
+                    ? "bg-hh-cyan text-black px-3.5 sm:px-4"
                     : complete
-                    ? "border border-hh-emerald/40 bg-hh-emerald/20 text-hh-emerald"
-                    : "border border-hh-cyan/40 bg-hh-surface/80 text-white hover:border-hh-cyan"
+                    ? "border border-hh-emerald/40 bg-hh-emerald/20 text-hh-emerald px-3"
+                    : "border border-hh-cyan/40 bg-hh-surface/80 text-white hover:border-hh-cyan px-3"
                 }`}
               >
-                <span>{index === 0 ? "★ หัวหน้าทีม" : `● สมาชิกคนที่ ${index + 1}`}</span>
+                {isActive ? (
+                  /* Active Tab: Full Label */
+                  <span>{index === 0 ? "★ หัวหน้าทีม" : `● สมาชิกคนที่ ${index + 1}`}</span>
+                ) : (
+                  /* Inactive Tab: Compact Icon + Number */
+                  <span className="flex items-center gap-1">
+                    {index === 0 ? (
+                      <span className="text-hh-cyan">★ 1</span>
+                    ) : (
+                      <>
+                        <User size={13} className="text-hh-cyan shrink-0" />
+                        <span>{index + 1}</span>
+                      </>
+                    )}
+                  </span>
+                )}
                 {complete ? <Check size={14} /> : null}
-                {canRemoveMember(index, form.members.length, config.registration.minMembers) ? (
+                {isActive && canRemoveMember(index, form.members.length, config.registration.minMembers) ? (
                   <span
                     role="button"
                     tabIndex={0}
@@ -346,14 +424,30 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
         ) : null}
       </section>
 
-      <div className="flex justify-end border-t border-hh-border/40 pt-4">
-        <button
-          type="submit"
-          disabled={loading || !category || category.price === null}
-          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-hh-action px-6 py-4 text-base font-extrabold text-black shadow-[0_0_25px_rgba(255,106,0,.45)] transition hover:bg-orange-400 disabled:opacity-50 sm:w-auto sm:px-8"
-        >
-          {loading ? <LoaderCircle className="animate-spin" size={18} /> : <Check size={18} />} ยืนยันข้อมูลและตรวจสอบ
-        </button>
+      <div className="flex flex-col sm:flex-row items-center justify-between border-t border-hh-border/40 pt-4 gap-3">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-hh-text-muted font-sora font-semibold self-start sm:self-auto">
+          <UsersRound size={16} className="text-hh-cyan shrink-0" />
+          <span>สมาชิกในทีมทั้งหมด: <strong className="text-hh-cyan font-bold">{form.members.length} คน</strong></span>
+        </div>
+
+        {isLastMember ? (
+          <button
+            type="submit"
+            disabled={loading || !category || category.price === null}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-hh-action px-6 py-4 text-base font-extrabold text-black shadow-[0_0_25px_rgba(255,106,0,.45)] transition hover:bg-orange-400 disabled:opacity-50 sm:w-auto sm:px-8 cursor-pointer"
+          >
+            {loading ? <LoaderCircle className="animate-spin" size={18} /> : <Check size={18} />} ยืนยันข้อมูลและตรวจสอบ
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setActiveIndex(activeIndex + 1)}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-hh-cyan px-6 py-4 text-base font-extrabold text-black shadow-[0_0_20px_rgba(99,210,229,.35)] transition hover:bg-cyan-300 sm:w-auto sm:px-8 cursor-pointer"
+          >
+            <span>คนถัดไป</span>
+            <ChevronRight size={18} />
+          </button>
+        )}
       </div>
     </form>
   </div>;
@@ -370,7 +464,7 @@ function getCategoryDescription(category: TeamCategory) {
 function StepNumber({ completed, children }: { completed: boolean; children: ReactNode }) { return <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full text-xs font-extrabold ${completed ? "bg-hh-emerald text-black" : "bg-hh-cyan/15 text-hh-cyan"}`}>{completed ? <Check size={15} /> : children}</span>; }
 function EducationChoice({ selected, label, description, onClick }: { selected: boolean; label: string; description: string; onClick: () => void }) { return <button type="button" aria-pressed={selected} onClick={onClick} className={`min-h-16 rounded-lg px-4 py-3 text-left transition sm:text-center ${selected ? "bg-hh-cyan/20 text-white shadow-sm" : "text-hh-text-muted hover:bg-white/5 hover:text-white"}`}><span className="block text-sm font-bold leading-snug">{label}</span><span className="mt-1 block text-xs leading-relaxed">{description}</span></button>; }
 function ChoiceCard({ selected, title, description, price, onClick }: { selected: boolean; title: string; description: string; price?: string | null; onClick: () => void }) { return <button type="button" aria-pressed={selected} onClick={onClick} className={`grid w-full grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 gap-y-1 rounded-xl border p-4 text-left transition sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center ${selected ? "border-hh-cyan bg-hh-cyan/15 text-white shadow-[0_0_15px_rgba(99,210,229,.2)]" : "border-hh-border/60 bg-hh-bg/40 text-hh-text-muted hover:border-hh-border hover:bg-white/5"}`}><span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${selected ? "border-hh-cyan" : "border-hh-border"}`}>{selected ? <span className="h-2.5 w-2.5 rounded-full bg-hh-cyan" /> : null}</span><span className="min-w-0"><span className="block text-sm font-bold leading-snug text-white">{title}</span><span className="mt-1 block text-sm leading-relaxed text-hh-text-muted">{description}</span></span><span className="col-start-2 mt-2 whitespace-nowrap font-mono text-sm font-extrabold text-hh-action sm:col-start-3 sm:row-start-1 sm:mt-0 sm:text-right">{price ? <>฿{Number(price).toLocaleString()} <span className="text-xs text-hh-text-muted">/ ทีม</span></> : "—"}</span></button>; }
-function SectionTitle({ icon, title, borderless = false }: { icon: ReactNode; title: string; borderless?: boolean }) { return <div className={`flex items-center gap-2 ${borderless ? "" : "border-b border-hh-border/30 pb-3"}`}><span className="text-hh-cyan">{icon}</span><h2 className="font-sora text-base font-bold text-white sm:text-lg">{title}</h2></div>; }
+function SectionTitle({ icon, title, borderless = false }: { icon: ReactNode; title: string; borderless?: boolean }) { return <div className={`flex items-center gap-2 ${borderless ? "" : "border-b border-hh-border/30 pb-3"}`}><span className="text-hh-cyan flex items-center justify-center shrink-0 -translate-y-[6px]">{icon}</span><h2 className="font-sora text-base font-bold text-white sm:text-lg leading-tight flex items-center">{title}</h2></div>; }
 function MemberSectionTitle({ title }: { title: string }) { return <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-hh-cyan/80"><span>{title}</span><span className="h-px flex-1 bg-hh-border/30" /></div>; }
 function Label({ children, required = false }: { children: ReactNode; required?: boolean }) { return <span className="text-sm font-bold text-white">{children}{required ? <span className="ml-1 text-hh-action">*</span> : null}</span>; }
 function Field({ label, required = false, error, children }: { label: string; required?: boolean; error?: string; children: ReactNode }) { return <label className="block space-y-2"><Label required={required}>{label}</Label>{children}{error ? <span className="block text-sm leading-relaxed text-red-300">{error}</span> : null}</label>; }
