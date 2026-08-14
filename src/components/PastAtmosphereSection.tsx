@@ -82,8 +82,8 @@ export default function PastAtmosphereSection() {
   return (
     <section className="w-full relative py-12 md:py-16 bg-hh-bg overflow-hidden">
       {/* Soft Boundary Gradient Fade at top & bottom edges */}
-      <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-hh-bg via-hh-bg/80 to-transparent z-20 pointer-events-none" />
-      <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-hh-bg via-hh-bg/80 to-transparent z-20 pointer-events-none" />
+      <div className="absolute top-0 inset-x-0 h-8 bg-gradient-to-b from-hh-bg to-transparent z-20 pointer-events-none" />
+      <div className="absolute bottom-0 inset-x-0 h-8 bg-gradient-to-t from-hh-bg to-transparent z-20 pointer-events-none" />
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-hh-cyan/25 to-transparent pointer-events-none" />
 
       {/* Centered Heading */}
@@ -95,10 +95,10 @@ export default function PastAtmosphereSection() {
       </div>
 
       {/* Mobile Vertical Dual-Marquee (Left UP, Right DOWN) (< md) */}
-      <div className="md:hidden px-margin-mobile my-4 relative z-10 max-w-container-max mx-auto h-[440px] overflow-hidden">
+      <div className="md:hidden px-margin-mobile my-4 relative z-10 max-w-container-max mx-auto h-[440px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_92%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_92%,transparent_100%)]">
         {/* Top & Bottom Side Gradient Fades for seamless vertical scrolling */}
-        <div className="absolute left-0 right-0 top-0 h-12 bg-gradient-to-b from-hh-bg via-hh-bg/90 to-transparent z-20 pointer-events-none" />
-        <div className="absolute left-0 right-0 bottom-0 h-12 bg-gradient-to-t from-hh-bg via-hh-bg/90 to-transparent z-20 pointer-events-none" />
+        <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-hh-bg to-transparent z-20 pointer-events-none" />
+        <div className="absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-t from-hh-bg to-transparent z-20 pointer-events-none" />
 
         <div className="grid grid-cols-2 gap-2.5 h-full overflow-hidden">
           {/* Column 1 (Left): Moves UPWARDS */}
@@ -148,7 +148,7 @@ export default function PastAtmosphereSection() {
       </div>
 
       {/* Desktop Marquee Rows (md+) */}
-      <div className="hidden md:block relative w-full space-y-5 py-2 overflow-hidden z-10">
+      <div className="hidden md:block relative w-full space-y-5 py-2 overflow-hidden z-10 [mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_90%,transparent_100%)]">
         {/* Left & Right Side Gradient Fades for seamless marquee aesthetic */}
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-hh-bg to-transparent z-20 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-hh-bg to-transparent z-20 pointer-events-none" />

@@ -32,7 +32,7 @@ export default function ChallengeRevealSection() {
 
               <div className="pt-1 sm:pt-2">
                 <span className="inline-block font-mono text-[11px] sm:text-xs text-hh-text-muted bg-hh-surface-raised/80 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-hh-border/40">
-                  เปิดระบบรับผลงาน: 25 – 28 ก.ย. 2569
+                  Submit ผลงานได้ ตั้งแต่วันที่ 25 กันยายน – 28 กันยายน เวลา 20.00 น.
                 </span>
               </div>
             </div>

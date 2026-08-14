@@ -40,10 +40,10 @@ export function CustomSelect<T extends string>({ value, options, placeholder, ar
       aria-controls={listboxId}
       aria-haspopup="listbox"
       onClick={() => setOpen((current) => !current)}
-      className={`flex h-12 w-full items-center justify-between gap-3 rounded-full border bg-hh-bg px-4 text-left text-sm text-white outline-none transition hover:border-hh-cyan/60 focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/30 ${error ? "border-red-400/60" : "border-hh-border"}`}
+      className={`flex h-9 sm:h-12 w-full items-center justify-between gap-2 sm:gap-3 rounded-full border bg-hh-bg px-3 sm:px-4 text-left text-xs sm:text-sm text-white outline-none transition hover:border-hh-cyan/60 focus:border-hh-cyan focus:ring-2 focus:ring-hh-cyan/30 ${error ? "border-red-400/60" : "border-hh-border"}`}
     >
       <span className={`min-w-0 flex-1 truncate ${selected ? "text-white" : "text-hh-text-muted/45"}`}>{selected?.label ?? placeholder}</span>
-      <ChevronDown aria-hidden="true" size={20} className={`shrink-0 text-hh-cyan transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+      <ChevronDown aria-hidden="true" size={16} className={`shrink-0 text-hh-cyan transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
     </button>
 
     {open ? <>

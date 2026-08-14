@@ -45,7 +45,7 @@ export const DEFAULT_FALLBACK_CONFIG: TeamEventConfig = {
       name: "ระดับอุดมศึกษา (ทีมที่มีนิสิต/นักศึกษาเภสัชฯ)",
       educationLevel: "higher_education",
       pharmacyRule: "required",
-      price: "500.00",
+      price: "700.00",
       currency: "THB",
     },
     {
@@ -54,7 +54,7 @@ export const DEFAULT_FALLBACK_CONFIG: TeamEventConfig = {
       name: "ระดับอุดมศึกษา (ทีมทั่วไป)",
       educationLevel: "higher_education",
       pharmacyRule: "forbidden",
-      price: "500.00",
+      price: "750.00",
       currency: "THB",
     },
     {
@@ -63,7 +63,7 @@ export const DEFAULT_FALLBACK_CONFIG: TeamEventConfig = {
       name: "ระดับมัธยมศึกษาตอนปลาย",
       educationLevel: "upper_secondary",
       pharmacyRule: "forbidden",
-      price: "300.00",
+      price: "750.00",
       currency: "THB",
     },
   ],

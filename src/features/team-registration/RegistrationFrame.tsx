@@ -20,42 +20,45 @@ export function RegistrationFrame({ step, children, compact = false }: { step: n
           </Link>
           <div className="font-sora text-[11px] sm:text-sm font-extrabold leading-snug text-hh-cyan">PSAT HEALTHHACK 2026</div>
         </header>
-        <nav aria-label="ขั้นตอนการลงทะเบียน" className="my-4 sm:my-8">
-          <ol className="flex w-full items-start">
-            {steps.map((label, index) => {
-              const number = index + 1;
-              const state = getRegistrationStepState(number, step);
-              const completed = state === "completed";
-              const active = state === "active";
-              return (
-                <li key={label} aria-current={active ? "step" : undefined} className="relative flex min-w-0 flex-1 flex-col items-center">
-                  {index < steps.length - 1 ? (
-                    <span aria-hidden="true" className={`absolute left-1/2 top-[13px] h-0.5 w-full transition-colors sm:top-[19px] ${completed ? "bg-hh-emerald" : "bg-white/10"}`} />
-                  ) : null}
-                  <span
-                    className={`relative z-10 flex h-7 w-7 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full border-2 font-mono text-[11px] sm:text-xs font-extrabold leading-none transition-all ${completed
-                      ? "border-hh-emerald bg-hh-emerald text-hh-bg"
-                      : active
-                        ? "border-hh-action bg-hh-action text-black shadow-[0_0_14px_rgba(255,106,0,.65)]"
-                        : "border-hh-border/70 bg-[#062429] text-hh-text-muted"
-                      }`}
-                  >
-                    {completed ? <Check aria-hidden="true" size={13} strokeWidth={3} /> : <span className="inline-block">{number}</span>}
-                  </span>
-                  <span
-                    className={`mt-2 hidden min-h-8 px-1 text-center font-mono text-xs leading-tight sm:block ${completed ? "text-hh-emerald" : active ? "font-bold text-hh-action" : "text-hh-text-muted/70"
-                      }`}
-                  >
-                    0{number} / {label}
-                  </span>
-                </li>
-              );
-            })}
-          </ol>
-          <div className="mt-2.5 text-center sm:hidden">
-            <span className="font-mono text-xs font-extrabold text-hh-action">ขั้นที่ {currentStep.number} จาก {currentStep.total}</span>
+        <nav aria-label="ขั้นตอนการลงทะเบียน" className="my-2 sm:my-8 mx-auto w-full max-w-md sm:max-w-3xl px-2 sm:px-0 -translate-x-3.5 sm:translate-x-0">
+          <div className="w-full">
+            <ol className="flex w-full items-start">
+              {steps.map((label, index) => {
+                const number = index + 1;
+                const state = getRegistrationStepState(number, step);
+                const completed = state === "completed";
+                const active = state === "active";
+                return (
+                  <li key={label} aria-current={active ? "step" : undefined} className="relative flex min-w-0 flex-1 flex-col items-center">
+                    {index < steps.length - 1 ? (
+                      <span aria-hidden="true" className={`absolute left-1/2 top-[17px] h-0.5 w-full transition-colors sm:top-[19px] ${completed ? "bg-hh-emerald" : "bg-white/10"}`} />
+                    ) : null}
+                    <span
+                      className={`relative z-10 flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full border-2 font-mono text-sm sm:text-xs font-extrabold leading-none transition-all ${completed
+                        ? "border-hh-emerald bg-hh-emerald text-hh-bg"
+                        : active
+                          ? "border-hh-action bg-hh-action text-black"
+                          : "border-hh-border/70 bg-[#062429] text-hh-text-muted"
+                        }`}
+                    >
+                      {completed ? <Check aria-hidden="true" size={16} strokeWidth={3} /> : <span className="inline-block">{number}</span>}
+                    </span>
+                    <span
+                      className={`mt-2 hidden min-h-8 px-1 text-center font-mono text-xs leading-tight sm:block ${completed ? "text-hh-emerald" : active ? "font-bold text-hh-action" : "text-hh-text-muted/70"
+                        }`}
+                    >
+                      0{number} / {label}
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+
+          <div className="mt-3 text-center sm:hidden">
+            <span className="font-mono text-xs sm:text-sm font-extrabold text-hh-action">ขั้นที่ {currentStep.number} จาก {currentStep.total}</span>
             <span className="mx-1.5 text-hh-border">•</span>
-            <span className="text-xs font-bold text-white">{currentStep.label}</span>
+            <span className="text-xs sm:text-sm font-bold text-white">{currentStep.label}</span>
           </div>
         </nav>
         {children}
