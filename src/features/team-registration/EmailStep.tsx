@@ -23,6 +23,7 @@ export function EmailStep({ email, setEmail, onSubmit, loading, error }: { email
             autoFocus
             type="email"
             required
+            maxLength={50}
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}

@@ -95,66 +95,82 @@ export default function SchedulePage() {
 
       <div className="py-8 sm:py-12 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-6 sm:space-y-8 font-hanken">
 
-        {/* 1. Mobile Vertical Timeline Card View (< sm) */}
-        <div className="sm:hidden space-y-4">
-          {scheduleItems.map((item, idx) => (
-            <div
-              key={`mob-item-${idx}`}
-              className="p-4 rounded-2xl border border-hh-border/60 bg-hh-surface/90 shadow-xl space-y-2.5"
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan font-mono text-xs font-bold">
-                <span className="material-symbols-outlined text-sm">calendar_month</span>
-                <span>{item.date}</span>
+        {/* 1. Mobile Vertical Connected Paper View (< sm) */}
+        <div className="sm:hidden space-y-6">
+          {/* Paper 1: ช่วงที่ 1 - รอบคัดเลือก & Hackathon ออนไลน์ 72 ชั่วโมง */}
+          <div className="rounded-2xl border border-hh-border/70 bg-hh-surface/95 shadow-xl backdrop-blur-xl overflow-hidden">
+            {/* Paper 1 Header */}
+            <div className="px-4 py-3 bg-gradient-to-r from-hh-cyan/20 via-hh-cyan/10 to-transparent border-b border-hh-border/60 flex items-center">
+              <div className="flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-hh-cyan text-black text-[11px] font-bold font-mono">1</span>
+                <span className="font-sora text-sm font-extrabold text-white">รอบคัดเลือก & Hackathon</span>
               </div>
-              <h2 className="font-sora text-base font-bold text-white leading-snug">
-                {item.title}
-              </h2>
-              {item.details && (
-                <ul className="space-y-1 text-xs text-hh-text-muted">
-                  {item.details.map((d, i) => (
-                    <li key={i}>• {d}</li>
-                  ))}
-                </ul>
-              )}
             </div>
-          ))}
 
-          {/* Mobile Final Pitching Round Banner */}
-          <div className="p-3.5 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/40 text-center font-sora text-sm font-extrabold text-hh-cyan shadow-lg">
-            การแข่งขันรอบตัดสิน (Final Pitching Round)
+            {/* Paper 1 Connected Items List */}
+            <div className="divide-y divide-hh-border/30">
+              {scheduleItems.map((item, idx) => (
+                <div key={`mob-item-${idx}`} className="p-3.5 space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-hh-cyan font-mono text-xs font-bold">
+                    <span className="material-symbols-outlined text-sm text-hh-cyan">calendar_month</span>
+                    <span>{item.date}</span>
+                  </div>
+                  <h3 className="font-sora text-sm font-bold text-white leading-snug">
+                    {item.title}
+                  </h3>
+                  {item.details && (
+                    <ul className="space-y-0.5 text-xs text-hh-text-muted leading-relaxed">
+                      {item.details.map((d, i) => (
+                        <li key={i}>• {d}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {finalistSchedule.map((item, idx) => (
-            <div
-              key={`mob-finalist-${idx}`}
-              className={`p-4 rounded-2xl border shadow-xl space-y-2.5 ${
-                item.highlight
-                  ? "bg-hh-action/15 border-hh-action/50 shadow-[0_0_20px_rgba(255,106,0,0.15)]"
-                  : "bg-hh-surface/90 border-hh-border/60"
-              }`}
-            >
-              <div
-                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full font-mono text-xs font-bold ${
-                  item.highlight
-                    ? "bg-hh-action/20 border border-hh-action/40 text-hh-action"
-                    : "bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan"
-                }`}
-              >
-                <span className="material-symbols-outlined text-sm">event</span>
-                <span>{item.date}</span>
+          {/* Paper 2: ช่วงที่ 2 - การแข่งขันรอบตัดสิน (Final Pitching Round) */}
+          <div className="rounded-2xl border border-hh-action/40 bg-hh-surface/95 shadow-xl backdrop-blur-xl overflow-hidden">
+            {/* Paper 2 Header */}
+            <div className="px-4 py-3 bg-gradient-to-r from-hh-action/20 via-hh-action/10 to-transparent border-b border-hh-border/60 flex items-center">
+              <div className="flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-hh-action text-black text-[11px] font-bold font-mono">2</span>
+                <span className="font-sora text-sm font-extrabold text-white">การแข่งขันรอบตัดสิน (Final)</span>
               </div>
-              <h2 className="font-sora text-base font-bold text-white leading-snug">
-                {item.title}
-              </h2>
-              {item.details && (
-                <ul className="space-y-1 text-xs text-hh-text-muted">
-                  {item.details.map((d, i) => (
-                    <li key={i}>• {d}</li>
-                  ))}
-                </ul>
-              )}
             </div>
-          ))}
+
+            {/* Paper 2 Connected Items List */}
+            <div className="divide-y divide-hh-border/30">
+              {finalistSchedule.map((item, idx) => (
+                <div
+                  key={`mob-finalist-${idx}`}
+                  className={`p-3.5 space-y-1.5 transition-colors ${
+                    item.highlight ? "bg-hh-action/10" : ""
+                  }`}
+                >
+                  <div
+                    className={`flex items-center gap-1.5 font-mono text-xs font-bold ${
+                      item.highlight ? "text-hh-action" : "text-hh-cyan"
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-sm">{item.highlight ? "stars" : "event"}</span>
+                    <span>{item.date}</span>
+                  </div>
+                  <h3 className={`font-sora text-sm font-bold leading-snug ${item.highlight ? "text-hh-action" : "text-white"}`}>
+                    {item.title}
+                  </h3>
+                  {item.details && (
+                    <ul className="space-y-0.5 text-xs text-hh-text-muted leading-relaxed">
+                      {item.details.map((d, i) => (
+                        <li key={i}>• {d}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* 2. Desktop & Tablet Table Sheet (sm+) */}

@@ -127,6 +127,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
         <SectionTitle icon={<UsersRound size={16} />} title="ส่วนที่ 1: ข้อมูลทั่วไปของทีม" />
         <Field label="ชื่อทีม (Team Name)" required error={errors.teamName}>
           <input
+            maxLength={50}
             value={form.teamName}
             onChange={(event) => setForm({ ...form, teamName: event.target.value })}
             className={inputClass(errors.teamName)}
@@ -339,6 +340,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 </Field>
                 <Field label="ชื่อจริง" required error={memberErrors.firstName}>
                   <input
+                    maxLength={50}
                     value={member.firstName}
                     onChange={(event) => updateMember({ firstName: event.target.value.replace(/[0-9]/g, "") })}
                     className={inputClass(memberErrors.firstName)}
@@ -348,6 +350,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 <div className="col-span-2 sm:col-span-1">
                   <Field label="นามสกุล" required error={memberErrors.lastName}>
                     <input
+                      maxLength={50}
                       value={member.lastName}
                       onChange={(event) => updateMember({ lastName: event.target.value.replace(/[0-9]/g, "") })}
                       className={inputClass(memberErrors.lastName)}
@@ -360,6 +363,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
               <div className="grid grid-cols-2 gap-2 sm:gap-4">
                 <Field label="ชื่อเล่น" required error={memberErrors.nickname}>
                   <input
+                    maxLength={50}
                     value={member.nickname}
                     onChange={(event) => updateMember({ nickname: event.target.value.replace(/[0-9]/g, "") })}
                     className={inputClass(memberErrors.nickname)}
@@ -382,6 +386,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 <div className="grid grid-cols-2 gap-2 sm:gap-4">
                   <Field label="มหาวิทยาลัย" required error={memberErrors.university}>
                     <input
+                      maxLength={50}
                       value={member.university}
                       onChange={(event) => updateMember({ university: event.target.value.replace(/[0-9]/g, "") })}
                       className={inputClass(memberErrors.university)}
@@ -390,6 +395,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                   </Field>
                   <Field label="คณะ" required error={memberErrors.faculty}>
                     <input
+                      maxLength={50}
                       value={member.faculty}
                       onChange={(event) => updateMember({ faculty: event.target.value.replace(/[0-9]/g, "") })}
                       className={inputClass(memberErrors.faculty)}
@@ -397,7 +403,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                     />
                   </Field>
                   {category?.pharmacyRule === "required" ? (
-                    <label className="flex cursor-pointer items-start gap-2 sm:gap-3 rounded-xl border border-hh-cyan/30 bg-hh-cyan/5 p-2.5 sm:p-4 text-xs sm:text-sm leading-relaxed text-white col-span-2">
+                    <label className="flex cursor-pointer items-start gap-2.5 sm:gap-3 rounded-xl border border-hh-cyan/30 bg-hh-cyan/5 p-2.5 sm:p-4 text-xs sm:text-sm leading-relaxed text-white col-span-2">
                       <input
                         type="checkbox"
                         checked={member.isPharmacyStudent}
@@ -415,6 +421,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 <div className="grid grid-cols-[1fr_85px] sm:grid-cols-3 gap-2 sm:gap-4">
                   <Field label="ชื่อโรงเรียน" required error={memberErrors.school}>
                     <input
+                      maxLength={50}
                       value={member.school}
                       onChange={(event) => updateMember({ school: event.target.value.replace(/[0-9]/g, "") })}
                       className={inputClass(memberErrors.school)}
@@ -440,6 +447,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
 
               <Field label="แพ้อาหาร / ยา">
                 <input
+                  maxLength={50}
                   value={member.foodDrugAllergies}
                   onChange={(event) => updateMember({ foodDrugAllergies: event.target.value })}
                   className={inputClass()}
@@ -453,6 +461,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
               <Field label="Email" required error={memberErrors.email}>
                 <input
                   type="email"
+                  maxLength={50}
                   readOnly={activeIndex === 0}
                   value={member.email}
                   onChange={(event) => updateMember({ email: event.target.value })}
@@ -473,6 +482,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 </Field>
                 <Field label="Line ID" required error={memberErrors.lineId}>
                   <input
+                    maxLength={50}
                     value={member.lineId}
                     onChange={(event) => updateMember({ lineId: event.target.value })}
                     className={inputClass(memberErrors.lineId)}
@@ -486,6 +496,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
             <div className="grid grid-cols-2 gap-2 sm:gap-4">
               <Field label="ชื่อผู้ติดต่อฉุกเฉิน" required error={memberErrors.emergencyContactName}>
                 <input
+                  maxLength={50}
                   value={member.emergencyContactName}
                   onChange={(event) => updateMember({ emergencyContactName: event.target.value.replace(/[0-9]/g, "") })}
                   className={inputClass(memberErrors.emergencyContactName)}

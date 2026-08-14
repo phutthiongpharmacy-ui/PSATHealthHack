@@ -129,12 +129,12 @@ export function ReviewPaymentStep({
 
 function Summary({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-hh-border/70 bg-[#062429] px-3.5 py-3 sm:px-5 sm:py-4 flex flex-col justify-between transition-all hover:border-hh-cyan/40">
+    <div className="rounded-2xl border border-hh-border/70 bg-[#062429] px-3.5 py-3 sm:px-5 sm:py-4 flex flex-col transition-all hover:border-hh-cyan/40">
       <div className="flex items-center gap-2 text-hh-cyan">
         <span className="shrink-0">{icon}</span>
         <span className="font-mono text-xs font-bold text-hh-cyan">{label}</span>
       </div>
-      <div className="mt-2 font-sora text-sm sm:text-base font-bold text-white leading-snug break-words">
+      <div className="my-auto pt-2 font-sora text-sm sm:text-base font-bold text-white leading-snug break-words">
         {value}
       </div>
     </div>
