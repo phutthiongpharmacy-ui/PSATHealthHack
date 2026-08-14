@@ -18,9 +18,9 @@ test("reports required-field completion for member tabs", () => {
   const getMemberCompletion = Reflect.get(formUtilities, "getMemberCompletion");
   assert.equal(typeof getMemberCompletion, "function");
   const member = validForm().members[0];
-  assert.deepEqual(getMemberCompletion(member, "higher_education"), { completed: 11, total: 11 });
-  assert.deepEqual(getMemberCompletion({ ...member, faculty: "", lineId: "" }, "higher_education"), { completed: 9, total: 11 });
-  assert.deepEqual(getMemberCompletion({ ...member, university: "", faculty: "", school: "School", schoolGrade: "m5" }, "upper_secondary"), { completed: 11, total: 11 });
+  assert.deepEqual(getMemberCompletion(member, "higher_education"), { completed: 12, total: 12 });
+  assert.deepEqual(getMemberCompletion({ ...member, faculty: "", lineId: "" }, "higher_education"), { completed: 10, total: 12 });
+  assert.deepEqual(getMemberCompletion({ ...member, university: "", faculty: "", school: "School", schoolGrade: "m5" }, "upper_secondary"), { completed: 12, total: 12 });
 });
 
 test("only allows members added beyond the required minimum to be removed", () => {
@@ -60,6 +60,8 @@ function validForm(): RegistrationForm {
       title: index === 1 ? "miss" : "mr",
       firstName: `First${index}`,
       lastName: `Last${index}`,
+      nickname: `Nick${index}`,
+      foodDrugAllergies: "ไม่มี",
       age: "20",
       university: "มหาวิทยาลัยตัวอย่าง",
       faculty: "คณะวิทยาศาสตร์",

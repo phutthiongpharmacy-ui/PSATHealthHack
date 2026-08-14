@@ -3,24 +3,28 @@ import Image from "next/image";
 
 const speakers = [
   {
-    name: "ดร. อารยา สมบูรณ์",
-    role: "Data Scientist for Health Tech",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuB1GAEIR2T5EMDkDM4mPuT5t-yZ1MucauFOQ_-JhOSMYqNEgG5FNnNJ_mvwe-DBlkIDSm-g1WTfUCeDWiZ4ieQxviVoM8jc2G7T2zspuRTL3isF2cQk7SUgoAd6ZJfiWGgI0s77vxtS9xsOyWzqxgjxQIBaICUAZnaWnuSg-nci3cWSjbBsWtoximoWfOmrZyH5noioS8frB78b7nvG-Za6oGg2qeI1Vu1XUoYsWJl7KaIvGlylDTj1m_yCPQuULejfQi4",
+    name: "ดร.กริชผกา บุญเฟื่อง",
+    role: "ผู้อำนวยการ สำนักงานนวัตกรรมแห่งชาติ (NIA)",
+    img: "/images/speaker-dr-krithpaka.jpg",
+    imageClass: "object-cover object-[center_12%]",
   },
   {
-    name: "ดร. เอลิน เฉิน",
-    role: "Biotechnology Specialist",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCSW_rFAj5NuZBJmmjHZXZUc_oSE2rt0pQASI5cLxLmNF8kWsfzPxw3l0YLqfvMWUKRu3bYo4x7Hul1oG__6PvfPhma61iBfsUKNgyS3rG4ktiE80DneZmhyoJhl_sAdgXEUnVSyX6_7sxZYQ8kaahUzdyV0FzII9HlmSnDmN29KAZ0VYYj9AZFqTMujcpo9mabI8be6Wc76uPmFvGJQLMRb-V9S8Npx8WajGxl4qpjqsh_Qju9lpYFB0CjF78hvoC2huc",
+    name: "คุณจิรายุส ทรัพย์ศรีโสภา",
+    role: "CEO Bitkub Capital Group",
+    img: "/images/speaker-jirayut.jpg",
+    imageClass: "object-cover object-[center_18%]",
+  },
+  {
+    name: "ผศ.ดร.กวิน อัศวานันท์",
+    role: "ผู้อำนวยการหลักสูตร CU TIP จุฬาลงกรณ์มหาวิทยาลัย",
+    img: "/images/speaker-kawin.jpg",
+    imageClass: "object-cover object-[center_12%]",
   },
   {
     name: "คุณรดา รัตนไพศาล",
     role: "Healthcare Innovation Leader",
     img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDN-ixRaXL3lKAr5Wbk57Y2ptJhY4a4MiMWlLpP7lAraR0OYnt1_uC-3dGE5UQg6VpVJtt9xqC-bVan1tXVtRJhL6VXtDLj63L5nkAtT1LzTND1DNplyGbzAN_V7IrsVnqqyDWcTm4jbPSzIrkyocDDuYmO60dUyOyHyiUZelKbBs0W2tMSxHYLWNg5euSBoThJx4YE2LAnAhTSyoi9vYa5QKN05rnjvdR2Hj2N8vu2MxmuO8rLwdFd7UB_zHGgsOSSsYs",
-  },
-  {
-    name: "คุณเมธา วงศ์เทวัญ",
-    role: "Cyber-Medic Expert",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBv-QDg5XlP3-pzqCZuAsQ5k4uxZzLwMIuje2dBMy9hkdp9P6ijuCFDuzRFia1Ce9W6nikDS1dfkG0eJkzQr6aSoicfxEOFFVfFSrfs2dM-K3tkgUb7_3ssHWMncXVcwfA5o6Ger1kGEo866jAolgrKlK4IlSOmj_egpDNS-XTgbT4tDYFRotFMJc6UCeVcrubIG6l_eQ13TXTLICiDQZoNmocul0PX4-RE_grkoDUUYI--8v14hnwgiWm9TXJGT2au6kI",
+    imageClass: "object-contain p-2 opacity-80",
   },
 ];
 
@@ -32,31 +36,33 @@ export default function SpeakersSection() {
           <h2 className="font-sora text-3xl md:text-[40px] text-white uppercase tracking-wider font-bold">
             วิทยากรรับเชิญ
           </h2>
-          <div className="w-24 h-1 bg-primary-container mx-auto shadow-[0_0_15px_rgba(0,240,255,0.8)]" />
+          <div className="w-24 h-1 bg-hh-cyan mx-auto shadow-[0_0_15px_rgba(99,210,229,0.8)]" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           {speakers.map((speaker, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl bg-surface-container-low/80 backdrop-blur-xl border border-white/10 flex flex-col items-center text-center space-y-4 transition-all hover:scale-105 hover:border-primary-container/40 shadow-[0_0_20px_rgba(0,240,255,0.05)]"
+              className="group p-3 sm:p-5 lg:p-6 rounded-2xl bg-hh-surface/80 backdrop-blur-xl border border-hh-border/60 flex flex-col items-center text-center justify-between space-y-3 sm:space-y-4 transition-all hover:scale-[1.03] hover:border-hh-cyan/50 shadow-[0_0_20px_rgba(99,210,229,0.08)] h-full"
             >
-              <div className="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-primary-container/40 shadow-[0_0_15px_rgba(0,240,255,0.2)] bg-surface-container/60">
-                <Image
-                  src={speaker.img}
-                  alt={speaker.name}
-                  fill
-                  className="object-contain p-4 opacity-80"
-                  unoptimized
-                />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-sora text-lg font-bold text-white">
-                  {speaker.name}
-                </h3>
-                <p className="font-mono text-xs text-primary-container">
-                  {speaker.role}
-                </p>
+              <div className="w-full space-y-3 sm:space-y-4 flex flex-col items-center">
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden border-2 border-hh-cyan/30 shadow-[0_0_15px_rgba(99,210,229,0.2)] bg-hh-bg/80">
+                  <Image
+                    src={speaker.img}
+                    alt={speaker.name}
+                    fill
+                    className={`transition-transform duration-300 group-hover:scale-105 ${speaker.imageClass}`}
+                    unoptimized={speaker.img.startsWith("http")}
+                  />
+                </div>
+                <div className="space-y-1 w-full">
+                  <h3 className="font-sora text-sm sm:text-base lg:text-lg font-bold text-white leading-snug">
+                    {speaker.name}
+                  </h3>
+                  <p className="font-hanken text-[11px] sm:text-xs text-hh-cyan font-medium leading-relaxed">
+                    {speaker.role}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

@@ -61,7 +61,7 @@ export default function PdpaModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="pdpa-title"
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 animate-fadeIn"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 animate-fadeIn"
     >
       {/* Backdrop */}
       <div
@@ -70,7 +70,7 @@ export default function PdpaModal({
       />
 
       {/* Structured Modal Container */}
-      <div className="relative w-full max-w-2xl flex flex-col overflow-hidden rounded-3xl border border-hh-border bg-hh-surface/95 shadow-[0_0_50px_rgba(4,26,29,0.8)] backdrop-blur-2xl">
+      <div className="relative z-[101] w-full max-w-2xl flex flex-col overflow-hidden rounded-3xl border border-hh-border bg-hh-surface/95 shadow-[0_0_50px_rgba(4,26,29,0.8)] backdrop-blur-2xl max-h-[82vh] -translate-y-10 sm:translate-y-0">
         {/* Header */}
         <div className="pl-4 sm:pl-5 pr-4 sm:pr-5 py-3.5 sm:py-4 flex items-center justify-between border-b border-hh-border/40 shrink-0 bg-hh-bg/40">
           <h2

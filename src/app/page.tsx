@@ -26,7 +26,7 @@ export default function Home() {
       <Navbar onOpenEligibility={handleOpenEligibility} />
       <HeroSection onOpenEligibility={handleOpenEligibility} />
       <AboutSection />
-      <SponsorsSection />
+      {/* <SponsorsSection /> */}
       <SpeakersSection />
       <PastAtmosphereSection />
       <Footer />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, type ReactNode } from "react";
+import { useState, useMemo, useRef, type ReactNode } from "react";
 import { Badge, Check, ChevronDown, ChevronRight, LoaderCircle, Plus, Trash2, User, UsersRound } from "lucide-react";
 import { canRemoveMember, createEmptyMember, getMemberCompletion } from "./form";
 import { SystemError } from "./RegistrationFrame";
@@ -20,6 +20,7 @@ interface TeamFormStepProps {
 
 export function TeamFormStep({ config, form, setForm, errors, onContinue, loading, activeIndex, setActiveIndex }: TeamFormStepProps) {
   const [isMemberCountOpen, setIsMemberCountOpen] = useState(false);
+  const memberSectionRef = useRef<HTMLDivElement>(null);
   const category = useMemo(() => config.categories.find((item) => item.id === form.categoryId) ?? null, [config.categories, form.categoryId]);
   const member = form.members[activeIndex] ?? form.members[0];
   const memberErrors = errors.members[activeIndex] ?? {};
@@ -96,6 +97,9 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
     }
     if (activeIndex < form.members.length - 1) {
       setActiveIndex(activeIndex + 1);
+      setTimeout(() => {
+        memberSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
     }
   };
 
@@ -147,7 +151,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
         {errors.categoryId ? <p className="text-sm text-red-300">{errors.categoryId}</p> : null}
       </section>
 
-      <section className="space-y-5 rounded-2xl border border-hh-border/60 bg-hh-bg/60 p-4 sm:p-6">
+      <section ref={memberSectionRef} className="scroll-mt-24 sm:scroll-mt-28 space-y-5 rounded-2xl border border-hh-border/60 bg-hh-bg/60 p-4 sm:p-6">
         <div className="flex flex-col justify-between gap-3 border-b border-hh-border/30 pb-3 sm:flex-row sm:items-center">
           <SectionTitle icon={<Badge size={18} />} title={`ส่วนที่ 2: ข้อมูลสมาชิกในทีม (${form.members.length}/${config.registration.maxMembers} คน)`} borderless />
 
@@ -175,11 +179,10 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                       key={count}
                       type="button"
                       onClick={() => setMemberCount(count)}
-                      className={`flex w-full items-center justify-between px-4 py-2.5 text-xs font-bold font-sora transition cursor-pointer ${
-                        form.members.length === count
-                          ? "bg-hh-cyan/20 text-hh-cyan"
-                          : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
-                      }`}
+                      className={`flex w-full items-center justify-between px-4 py-2.5 text-xs font-bold font-sora transition cursor-pointer ${form.members.length === count
+                        ? "bg-hh-cyan/20 text-hh-cyan"
+                        : "text-white hover:bg-hh-cyan/10 hover:text-hh-cyan"
+                        }`}
                     >
                       <span>{count} คน</span>
                       {form.members.length === count && <Check size={14} className="text-hh-cyan" />}
@@ -200,13 +203,12 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 key={index}
                 type="button"
                 onClick={() => setActiveIndex(index)}
-                className={`flex shrink-0 items-center gap-1.5 rounded-full py-1.5 text-xs sm:text-sm font-bold transition-all ${
-                  isActive
-                    ? "bg-hh-cyan text-black px-3.5 sm:px-4"
-                    : complete
+                className={`flex shrink-0 items-center gap-1.5 rounded-full py-1.5 text-xs sm:text-sm font-bold transition-all ${isActive
+                  ? "bg-hh-cyan text-black px-3.5 sm:px-4"
+                  : complete
                     ? "border border-hh-emerald/40 bg-hh-emerald/20 text-hh-emerald px-3"
                     : "border border-hh-cyan/40 bg-hh-surface/80 text-white hover:border-hh-cyan px-3"
-                }`}
+                  }`}
               >
                 {isActive ? (
                   /* Active Tab: Full Label */
@@ -288,12 +290,12 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
               </div>
 
               <div className="grid grid-cols-1 gap-x-6 gap-y-4 md:grid-cols-2">
-                <Field label="ชื่อเล่น">
+                <Field label="ชื่อเล่น" required error={memberErrors.nickname}>
                   <input
                     value={member.nickname}
                     onChange={(event) => updateMember({ nickname: event.target.value.replace(/[0-9]/g, "") })}
-                    className={inputClass()}
-                    placeholder="ไม่บังคับ"
+                    className={inputClass(memberErrors.nickname)}
+                    placeholder="ชื่อเล่น"
                   />
                 </Field>
                 <Field label={`อายุ (${config.registration.minAge}-30 ปี)`} required error={memberErrors.age}>
@@ -368,12 +370,12 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                 </div>
               )}
 
-              <Field label="แพ้อาหาร / ยา">
+              <Field label="แพ้อาหาร / ยา" required error={memberErrors.foodDrugAllergies}>
                 <input
                   value={member.foodDrugAllergies}
                   onChange={(event) => updateMember({ foodDrugAllergies: event.target.value })}
-                  className={inputClass()}
-                  placeholder="ไม่บังคับ"
+                  className={inputClass(memberErrors.foodDrugAllergies)}
+                  placeholder="หากมีโปรดระบุ"
                 />
               </Field>
             </div>

@@ -32,8 +32,8 @@ export default function SchedulePage() {
     },
     {
       title: "ปล่อยโจทย์การแข่งขัน",
-      details: ["เปิดเผยโจทย์ความท้าทายสาธารณสุขประจำปี 2026"],
-      date: "25 กันยายน พ.ศ. 2569",
+      details: ["เปิดเผยโจทย์ความท้าทายสาธารณสุขประจำปี 2026 (เวลา 20.00 น.)"],
+      date: "25 ก.ย. 2569 (20.00 น.)",
     },
     {
       title: "การแข่งขันรอบระดมความคิดและพัฒนานวัตกรรมออนไลน์ 72 ชั่วโมง (72-Hour Hackathon Round)",
@@ -75,27 +75,90 @@ export default function SchedulePage() {
   ];
 
   return (
-    <main className="min-h-screen bg-hh-bg text-hh-text overflow-x-hidden pt-24">
+    <main className="min-h-screen bg-hh-bg text-hh-text overflow-x-hidden pt-20 sm:pt-24">
       <Navbar onOpenEligibility={handleOpenEligibility} />
 
       {/* Header */}
-      <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
-        <div className="max-w-4xl mx-auto space-y-4">
+      <div className="relative py-10 sm:py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
+        <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4">
           <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
             TIMELINE & SCHEDULE
           </span>
-          <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h1 className="font-sora text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
             กำหนดการแข่งขัน <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHacks 2026</span>
           </h1>
-          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl leading-relaxed">
+          <p className="font-hanken text-hh-text-muted text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed">
             กำหนดการอย่างเป็นทางการของการแข่งขันนวัตกรรมสุขภาพ
           </p>
         </div>
       </div>
 
-      <div className="py-12 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-8">
-        {/* Single Sheet Schedule Table */}
-        <div className="overflow-hidden rounded-2xl border border-hh-border/60 bg-hh-surface/90 shadow-2xl backdrop-blur-2xl">
+      <div className="py-8 sm:py-12 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-6 sm:space-y-8 font-hanken">
+
+        {/* 1. Mobile Vertical Timeline Card View (< sm) */}
+        <div className="sm:hidden space-y-4">
+          {scheduleItems.map((item, idx) => (
+            <div
+              key={`mob-item-${idx}`}
+              className="p-4 rounded-2xl border border-hh-border/60 bg-hh-surface/90 shadow-xl space-y-2.5"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan font-mono text-xs font-bold">
+                <span className="material-symbols-outlined text-sm">calendar_month</span>
+                <span>{item.date}</span>
+              </div>
+              <h2 className="font-sora text-base font-bold text-white leading-snug">
+                {item.title}
+              </h2>
+              {item.details && (
+                <ul className="space-y-1 text-xs text-hh-text-muted">
+                  {item.details.map((d, i) => (
+                    <li key={i}>• {d}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+
+          {/* Mobile Final Pitching Round Banner */}
+          <div className="p-3.5 rounded-2xl bg-hh-cyan/15 border border-hh-cyan/40 text-center font-sora text-sm font-extrabold text-hh-cyan shadow-lg">
+            การแข่งขันรอบตัดสิน (Final Pitching Round)
+          </div>
+
+          {finalistSchedule.map((item, idx) => (
+            <div
+              key={`mob-finalist-${idx}`}
+              className={`p-4 rounded-2xl border shadow-xl space-y-2.5 ${
+                item.highlight
+                  ? "bg-hh-action/15 border-hh-action/50 shadow-[0_0_20px_rgba(255,106,0,0.15)]"
+                  : "bg-hh-surface/90 border-hh-border/60"
+              }`}
+            >
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full font-mono text-xs font-bold ${
+                  item.highlight
+                    ? "bg-hh-action/20 border border-hh-action/40 text-hh-action"
+                    : "bg-hh-cyan/15 border border-hh-cyan/30 text-hh-cyan"
+                }`}
+              >
+                <span className="material-symbols-outlined text-sm">event</span>
+                <span>{item.date}</span>
+              </div>
+              <h2 className="font-sora text-base font-bold text-white leading-snug">
+                {item.title}
+              </h2>
+              {item.details && (
+                <ul className="space-y-1 text-xs text-hh-text-muted">
+                  {item.details.map((d, i) => (
+                    <li key={i}>• {d}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* 2. Desktop & Tablet Table Sheet (sm+) */}
+        <div className="hidden sm:block overflow-hidden rounded-2xl border border-hh-border/60 bg-hh-surface/90 shadow-2xl backdrop-blur-2xl">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-hh-cyan/15 border-b border-hh-border/60">
@@ -107,7 +170,7 @@ export default function SchedulePage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-hh-border/30 font-hanken">
+            <tbody className="divide-y divide-hh-border/30">
               {scheduleItems.map((item, idx) => (
                 <tr key={idx} className="hover:bg-white/5 transition-colors">
                   <td className="p-4 sm:p-5 align-top">
@@ -164,6 +227,13 @@ export default function SchedulePage() {
                   </td>
                   <td className="p-4 sm:p-5 align-top font-bold text-white text-base sm:text-lg font-sora">
                     {item.title}
+                    {item.details && (
+                      <ul className="space-y-1 text-xs sm:text-sm text-hh-text-muted mt-1 font-normal font-hanken">
+                        {item.details.map((d, i) => (
+                          <li key={i}>• {d}</li>
+                        ))}
+                      </ul>
+                    )}
                   </td>
                 </tr>
               ))}

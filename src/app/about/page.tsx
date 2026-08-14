@@ -22,63 +22,63 @@ export default function AboutPage() {
       <Navbar onOpenEligibility={handleOpenEligibility} />
 
       {/* Header */}
-      <div className="relative py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
-        <div className="max-w-4xl mx-auto space-y-4">
+      <div className="relative py-10 sm:py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
+        <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4">
           <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
             ABOUT US & INTRODUCTION
           </span>
-          <h1 className="font-sora text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h1 className="font-sora text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
             เกี่ยวกับ <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHacks 2026</span>
           </h1>
-          <p className="font-hanken text-hh-text-muted text-base md:text-lg max-w-2xl leading-relaxed">
+          <p className="font-hanken text-hh-text-muted text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed">
             สหพันธ์นิสิตนักศึกษาเภสัชศาสตร์แห่งประเทศไทย (สนภท.)
           </p>
         </div>
       </div>
 
-      {/* Main Content Area - Clean Frameless Sequential Flow */}
-      <div className="py-16 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-20 font-hanken">
+      {/* Main Content Area - Clean Responsive Flow */}
+      <div className="py-10 sm:py-16 px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto space-y-12 sm:space-y-16 md:space-y-20 font-hanken">
         
         {/* 1. เกี่ยวกับเรา (About Us) */}
-        <section className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="font-sora text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3">
-              <span className="w-2 h-7 bg-hh-cyan rounded-full" />
+        <section className="space-y-4 sm:space-y-6">
+          <div className="space-y-1.5 sm:space-y-2">
+            <h2 className="font-sora text-xl sm:text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5 sm:gap-3 leading-snug">
+              <span className="w-1.5 h-6 sm:w-2 sm:h-7 bg-hh-cyan rounded-full shrink-0" />
               เกี่ยวกับเรา (About Us)
             </h2>
-            <div className="w-16 h-0.5 bg-hh-cyan/40 ml-5" />
+            <div className="w-12 sm:w-16 h-0.5 bg-hh-cyan/40 ml-4 sm:ml-5" />
           </div>
 
-          <p className="text-lg text-white/90 leading-relaxed font-normal pl-5 border-l-2 border-hh-cyan/20">
+          <p className="text-sm sm:text-lg text-white/90 leading-relaxed font-normal pl-3 sm:pl-5 border-l-2 border-hh-cyan/20">
             สหพันธ์นิสิตนักศึกษาเภสัชศาสตร์แห่งประเทศไทย (สนภท.) หรือ The Pharmaceutical Students&apos; Association of Thailand (PSAT) คือเครือข่ายนิสิตนักศึกษาเภสัชศาสตร์จากสถาบันที่ผ่านการรับรองโดยสภาเภสัชกรรม รวมทั้งสิ้น 20 มหาวิทยาลัยทั่วประเทศ
           </p>
 
-          <div className="pt-4 pl-5 space-y-4">
-            <h3 className="font-sora text-base font-bold text-hh-cyan uppercase tracking-wider">
+          <div className="pt-2 sm:pt-4 pl-3 sm:pl-5 space-y-3 sm:space-y-4">
+            <h3 className="font-sora text-xs sm:text-base font-bold text-hh-cyan uppercase tracking-wider">
               พันธกิจหลักของเรา:
             </h3>
 
-            <ul className="space-y-4 text-base text-hh-text-muted leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-2 shrink-0" />
+            <ul className="space-y-3 sm:space-y-4 text-xs sm:text-base text-hh-text-muted leading-relaxed">
+              <li className="flex items-start gap-2.5 sm:gap-3">
+                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-1.5 shrink-0" />
                 <div>
                   <strong className="text-white">ส่งเสริมความสามัคคี:</strong> ส่งเสริมความสามัคคีและความสัมพันธ์อันดีระหว่างนิสิตนักศึกษาเภสัชศาสตร์
                 </div>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-2 shrink-0" />
+              <li className="flex items-start gap-2.5 sm:gap-3">
+                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-1.5 shrink-0" />
                 <div>
                   <strong className="text-white">เป็นตัวแทนประสานงาน:</strong> เป็นตัวแทนของนิสิตนักศึกษาเภสัชศาสตร์ในการติดต่อประสานงานระหว่างสหพันธ์กับองค์กรอื่น เพื่อสร้างภาพลักษณ์ที่ดีแก่นิสิตนักศึกษาเภสัชศาสตร์ ตลอดจนรักษาและผลประโยชน์ของนิสิตนักศึกษา
                 </div>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-2 shrink-0" />
+              <li className="flex items-start gap-2.5 sm:gap-3">
+                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-1.5 shrink-0" />
                 <div>
                   <strong className="text-white">พัฒนาศักยภาพ:</strong> เป็นองค์กรที่ผลักดัน และเปิดโอกาสให้นิสิตนักศึกษาเภสัชศาสตร์ได้ทำกิจกรรมต่าง ๆ เพื่อพัฒนาศักยภาพให้เป็นผู้มีความรู้ความคิดสร้างสรรค์และความสามารถรอบด้าน
                 </div>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-2 shrink-0" />
+              <li className="flex items-start gap-2.5 sm:gap-3">
+                <span className="w-2 h-2 rounded-full bg-hh-cyan mt-1.5 shrink-0" />
                 <div>
                   <strong className="text-white">สร้างทัศนคติวิชาชีพ:</strong> มุ่งส่งเสริมให้นิสิตนักศึกษาเภสัชศาสตร์ตระหนักในความรับผิดชอบต่อ และสร้างทัศนคติที่ดีต่อวิชาชีพเภสัชกรรม
                 </div>
@@ -90,16 +90,16 @@ export default function AboutPage() {
         <hr className="border-hh-border/20" />
 
         {/* 2. บทนำโครงการ (Introduction) */}
-        <section className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="font-sora text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3">
-              <span className="w-2 h-7 bg-hh-mint rounded-full" />
+        <section className="space-y-4 sm:space-y-6">
+          <div className="space-y-1.5 sm:space-y-2">
+            <h2 className="font-sora text-xl sm:text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5 sm:gap-3 leading-snug">
+              <span className="w-1.5 h-6 sm:w-2 sm:h-7 bg-hh-mint rounded-full shrink-0" />
               บทนำโครงการ (Introduction)
             </h2>
-            <div className="w-16 h-0.5 bg-hh-mint/40 ml-5" />
+            <div className="w-12 sm:w-16 h-0.5 bg-hh-mint/40 ml-4 sm:ml-5" />
           </div>
 
-          <div className="pl-5 space-y-6 text-base md:text-lg text-hh-text-muted leading-relaxed">
+          <div className="pl-3 sm:pl-5 space-y-4 sm:space-y-6 text-xs sm:text-base md:text-lg text-hh-text-muted leading-relaxed">
             <p>
               ปัจจุบันประเทศไทยได้ก้าวเข้าสู่ &ldquo;สังคมผู้สูงอายุอย่างสมบูรณ์ (Aged Society)&rdquo; อย่างเต็มรูปแบบ ส่งผลให้ภาระโรคเรื้อรังและค่าใช้จ่ายด้านสาธารณสุขเพิ่มสูงขึ้นอย่างต่อเนื่อง และกลายเป็นแรงกดดันต่อความยั่งยืนของระบบสุขภาพในระยะยาว สถานการณ์นี้สะท้อนว่าการดูแลสุขภาพแบบเดิมที่เน้น &ldquo;การรักษาเมื่อเจ็บป่วย&rdquo; อาจไม่เพียงพออีกต่อไป
             </p>
@@ -112,11 +112,11 @@ export default function AboutPage() {
               ด้วยเหตุนี้ สหพันธ์นิสิตนักศึกษาเภสัชศาสตร์แห่งประเทศไทย (สนภท.) จึงจัดตั้งโครงการ PSAT HealthHacks 2026 ขึ้น เพื่อชวนคนรุ่นใหม่มาร่วมเป็น &ldquo;นวัตกร&rdquo; พัฒนานวัตกรรมสุขภาพที่นำไปใช้ได้จริงทั้งในเชิงวิชาการและเชิงพาณิชย์ เพื่อให้การมีสุขภาพดีและอายุยืนอย่างมีคุณภาพ กลายเป็นสิ่งที่ทุกคนเข้าถึงได้จริง
             </p>
 
-            <div className="py-6 my-2 border-y border-hh-cyan/30 text-center space-y-2">
-              <p className="font-sora text-xl sm:text-2xl font-extrabold text-white leading-relaxed">
+            <div className="p-4 sm:p-6 my-2 border border-hh-cyan/30 rounded-2xl bg-hh-surface/50 backdrop-blur-md text-center space-y-2 shadow-[0_0_20px_rgba(99,210,229,0.08)]">
+              <p className="font-sora text-base sm:text-xl md:text-2xl font-extrabold text-white leading-relaxed">
                 “การมีอายุยืนอย่างมีคุณภาพคือเป้าหมายของสุขภาพที่ยั่งยืน”
               </p>
-              <p className="font-mono text-sm text-hh-cyan">
+              <p className="font-mono text-xs sm:text-sm text-hh-cyan font-bold">
                 (Sustainable Longevity and Wellness Across a Lifetime)
               </p>
             </div>
@@ -126,30 +126,30 @@ export default function AboutPage() {
         <hr className="border-hh-border/20" />
 
         {/* 3. วัตถุประสงค์ของโครงการ (Objectives) */}
-        <section className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="font-sora text-2xl md:text-3xl font-extrabold text-white flex items-center gap-3">
-              <span className="w-2 h-7 bg-hh-action rounded-full" />
+        <section className="space-y-4 sm:space-y-6">
+          <div className="space-y-1.5 sm:space-y-2">
+            <h2 className="font-sora text-xl sm:text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5 sm:gap-3 leading-snug">
+              <span className="w-1.5 h-6 sm:w-2 sm:h-7 bg-hh-action rounded-full shrink-0" />
               วัตถุประสงค์ของโครงการ (Objectives)
             </h2>
-            <div className="w-16 h-0.5 bg-hh-action/40 ml-5" />
+            <div className="w-12 sm:w-16 h-0.5 bg-hh-action/40 ml-4 sm:ml-5" />
           </div>
 
-          <ol className="pl-5 space-y-6 text-base md:text-lg text-hh-text-muted leading-relaxed">
-            <li className="flex items-start gap-4">
-              <span className="font-mono font-bold text-hh-action text-xl shrink-0 mt-0.5">1.</span>
+          <ol className="pl-3 sm:pl-5 space-y-4 sm:space-y-6 text-xs sm:text-base md:text-lg text-hh-text-muted leading-relaxed">
+            <li className="flex items-start gap-3 sm:gap-4">
+              <span className="font-mono font-bold text-hh-action text-base sm:text-xl shrink-0 mt-0.5">1.</span>
               <div>
                 <strong className="text-white">เพื่อส่งเสริมให้ผู้เข้าร่วมโครงการได้สร้างนวัตกรรม</strong> ที่ตอบโจทย์การเข้าสู่สังคมผู้สูงอายุของประเทศไทย ภายใต้แนวคิด &ldquo;การมีอายุยืนอย่างมีคุณภาพคือเป้าหมายของสุขภาพที่ยั่งยืน (Sustainable Longevity and Wellness Across a Lifetime)&rdquo;
               </div>
             </li>
-            <li className="flex items-start gap-4">
-              <span className="font-mono font-bold text-hh-action text-xl shrink-0 mt-0.5">2.</span>
+            <li className="flex items-start gap-3 sm:gap-4">
+              <span className="font-mono font-bold text-hh-action text-base sm:text-xl shrink-0 mt-0.5">2.</span>
               <div>
                 <strong className="text-white">เพื่อเสริมสร้างความรู้ความเข้าใจ</strong> เกี่ยวกับแนวคิดของการมีอายุยืนยาวอย่างมีคุณภาพ (Longevity) และสามารถมีความเป็นอยู่ที่ดี (Wellness) ในวัยสูงอายุ
               </div>
             </li>
-            <li className="flex items-start gap-4">
-              <span className="font-mono font-bold text-hh-action text-xl shrink-0 mt-0.5">3.</span>
+            <li className="flex items-start gap-3 sm:gap-4">
+              <span className="font-mono font-bold text-hh-action text-base sm:text-xl shrink-0 mt-0.5">3.</span>
               <div>
                 <strong className="text-white">เพื่อเสริมสร้างความรู้ในกระบวนการสร้างนวัตกรรม</strong> และเสริมสร้างศักยภาพให้ผู้เข้าร่วมโครงการสามารถพัฒนาแนวคิดสู่การใช้งานจริงในเชิงพาณิชย์ได้อย่างยั่งยืน เพื่อให้การมีสุขภาพดีและอายุยืนกลายเป็นสิ่งที่ทุกคนเข้าถึงได้จริง
               </div>

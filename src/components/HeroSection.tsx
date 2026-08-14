@@ -89,9 +89,9 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
           </h1>
 
           {/* Promise Statement */}
-          <p className="font-hanken text-sm sm:text-base md:text-lg text-hh-text-muted max-w-xl leading-relaxed">
-            พื้นที่สร้างสรรค์นวัตกรรมสาธารณสุขร่วมกับผู้เชี่ยวชาญหลากสาขา <br className="hidden sm:inline" />
-            เพื่อยกระดับสุขภาพประชาชนไทย
+          <p className="font-hanken text-sm sm:text-base md:text-lg text-hh-text-muted max-w-2xl leading-relaxed">
+            โครงการแข่งขันพัฒนานวัตกรรมสุขภาพสู่นวัตกรรมเชิงพาณิชย์ <br className="hidden sm:inline" />
+            และพัฒนาศักยภาพนวัตกรด้านสุขภาพรุ่นใหม่ ประจำปี 2569
           </p>
 
           {/* 3. Event Date Badge (Centered) */}

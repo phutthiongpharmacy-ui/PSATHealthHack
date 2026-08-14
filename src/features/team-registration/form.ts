@@ -17,7 +17,7 @@ export function getRegistrationStepSummary(labels: string[], currentStep: number
 
 export function getMemberCompletion(member: MemberForm, educationLevel: EducationLevel): { completed: number; total: number } {
   const requiredFields: Array<keyof MemberForm> = [
-    "title", "firstName", "lastName", "age",
+    "title", "firstName", "lastName", "nickname", "age",
     ...(educationLevel === "higher_education" ? ["university", "faculty"] as const : ["school", "schoolGrade"] as const),
     "email", "phoneNumber", "lineId", "emergencyContactName", "emergencyContactPhone",
   ];
@@ -116,6 +116,7 @@ export function validateRegistrationForm(_form: RegistrationForm, _rules: Regist
     if (!member.title) memberErrors.title = "กรุณาเลือกคำนำหน้า";
     if (!member.firstName.trim()) memberErrors.firstName = "กรุณากรอกชื่อ";
     if (!member.lastName.trim()) memberErrors.lastName = "กรุณากรอกนามสกุล";
+    if (!member.nickname.trim()) memberErrors.nickname = "กรุณากรอกชื่อเล่น";
     const age = Number(member.age);
     if (!Number.isInteger(age) || age < _rules.minAge || age > _rules.maxAge) memberErrors.age = `อายุต้องอยู่ระหว่าง ${_rules.minAge}–${_rules.maxAge} ปี`;
     if (_rules.educationLevel === "higher_education") {
