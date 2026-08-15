@@ -20,7 +20,7 @@ export default function ChallengeRevealSection() {
               <h2 className="font-sora text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
                 การปล่อยโจทย์ความท้าทาย <br className="hidden sm:inline" />
                 <span className="text-hh-cyan [text-shadow:0_0_15px_rgba(99,210,229,0.5)]">
-                  PSATHealthHack 2026
+                  PSAT HealthHacks 2026
                 </span>
               </h2>
 

@@ -84,7 +84,7 @@ export default function SchedulePage() {
           <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
             TIMELINE & SCHEDULE
           </span>
-          <h1 className="font-sora text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+          <h1 className="font-sora text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight sm:whitespace-nowrap">
             กำหนดการแข่งขัน <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHacks 2026</span>
           </h1>
           <p className="font-hanken text-hh-text-muted text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed">

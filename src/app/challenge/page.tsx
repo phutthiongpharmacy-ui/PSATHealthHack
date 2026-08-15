@@ -25,10 +25,10 @@ export default function ChallengePage() {
       <div className="relative py-10 sm:py-16 px-margin-mobile md:px-margin-desktop text-left border-b border-hh-border/30">
         <div className="max-w-4xl mx-auto space-y-3 sm:space-y-4">
           <span className="font-mono text-xs text-hh-cyan uppercase tracking-widest inline-block font-semibold">
-            PSAT HEALTHHACK 2026 • CHALLENGES
+            PSAT HEALTHHACKS 2026 • CHALLENGES
           </span>
-          <h1 className="font-sora text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
-            โจทย์การแข่งขัน <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHack 2026</span>
+          <h1 className="font-sora text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight sm:whitespace-nowrap">
+            โจทย์การแข่งขัน <span className="text-hh-cyan [text-shadow:0_0_20px_rgba(99,210,229,0.5)]">PSAT HealthHacks 2026</span>
           </h1>
           <p className="font-hanken text-hh-text-muted text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed">
             โจทย์การแข่งขันลับ 72 ชั่วโมง จะได้รับการเปิดเผยพร้อมกันทั่วประเทศในระบบ

@@ -18,7 +18,7 @@ export function RegistrationFrame({ step, children, compact = false }: { step: n
           <Link href="/" className="inline-flex items-center gap-1.5 font-mono text-xs sm:text-sm uppercase tracking-wide text-hh-text-muted transition hover:text-white">
             <ArrowLeft size={16} /> กลับหน้าหลัก
           </Link>
-          <div className="font-sora text-[11px] sm:text-sm font-extrabold leading-snug text-hh-cyan">PSAT HEALTHHACK 2026</div>
+          <div className="font-sora text-[11px] sm:text-sm font-extrabold leading-snug text-hh-cyan">PSAT HEALTHHACKS 2026</div>
         </header>
         <nav aria-label="ขั้นตอนการลงทะเบียน" className="my-2 sm:my-8 mx-auto w-full max-w-md sm:max-w-3xl px-2 sm:px-0 -translate-x-3.5 sm:translate-x-0">
           <div className="w-full">

@@ -115,22 +115,11 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar: Copyright & Quick Links */}
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-hanken text-hh-text-muted">
+        {/* Bottom Bar: Copyright */}
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-center items-center gap-4 text-xs font-hanken text-hh-text-muted text-center">
           <div>
             © 2026 HealthHacks. นวัตกรรมสุขภาพเพื่ออนาคต
           </div>
-          <nav className="flex gap-6">
-            <Link href="#" className="hover:text-hh-cyan transition-colors">
-              นโยบายความเป็นส่วนตัว
-            </Link>
-            <Link href="#" className="hover:text-hh-cyan transition-colors">
-              เงื่อนไขการใช้งาน
-            </Link>
-            <Link href="#" className="hover:text-hh-cyan transition-colors">
-              ติดต่อเรา
-            </Link>
-          </nav>
         </div>
       </div>
     </footer>
