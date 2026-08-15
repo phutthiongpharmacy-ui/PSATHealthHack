@@ -8,18 +8,19 @@ const speakers = [
     img: "/images/speaker-dr-krithpaka.jpg",
     imageClass: "object-cover object-[center_12%]",
   },
-  {
-    name: "คุณจิรายุส ทรัพย์ศรีโสภา",
-    role: "CEO Bitkub Capital Group",
-    img: "/images/speaker-jirayut.jpg",
-    imageClass: "object-cover object-[center_18%]",
-  },
-  {
-    name: "ผศ.ดร.กวิน อัศวานันท์",
-    role: "ผู้อำนวยการหลักสูตร CU TIP จุฬาลงกรณ์มหาวิทยาลัย",
-    img: "/images/speaker-kawin.jpg",
-    imageClass: "object-cover object-[center_12%]",
-  },
+  // รอการยืนยันเพื่อเปิดแสดงผลเพิ่มเติม:
+  // {
+  //   name: "คุณจิรายุส ทรัพย์ศรีโสภา",
+  //   role: "CEO Bitkub Capital Group",
+  //   img: "/images/speaker-jirayut.jpg",
+  //   imageClass: "object-cover object-[center_18%]",
+  // },
+  // {
+  //   name: "ผศ.ดร.กวิน อัศวานันท์",
+  //   role: "ผู้อำนวยการหลักสูตร CU TIP จุฬาลงกรณ์มหาวิทยาลัย",
+  //   img: "/images/speaker-kawin.jpg",
+  //   imageClass: "object-cover object-[center_12%]",
+  // },
 ];
 
 export default function SpeakersSection() {
@@ -33,7 +34,7 @@ export default function SpeakersSection() {
           <div className="w-16 sm:w-24 h-1 bg-hh-cyan mx-auto shadow-[0_0_15px_rgba(99,210,229,0.8)]" />
         </div>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
+        <div className={`grid gap-4 sm:gap-6 lg:gap-8 mx-auto ${speakers.length === 1 ? "max-w-xs sm:max-w-sm grid-cols-1" : "grid-cols-3 max-w-5xl"}`}>
           {speakers.map((speaker, index) => (
             <div
               key={index}
