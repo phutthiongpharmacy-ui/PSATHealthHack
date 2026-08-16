@@ -324,7 +324,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
           <div className="space-y-3 pt-1">
             <MemberSectionTitle title="ข้อมูลส่วนตัว" />
             <div className="space-y-2 sm:space-y-4">
-              <div className="grid grid-cols-[85px_1fr] sm:grid-cols-3 gap-2 sm:gap-4">
+              <div className="grid grid-cols-[105px_1fr] sm:grid-cols-3 gap-2 sm:gap-4">
                 <Field label="คำนำหน้า" required error={memberErrors.title}>
                   <CustomSelect
                     value={member.title}
@@ -374,9 +374,12 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                   <input
                     type="number"
                     min={config.registration.minAge}
-                    max={config.registration.maxAge}
+                    max={config.registration.maxAge || 30}
                     value={member.age}
-                    onChange={(event) => updateMember({ age: event.target.value })}
+                    onChange={(event) => {
+                      const val = event.target.value.replace(/\D/g, "").slice(0, 2);
+                      updateMember({ age: val });
+                    }}
                     className={inputClass(memberErrors.age)}
                   />
                 </Field>
@@ -418,7 +421,7 @@ export function TeamFormStep({ config, form, setForm, errors, onContinue, loadin
                   ) : null}
                 </div>
               ) : (
-                <div className="grid grid-cols-[1fr_85px] sm:grid-cols-3 gap-2 sm:gap-4">
+                <div className="grid grid-cols-[1fr_105px] sm:grid-cols-3 gap-2 sm:gap-4">
                   <Field label="ชื่อโรงเรียน" required error={memberErrors.school}>
                     <input
                       maxLength={50}
