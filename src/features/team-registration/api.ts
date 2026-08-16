@@ -81,39 +81,14 @@ interface ClientOptions {
   eventCode: string;
   fetchImpl?: typeof fetch;
 }
-interface ApiEnvelope<T> {
-  success: boolean;
-  data: T;
-  error?: TeamApiErrorShape;
-}
 
-const MOCK_LEADER_EMAIL = "leader@example.com";
-
-function isMockLeaderEmail(email: string): boolean {
-  return email.trim().toLowerCase() === MOCK_LEADER_EMAIL;
-}
-
-function getBearerToken(init: RequestInit): string | null {
-  const authorization = new Headers(init.headers).get("authorization");
-  return authorization?.startsWith("Bearer ")
-    ? authorization.slice("Bearer ".length)
-    : null;
-}
-
-function isMockAccessToken(
-  init: RequestInit,
-  mockAccessTokens: Set<string>,
-): boolean {
-  const token = getBearerToken(init);
-  return Boolean(
-    token &&
-    (mockAccessTokens.has(token) || token.startsWith("mock-access-token-")),
-  );
-}
-
-function getVerifyChallengeId(path: string): string | null {
-  const match = path.match(/^\/otp-challenges\/([^/]+)\/verify$/);
-  return match ? decodeURIComponent(match[1]) : null;
+interface RawBackendResponse<T> {
+  success?: boolean;
+  data?: T;
+  code?: string;
+  error?: string | TeamApiErrorShape;
+  message?: string;
+  fields?: TeamApiErrorShape["fields"];
 }
 
 function isNgrokUrl(baseUrl: string): boolean {
@@ -129,127 +104,12 @@ function isNgrokUrl(baseUrl: string): boolean {
   }
 }
 
-function handleOfflineFallback<T>(
-  path: string,
-  init: RequestInit = {},
-  mockChallengeIds: Set<string> = new Set(),
-  mockAccessTokens: Set<string> = new Set(),
-): T | undefined {
-  if (path === "/config") {
-    return DEFAULT_FALLBACK_CONFIG as unknown as T;
-  }
-  if (path === "/otp-challenges") {
-    let email = "";
-    try {
-      const parsed = JSON.parse(String(init.body ?? "{}")) as {
-        email?: string;
-      };
-      email = parsed.email ?? "";
-    } catch {}
-    if (!isMockLeaderEmail(email)) return undefined;
-    const challengeId = "challenge-local-" + Date.now();
-    mockChallengeIds.add(challengeId);
-    return {
-      challengeId,
-      referenceCode: "HH2026",
-      expiresAt: new Date(Date.now() + 600000).toISOString(),
-      resendAvailableAt: new Date(Date.now() + 90000).toISOString(),
-    } as unknown as T;
-  }
-  if (path.includes("/verify")) {
-    const challengeId = getVerifyChallengeId(path);
-    if (!challengeId || !mockChallengeIds.has(challengeId)) return undefined;
-    const accessToken = "mock-access-token-" + Date.now();
-    mockAccessTokens.add(accessToken);
-    return {
-      accessToken,
-      expiresAt: new Date(Date.now() + 86400000).toISOString(),
-      leaderEmail: MOCK_LEADER_EMAIL,
-    } as unknown as T;
-  }
-  if (path === "/registrations/current") {
-    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
-    return { registration: null } as unknown as T;
-  }
-  if (path.includes("/payment-attempts")) {
-    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
-    return {
-      paymentAttemptId: "pay-attempt-123",
-      referenceNo: "HH26-REF-999",
-      amount: "500.00",
-      currency: "THB",
-      expiresAt: new Date(Date.now() + 3600000).toISOString(),
-      redirectForm: {
-        actionUrl: "/register/payment-result",
-        method: "POST",
-        fields: {},
-      },
-    } as unknown as T;
-  }
-  if (path.includes("/payment-status")) {
-    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
-    return {
-      registrationId: "reg-123",
-      registrationStatus: "ready_for_payment",
-      paymentStatus: "pending",
-      referenceNo: "HH26-REF-999",
-      amount: "500.00",
-      currency: "THB",
-      paidAt: null,
-    } as unknown as T;
-  }
-  if (path === "/registrations" || path.includes("/registrations/")) {
-    if (!isMockAccessToken(init, mockAccessTokens)) return undefined;
-    let payload: Partial<TeamRegistrationPayload> = {};
-    try {
-      if (init.body) payload = JSON.parse(String(init.body));
-    } catch {}
-    const mockRecord: TeamRegistrationRecord = {
-      id: "reg-local-" + Date.now(),
-      registrationCode: "HH2026-REG-001",
-      categoryId: payload.categoryId ?? 1,
-      teamName: payload.teamName ?? "ทีมตัวอย่าง",
-      leaderEmail: payload.members?.[0]?.email ?? "leader@example.com",
-      status: "draft",
-      paidAt: null,
-      amountSnapshot: "500.00",
-      currencySnapshot: "THB",
-      pricingRoundNameSnapshot: "Early Bird",
-      members: (payload.members ?? []).map((m, idx) => ({
-        id: "mem-" + idx,
-        position: m.position ?? idx,
-        memberRole: idx === 0 ? "leader" : "member",
-        title: m.title || "mr",
-        firstName: m.firstName || "สมาชิก",
-        lastName: m.lastName || String(idx + 1),
-        nickname: m.nickname ?? null,
-        age: m.age ?? 20,
-        university: m.university ?? null,
-        faculty: m.faculty ?? null,
-        school: m.school ?? null,
-        schoolGrade: m.schoolGrade ?? null,
-        isPharmacyStudent: m.isPharmacyStudent ?? false,
-        foodDrugAllergies: m.foodDrugAllergies ?? null,
-        email: m.email || "member@example.com",
-        phoneNumber: m.phoneNumber || "0800000000",
-        lineId: m.lineId || "line_id",
-        emergencyContactName: m.emergencyContactName || "ผู้ติดต่อฉุกเฉิน",
-        emergencyContactPhone: m.emergencyContactPhone || "0800000000",
-      })),
-    };
-    return { registration: mockRecord } as unknown as T;
-  }
-  return undefined;
-}
-
 export function createTeamRegistrationApi(options: ClientOptions) {
   const fetchImpl = options.fetchImpl ?? fetch;
   const root = `${options.baseUrl.replace(/\/$/, "")}/api/v1/team-registrations/events/${encodeURIComponent(options.eventCode)}`;
   const ngrokHeaders = isNgrokUrl(options.baseUrl)
     ? { "ngrok-skip-browser-warning": "true" }
     : {};
-  const mockChallengeIds = new Set<string>();
-  const mockAccessTokens = new Set<string>();
 
   async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
     const requestHeaders = new Headers();
@@ -262,7 +122,8 @@ export function createTeamRegistrationApi(options: ClientOptions) {
     );
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    // 25-second timeout for cloud backend latency, mail delivery, and DB transactions
+    const timeoutId = setTimeout(() => controller.abort(), 25000);
 
     try {
       const response = await fetchImpl(`${root}${path}`, {
@@ -271,32 +132,68 @@ export function createTeamRegistrationApi(options: ClientOptions) {
         signal: controller.signal,
       });
       clearTimeout(timeoutId);
+
       const payload = (await response
         .json()
-        .catch(() => null)) as ApiEnvelope<T> | null;
-      if (!response.ok || !payload?.success) {
-        const error = payload?.error;
+        .catch(() => null)) as RawBackendResponse<T> | null;
+
+      if (!response.ok || payload?.success === false) {
+        let errorCode = "API_ERROR";
+        let errorMessage = "เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง";
+        let errorFields: TeamApiErrorShape["fields"] = [];
+
+        if (payload) {
+          errorCode = payload.code || (typeof payload.error === "object" ? payload.error?.code : "") || `HTTP_${response.status}`;
+          
+          if (typeof payload.error === "string" && payload.error.trim()) {
+            errorMessage = payload.error;
+          } else if (typeof payload.error === "object" && payload.error?.message) {
+            errorMessage = payload.error.message;
+            errorFields = payload.error.fields || [];
+          } else if (payload.message) {
+            errorMessage = payload.message;
+          }
+
+          if (payload.fields) {
+            errorFields = payload.fields;
+          }
+        } else if (response.status >= 500) {
+          errorMessage = "เซิร์ฟเวอร์ขัดข้องชั่วคราว (500) กรุณาลองใหม่อีกครั้ง";
+        } else if (response.status === 404) {
+          errorMessage = "ไม่พบข้อมูลที่ต้องการในระบบ";
+        }
+
         throw new TeamApiError(
-          error?.code ?? "NETWORK_ERROR",
-          error?.message ?? "ไม่สามารถเชื่อมต่อระบบลงทะเบียนได้",
+          errorCode,
+          errorMessage,
           response.status,
-          error?.fields,
+          errorFields,
         );
       }
-      return payload.data;
+
+      if (payload && "data" in payload && payload.data !== undefined) {
+        return payload.data as T;
+      }
+
+      return (payload as unknown) as T;
     } catch (err) {
       clearTimeout(timeoutId);
-      const fallback = handleOfflineFallback<T>(
-        path,
-        init,
-        mockChallengeIds,
-        mockAccessTokens,
-      );
-      if (fallback !== undefined) return fallback;
-      if (err instanceof TeamApiError) throw err;
+
+      if (err instanceof TeamApiError) {
+        throw err;
+      }
+
+      if (err instanceof Error && err.name === "AbortError") {
+        throw new TeamApiError(
+          "TIMEOUT_ERROR",
+          "การเชื่อมต่อใช้เวลานานเกินไป กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่อีกครั้ง",
+          408,
+        );
+      }
+
       throw new TeamApiError(
         "NETWORK_ERROR",
-        "ไม่สามารถเชื่อมต่อระบบลงทะเบียนได้",
+        "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ระบบลงทะเบียนได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต",
         500,
       );
     }
@@ -309,18 +206,8 @@ export function createTeamRegistrationApi(options: ClientOptions) {
 
   return {
     getConfig: () => request<TeamEventConfig>("/config"),
-    requestOtp: (email: string) => {
-      if (isMockLeaderEmail(email)) {
-        const challengeId = "challenge-local-" + Date.now();
-        mockChallengeIds.add(challengeId);
-        return Promise.resolve({
-          challengeId,
-          referenceCode: "HH2026",
-          expiresAt: new Date(Date.now() + 600000).toISOString(),
-          resendAvailableAt: new Date(Date.now() + 90000).toISOString(),
-        });
-      }
-      return request<{
+    requestOtp: (email: string) =>
+      request<{
         challengeId: string;
         referenceCode: string;
         expiresAt: string;
@@ -328,27 +215,16 @@ export function createTeamRegistrationApi(options: ClientOptions) {
       }>("/otp-challenges", {
         method: "POST",
         body: JSON.stringify({ email }),
-      });
-    },
-    verifyOtp: (challengeId: string, otp: string, referenceCode: string) => {
-      if (mockChallengeIds.has(challengeId)) {
-        const accessToken = "mock-access-token-" + Date.now();
-        mockAccessTokens.add(accessToken);
-        return Promise.resolve({
-          accessToken,
-          expiresAt: new Date(Date.now() + 86400000).toISOString(),
-          leaderEmail: MOCK_LEADER_EMAIL,
-        });
-      }
-      return request<{
+      }),
+    verifyOtp: (challengeId: string, otp: string, referenceCode: string) =>
+      request<{
         accessToken: string;
         expiresAt: string;
         leaderEmail: string;
       }>(`/otp-challenges/${encodeURIComponent(challengeId)}/verify`, {
         method: "POST",
         body: JSON.stringify({ otp, referenceCode }),
-      });
-    },
+      }),
     getCurrentRegistration: (accessToken: string) =>
       request<{ registration: TeamRegistrationRecord | null }>(
         "/registrations/current",
