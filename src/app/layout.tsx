@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   title: "PSAT HealthHacks 2026 - นวัตกรรมสุขภาพเพื่ออนาคต",
   description:
     "Health Hack 2026 เป็นพื้นที่สำหรับนักพัฒนาซอฟต์แวร์, บุคลากรทางการแพทย์, นักออกแบบ, และผู้ประกอบการ มาร่วมกันสร้างสรรค์นวัตกรรมเพื่อแก้ไขปัญหาความท้าทายในระบบสาธารณสุขของประเทศ",
+  icons: {
+    icon: "/images/psat-healthhacks-logo.png",
+    shortcut: "/images/psat-healthhacks-logo.png",
+    apple: "/images/psat-healthhacks-logo.png",
+  },
 };
 
 export default function RootLayout({
