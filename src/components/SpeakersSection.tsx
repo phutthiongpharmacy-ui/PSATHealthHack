@@ -3,24 +3,23 @@ import Image from "next/image";
 
 const speakers = [
   {
+    name: "นพ.ฐิธนันท์ สโรจปพนพัชร์",
+    role: "Senior Product Owner I, CP Axtra PCL",
+    img: "/images/speaker-thithanan.jpg",
+    imageClass: "object-cover object-[center_15%]",
+  },
+  {
     name: "ดร.กริชผกา บุญเฟื่อง",
     role: "ผู้อำนวยการ สำนักงานนวัตกรรมแห่งชาติ (NIA)",
     img: "/images/speaker-dr-krithpaka.jpg",
-    imageClass: "object-cover object-[center_12%]",
+    imageClass: "object-cover object-top",
   },
-  // รอการยืนยันเพื่อเปิดแสดงผลเพิ่มเติม:
-  // {
-  //   name: "คุณจิรายุส ทรัพย์ศรีโสภา",
-  //   role: "CEO Bitkub Capital Group",
-  //   img: "/images/speaker-jirayut.jpg",
-  //   imageClass: "object-cover object-[center_18%]",
-  // },
-  // {
-  //   name: "ผศ.ดร.กวิน อัศวานันท์",
-  //   role: "ผู้อำนวยการหลักสูตร CU TIP จุฬาลงกรณ์มหาวิทยาลัย",
-  //   img: "/images/speaker-kawin.jpg",
-  //   imageClass: "object-cover object-[center_12%]",
-  // },
+  {
+    name: "คุณพัฒน์สิญา เอี่ยวอุดมสิน",
+    role: "Senior Longevity Business Manager, Bitkub Longevity Co., Ltd.",
+    img: "/images/speaker-pattsiya.jpg",
+    imageClass: "object-cover object-[center_15%]",
+  },
 ];
 
 export default function SpeakersSection() {
