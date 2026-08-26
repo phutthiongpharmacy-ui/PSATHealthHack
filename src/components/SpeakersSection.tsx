@@ -8,12 +8,13 @@ const speakers = [
     img: "/images/speaker-thithanan.jpg",
     imageClass: "object-cover object-[center_15%]",
   },
-  {
-    name: "ดร.กริชผกา บุญเฟื่อง",
-    role: "ผู้อำนวยการ สำนักงานนวัตกรรมแห่งชาติ (NIA)",
-    img: "/images/speaker-dr-krithpaka.jpg",
-    imageClass: "object-cover object-top",
-  },
+  // รอการยืนยันเพื่อเปิดแสดงผลเพิ่มเติม:
+  // {
+  //   name: "ดร.กริชผกา บุญเฟื่อง",
+  //   role: "ผู้อำนวยการ สำนักงานนวัตกรรมแห่งชาติ (NIA)",
+  //   img: "/images/speaker-dr-krithpaka.jpg",
+  //   imageClass: "object-cover object-top",
+  // },
   {
     name: "คุณพัฒน์สิญา เอี่ยวอุดมสิน",
     role: "Senior Longevity Business Manager, Bitkub Longevity Co., Ltd.",
@@ -23,6 +24,13 @@ const speakers = [
 ];
 
 export default function SpeakersSection() {
+  const gridLayout =
+    speakers.length === 1
+      ? "max-w-xs sm:max-w-sm grid-cols-1"
+      : speakers.length === 2
+      ? "max-w-md sm:max-w-2xl grid-cols-2"
+      : "max-w-5xl grid-cols-3";
+
   return (
     <section className="px-3 sm:px-margin-mobile md:px-margin-desktop relative py-12 md:py-16">
       <div className="max-w-container-max mx-auto space-y-8 sm:space-y-12">
@@ -33,7 +41,7 @@ export default function SpeakersSection() {
           <div className="w-16 sm:w-24 h-1 bg-hh-cyan mx-auto shadow-[0_0_15px_rgba(99,210,229,0.8)]" />
         </div>
 
-        <div className={`grid gap-4 sm:gap-6 lg:gap-8 mx-auto ${speakers.length === 1 ? "max-w-xs sm:max-w-sm grid-cols-1" : "grid-cols-3 max-w-5xl"}`}>
+        <div className={`grid gap-4 sm:gap-6 lg:gap-8 mx-auto ${gridLayout}`}>
           {speakers.map((speaker, index) => (
             <div
               key={index}
