@@ -8,13 +8,12 @@ const speakers = [
     img: "/images/speaker-thithanan.jpg",
     imageClass: "object-cover object-[center_15%]",
   },
-  // รอการยืนยันเพื่อเปิดแสดงผลเพิ่มเติม:
-  // {
-  //   name: "ดร.กริชผกา บุญเฟื่อง",
-  //   role: "ผู้อำนวยการ สำนักงานนวัตกรรมแห่งชาติ (NIA)",
-  //   img: "/images/speaker-dr-krithpaka.jpg",
-  //   imageClass: "object-cover object-top",
-  // },
+  {
+    name: "พญ. กัญชลิกา เสถียรวิจิตร",
+    role: "Neuro-Ophthalmology Specialist, ประธานกรรมการบริหาร บริษัท ไคลก้า จำกัด",
+    img: "/images/speaker-dr-krithpaka.jpg",
+    imageClass: "object-cover object-[center_15%]",
+  },
   {
     name: "คุณพัฒน์สิญา เอี่ยวอุดมสิน",
     role: "Senior Longevity Business Manager, Bitkub Longevity Co., Ltd.",
