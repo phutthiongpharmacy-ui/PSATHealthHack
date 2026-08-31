@@ -22,7 +22,16 @@ export function getMemberCompletion(member: MemberForm, educationLevel: Educatio
     "email", "phoneNumber", "lineId", "emergencyContactName", "emergencyContactPhone",
   ];
   return {
-    completed: requiredFields.filter((field) => Boolean(String(member[field]).trim())).length,
+    completed: requiredFields.filter((field) => {
+      if (field === "phoneNumber") {
+        return member.phoneNumber.replace(/\D/g, "").length === 10;
+      }
+      if (field === "emergencyContactPhone") {
+        const len = member.emergencyContactPhone.replace(/\D/g, "").length;
+        return len >= 9 && len <= 10;
+      }
+      return Boolean(String(member[field]).trim());
+    }).length,
     total: requiredFields.length,
   };
 }
@@ -130,10 +139,12 @@ export function validateRegistrationForm(_form: RegistrationForm, _rules: Regist
     if (!/^\S+@\S+\.\S+$/.test(normalized)) memberErrors.email = "กรุณากรอกอีเมลให้ถูกต้อง";
     else if (seen.has(normalized)) memberErrors.email = "อีเมลนี้ซ้ำกับสมาชิกคนอื่นในทีม";
     else if (normalized) seen.set(normalized, index);
-    if (member.phoneNumber.trim().length < 8) memberErrors.phoneNumber = "กรุณากรอกเบอร์โทรศัพท์";
+    const cleanPhone = member.phoneNumber.replace(/\D/g, "");
+    if (cleanPhone.length !== 10) memberErrors.phoneNumber = "กรุณากรอกเบอร์โทรศัพท์ 10 หลัก";
     if (!member.lineId.trim()) memberErrors.lineId = "กรุณากรอก Line ID";
     if (!member.emergencyContactName.trim()) memberErrors.emergencyContactName = "กรุณากรอกชื่อผู้ติดต่อฉุกเฉิน";
-    if (member.emergencyContactPhone.trim().length < 8) memberErrors.emergencyContactPhone = "กรุณากรอกเบอร์ผู้ติดต่อฉุกเฉิน";
+    const cleanEmergencyPhone = member.emergencyContactPhone.replace(/\D/g, "");
+    if (cleanEmergencyPhone.length < 9 || cleanEmergencyPhone.length > 10) memberErrors.emergencyContactPhone = "กรุณากรอกเบอร์ผู้ติดต่อฉุกเฉิน 9–10 หลัก";
   });
   const pharmacyCount = _form.members.filter((member) => member.isPharmacyStudent).length;
   if (!errors.form && _rules.pharmacyRule === "required" && pharmacyCount === 0) errors.form = "ทีมประเภทนี้ต้องมีนิสิตหรือนักศึกษาเภสัชศาสตร์อย่างน้อย 1 คน";
