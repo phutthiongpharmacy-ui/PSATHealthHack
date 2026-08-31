@@ -23,12 +23,8 @@ export function getMemberCompletion(member: MemberForm, educationLevel: Educatio
   ];
   return {
     completed: requiredFields.filter((field) => {
-      if (field === "phoneNumber") {
-        return member.phoneNumber.replace(/\D/g, "").length === 10;
-      }
-      if (field === "emergencyContactPhone") {
-        const len = member.emergencyContactPhone.replace(/\D/g, "").length;
-        return len >= 9 && len <= 10;
+      if (field === "phoneNumber" || field === "emergencyContactPhone") {
+        return member[field].replace(/\D/g, "").length === 10;
       }
       return Boolean(String(member[field]).trim());
     }).length,
@@ -144,7 +140,7 @@ export function validateRegistrationForm(_form: RegistrationForm, _rules: Regist
     if (!member.lineId.trim()) memberErrors.lineId = "กรุณากรอก Line ID";
     if (!member.emergencyContactName.trim()) memberErrors.emergencyContactName = "กรุณากรอกชื่อผู้ติดต่อฉุกเฉิน";
     const cleanEmergencyPhone = member.emergencyContactPhone.replace(/\D/g, "");
-    if (cleanEmergencyPhone.length < 9 || cleanEmergencyPhone.length > 10) memberErrors.emergencyContactPhone = "กรุณากรอกเบอร์ผู้ติดต่อฉุกเฉิน 9–10 หลัก";
+    if (cleanEmergencyPhone.length !== 10) memberErrors.emergencyContactPhone = "กรุณากรอกเบอร์ผู้ติดต่อฉุกเฉิน 10 หลัก";
   });
   const pharmacyCount = _form.members.filter((member) => member.isPharmacyStudent).length;
   if (!errors.form && _rules.pharmacyRule === "required" && pharmacyCount === 0) errors.form = "ทีมประเภทนี้ต้องมีนิสิตหรือนักศึกษาเภสัชศาสตร์อย่างน้อย 1 คน";

@@ -130,6 +130,7 @@ test("enforces member count and configured age range and phone format", () => {
   form.members = form.members.slice(0, 2);
   form.members[0].age = "31";
   form.members[0].phoneNumber = "081234567"; // 9 digits
+  form.members[0].emergencyContactPhone = "089123456"; // 9 digits
   const errors = validateRegistrationForm(form, {
     minMembers: 3, maxMembers: 5, minAge: 15, maxAge: 30,
     educationLevel: "higher_education", pharmacyRule: "required",
@@ -137,6 +138,7 @@ test("enforces member count and configured age range and phone format", () => {
   assert.match(errors.form ?? "", /3–5 คน/);
   assert.equal(errors.members[0]?.age, "อายุต้องอยู่ระหว่าง 15–30 ปี");
   assert.equal(errors.members[0]?.phoneNumber, "กรุณากรอกเบอร์โทรศัพท์ 10 หลัก");
+  assert.equal(errors.members[0]?.emergencyContactPhone, "กรุณากรอกเบอร์ผู้ติดต่อฉุกเฉิน 10 หลัก");
 });
 
 test("hydrates an API registration for OTP resume", () => {
