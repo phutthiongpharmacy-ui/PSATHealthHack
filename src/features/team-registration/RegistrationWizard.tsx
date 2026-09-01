@@ -35,11 +35,11 @@ export function RegistrationWizard() {
   const routeFromRegistration = useCallback((registration: TeamRegistrationRecord, activeSession: RegistrationSession) => {
     const nextSession = { ...activeSession, registrationId: registration.id };
     saveRegistrationSession(nextSession); setSession(nextSession); setEmail(activeSession.leaderEmail);
-    if (registration.status === "paid" || registration.status === "payment_pending") {
+    if (registration.status === "paid") {
       router.replace("/register/payment-result"); return;
     }
     setForm(registrationRecordToForm(registration));
-    setStep(registration.status === "ready_for_payment" ? 4 : 3);
+    setStep(registration.status === "ready_for_payment" || registration.status === "payment_pending" ? 4 : 3);
   }, [router]);
 
   useEffect(() => {
