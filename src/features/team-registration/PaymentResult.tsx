@@ -88,7 +88,30 @@ export function PaymentResult() {
       <div className="mx-auto mt-6 max-w-md divide-y divide-hh-border/30 rounded-2xl border border-hh-border/50 bg-hh-bg/60 p-4 text-left text-sm">
         <Row label="ทีม" value={registration?.teamName ?? "—"} /><Row label="Registration ID" value={registration?.registrationCode ?? "—"} mono /><Row label="Reference No." value={status?.referenceNo ?? "—"} mono /><Row label="ยอดชำระ" value={status?.amount ? `฿${Number(status.amount).toLocaleString()}` : "—"} /><Row label="สถานะ" value={failed && status?.paymentStatus === "pending" ? "ยังไม่ชำระเงิน (Pending)" : (status?.paymentStatus ?? "pending").replaceAll("_", " ")} />
       </div>
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">{paid ? <><Link href="/schedule" className="rounded-xl bg-hh-action px-6 py-3 text-sm font-extrabold text-black">ดูกำหนดการแข่งขัน</Link><Link href="/" className="rounded-xl border border-hh-border px-6 py-3 text-sm font-bold text-white">กลับหน้าหลัก</Link></> : <><Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-xl border border-hh-border px-6 py-3 text-sm font-bold text-white hover:bg-white/5 transition"><ArrowLeft size={16} /> ตรวจสอบข้อมูล</Link><button type="button" disabled={checking || retrying} onClick={() => { setChecking(true); attempts.current = 0; void check(); }} className="inline-flex items-center justify-center gap-2 rounded-xl border border-hh-cyan/40 px-6 py-3 text-sm font-bold text-hh-cyan hover:bg-hh-cyan/10 transition cursor-pointer"><RefreshCw className={checking ? "animate-spin" : ""} size={16} /> ตรวจสอบอีกครั้ง</button><button type="button" disabled={retrying} onClick={retryPayment} className="inline-flex items-center justify-center gap-2 rounded-xl bg-hh-action px-6 py-3 text-sm font-extrabold text-black shadow-[0_0_20px_rgba(255,106,0,0.3)] transition hover:bg-orange-400 disabled:opacity-50 cursor-pointer">{retrying ? <LoaderCircle className="animate-spin" size={16} /> : <ExternalLink size={16} />} ชำระเงินอีกครั้ง</button></>}</div>
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+        {checking ? null : paid ? (
+          <>
+            <Link href="/schedule" className="rounded-xl bg-hh-action px-6 py-3 text-sm font-extrabold text-black">
+              ดูกำหนดการแข่งขัน
+            </Link>
+            <Link href="/" className="rounded-xl border border-hh-border px-6 py-3 text-sm font-bold text-white">
+              กลับหน้าหลัก
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href="/register" className="inline-flex items-center justify-center gap-2 rounded-xl border border-hh-border px-6 py-3 text-sm font-bold text-white hover:bg-white/5 transition">
+              <ArrowLeft size={16} /> ตรวจสอบข้อมูล
+            </Link>
+            <button type="button" disabled={checking || retrying} onClick={() => { setChecking(true); attempts.current = 0; void check(); }} className="inline-flex items-center justify-center gap-2 rounded-xl border border-hh-cyan/40 px-6 py-3 text-sm font-bold text-hh-cyan hover:bg-hh-cyan/10 transition cursor-pointer">
+              <RefreshCw className={checking ? "animate-spin" : ""} size={16} /> ตรวจสอบอีกครั้ง
+            </button>
+            <button type="button" disabled={retrying} onClick={retryPayment} className="inline-flex items-center justify-center gap-2 rounded-xl bg-hh-action px-6 py-3 text-sm font-extrabold text-black shadow-[0_0_20px_rgba(255,106,0,0.3)] transition hover:bg-orange-400 disabled:opacity-50 cursor-pointer">
+              {retrying ? <LoaderCircle className="animate-spin" size={16} /> : <ExternalLink size={16} />} ชำระเงินอีกครั้ง
+            </button>
+          </>
+        )}
+      </div>
     </Panel>
   </RegistrationFrame>;
 }
