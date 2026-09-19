@@ -138,7 +138,7 @@ export default function EligibilityModal({
                   <span className="text-hh-cyan shrink-0 select-none mt-0.5">•</span>
                   <span className="flex-1">
                     เปิดรับสมัครตั้งแต่วันที่{" "}
-                    <span className="text-white font-bold">15 สิงหาคม – 20 กันยายน 2569</span>
+                    <span className="text-white font-bold">15 สิงหาคม – 23 กันยายน 2569</span>
                   </span>
                 </li>
               </ul>

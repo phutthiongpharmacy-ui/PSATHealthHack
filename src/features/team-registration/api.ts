@@ -71,7 +71,7 @@ export const DEFAULT_FALLBACK_CONFIG: TeamEventConfig = {
     code: "early_bird",
     name: "Early Bird",
     startsAt: "2026-08-15T00:00:00Z",
-    endsAt: "2026-09-20T23:59:59Z",
+    endsAt: "2026-09-23T23:59:59Z",
   },
   serverTime: new Date().toISOString(),
 };

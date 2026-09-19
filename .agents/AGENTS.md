@@ -16,7 +16,7 @@ This codebase follows high-taste, anti-slop, impeccable design standards synthes
   - Primary Background: Dark Teal Ink (`#041A1D`)
   - Primary Accent & HUD: Neon Cyan (`#63D2E5`) & Mint (`#30D6BC`)
   - Primary Conversion & Action CTA: PRIS Orange (`#FF6A00`)
-  - Single Source of Truth Registration Dates: **15 สิงหาคม – 20 กันยายน 2569**
+  - Single Source of Truth Registration Dates: **15 สิงหาคม – 23 กันยายน 2569**
 
 ### 2. Typography Standard
 - **Uniform Thai Typography**: Use **Noto Sans Thai** (`"Noto Sans Thai", sans-serif`) across ALL text elements (Headlines `h1-h6`, subheadings, paragraphs, buttons, input fields, labels, modals, and cards).

@@ -122,7 +122,7 @@ export default function FaqSection({ onOpenEligibility }: FaqSectionProps) {
             พร้อมที่จะสร้างสรรค์นวัตกรรมสุขภาพแล้วหรือยัง?
           </h3>
           <p className="font-hanken text-hh-text-muted text-sm max-w-lg mx-auto">
-            เปิดรับสมัครตั้งแต่วันที่ 15 สิงหาคม – 20 กันยายน 2569 สมัครเป็นทีม 3–5 คน ค่าลงทะเบียน 700–850 บาทต่อทีมตามประเภทและรอบสมัคร
+            เปิดรับสมัครตั้งแต่วันที่ 15 สิงหาคม – 23 กันยายน 2569 สมัครเป็นทีม 3–5 คน ค่าลงทะเบียน 700–850 บาทต่อทีมตามประเภทและรอบสมัคร
           </p>
           <div className="pt-2">
             {onOpenEligibility ? (

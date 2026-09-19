@@ -18,8 +18,8 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
   });
 
   useEffect(() => {
-    // Single source of truth deadline: Sept 20, 2026
-    const targetDate = new Date("2026-09-20T23:59:59").getTime();
+    // Single source of truth deadline: Sept 23, 2026 at 23:59:59
+    const targetDate = new Date("2026-09-23T23:59:59").getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -98,7 +98,7 @@ export default function HeroSection({ onOpenEligibility }: HeroSectionProps) {
           <div className="flex items-center justify-center font-hanken text-xs sm:text-sm text-white/90">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hh-surface/90 border border-hh-cyan/30 backdrop-blur-md shadow-[0_0_15px_rgba(99,210,229,0.2)]">
               <span className="material-symbols-outlined text-hh-cyan text-base">calendar_month</span>
-              <span className="font-semibold">เปิดรับสมัคร ตั้งแต่ 15 สิงหาคม – 20 กันยายน 2569</span>
+              <span className="font-semibold">เปิดรับสมัคร ตั้งแต่ 15 สิงหาคม – 23 กันยายน 2569</span>
             </div>
           </div>
 
